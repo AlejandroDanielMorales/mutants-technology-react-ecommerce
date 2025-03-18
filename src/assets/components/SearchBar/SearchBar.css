@@ -1,0 +1,63 @@
+.search-bar{
+  
+    display: flex;
+    flex-direction: row;
+    width:100dvw;
+  
+    padding-top: 2dvh;
+    padding-bottom: 1dvh;
+    padding-inline: 16%;
+    align-items: center;
+    justify-content: right;
+    gap: 10px;
+    .search-container {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .search-box {
+        width: 35dvw;
+        height: 5dvh;
+        padding-right: 30px;
+        padding-left:5px ; /* Espacio para el icono */
+        box-sizing: border-box;
+        border-radius:5px;
+        color :black;
+    }
+    
+    .btn-search {
+        position: absolute;
+        top: 50%;
+        right: 10px; /* Ajusta según el espacio que necesites */
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .btn-search i {
+        font-size: 16px;
+        color: #333; /* Color del icono */
+    }
+    .card-btn:hover {
+        transform: scale(1.1);
+
+    }
+}
+
+@media screen and (width < 780px) {
+    .search-bar{
+
+        padding-top: 4dvh;
+        padding-bottom: 1dvh;
+        align-items: center;
+        justify-content: center;
+        .search-box {
+            width: 50dvw;
+            height: 10dvh;
+        
+        }
+        
+    }
+  
+}

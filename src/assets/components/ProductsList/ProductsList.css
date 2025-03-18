@@ -1,0 +1,62 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%; /* Ancho por defecto para móviles */
+
+  
+    flex-grow: 1;
+    background-color: transparent;
+}
+
+.main-section {
+   
+    justify-content: space-between;
+    background-color: var(--color-terciario);
+    border-radius: var(--border-radius);
+    width: 110%;
+    height: auto;
+    display: flex;
+    align-items: center; 
+    position: relative;
+}
+
+.product-cards-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+    gap: 10px;
+    width: 90%; 
+    padding: 10px;
+}
+
+.scroll-button {
+    background-color: transparent;
+    border: none;
+    color: var(--color-hoverlinks);
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 50px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.scroll-button.left {
+    left: 0.5dvw;
+}
+
+.scroll-button.right {
+    right: 7dvw;
+}
+
+@media screen and (width > 780px) {
+    .main-container {
+        width: 70%; /* Igual al ancho de Categories y Features */
+        margin-inline: auto;
+    }
+}

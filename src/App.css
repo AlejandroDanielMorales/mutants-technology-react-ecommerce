@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+:root {
+  --color-principal: #1b1b1b;
+  --color-secundario: #2E3239;
+  --color-terciario: #1c1e1f;
+  --color-hoverlinks: #5F7ADB;
+  --color-text: #A2B2EE;
+  --border-radius: 5px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Outfit', sans-serif;
+
+}
+h1, h2, h3, h4, h5, h6 {
+
+  color: var(--color-text);
+}
+
+body {
+  min-height: 100dvh;
+  position: relative;
+  background-color: var(--color-terciario);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+/* Estilos para íconos de Font Awesome */
+.fas, .fab {
+  font-family: 'Font Awesome 5 Free' !important;
+}
+
+/* Estilos para el contenedor principal de la aplicación */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+/* Estilos para el contenido principal */
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+/* Estilos para los enlaces que actúan como divs */
+.enlace-div {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Estilos para los botones comunes */
+
+/* Estilos para imágenes responsivas */
+img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Media queries para responsividad */
+@media screen and (max-width: 780px) {
+  .card-background {
+      max-width: 48%;
+      margin-block: 10px;
+  }
+}
+
+@media screen and (width > 780px) {
+  .main-container {
+      width: 70%;
+      margin-inline: auto;
+  }
+
+  .cat-container {
+      grid-template-columns: repeat(4, 1fr);
+      width: 70%;
+      margin-inline: 0;
+  }
+
+  .feat-container {
+      grid-template-columns: repeat(3, 1fr);
+      width: 70%;
+      margin-inline: 0;
+  }
+}

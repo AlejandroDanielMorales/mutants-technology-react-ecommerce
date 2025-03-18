@@ -1,0 +1,30 @@
+.main-categories {
+    width: 100%;
+    padding-bottom: 30px;
+
+    display: flex;
+    justify-content: center;
+    background-color: var(--color-terciario);
+}
+
+.cat-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+    gap: 10px;
+    width: 90%; 
+    padding: 10px;
+    gap: 20px;
+    width: 100%;
+    margin: 10px;
+}
+
+@media screen and (width > 780px) {
+    .cat-container {
+        
+        width: 70%;
+        margin-inline: 0;
+    }
+}
