@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import "./RegisterForm.css";
+import { NavLink } from "react-router-dom";
 import RegisterUserModal from "../Modals/RegisterUserModal/RegisterUserModal"; //  Importar el modal
 
 export default function RegisterForm() {
@@ -121,6 +122,9 @@ export default function RegisterForm() {
                                         <div className="is reg input-group">
                                                 <button type="submit" className="card-btn">Registrarse</button>
                                         </div>
+                                        <NavLink to="/login" className="login-link">
+                                                Ya tengo una cuenta
+                                        </NavLink>
                                 </form>
                         </div>
                 </main>
