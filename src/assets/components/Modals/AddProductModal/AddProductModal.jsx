@@ -10,6 +10,7 @@ export default function AddProductModal({ closeModal, refreshProducts }) {
 
     const onSubmit = async (data) => {
         try {
+            data.createdAt = new Date().toISOString(); // Agrega la fecha de creación
             await axios.post("https://67d4cb0dd2c7857431ee920f.mockapi.io/products", data);
             refreshProducts(); // Para actualizar la lista de productos
             closeModal();

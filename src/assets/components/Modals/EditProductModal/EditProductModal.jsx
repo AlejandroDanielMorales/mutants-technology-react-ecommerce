@@ -11,13 +11,12 @@ export default function EditProductModal({ closeModal, productId, refreshProduct
 
     const { register, handleSubmit, setValue, reset } = useForm();
 
-    // Obtener datos del producto seleccionado
     useEffect(() => {
         const fetchProduct = async () => {
             try {
                 const response = await axios.get(`${url}/${productId}`);
                 const data = response.data;
-                // Setear los valores del formulario con los datos del producto
+
                 Object.keys(data).forEach((key) => {
                     setValue(key, data[key]);
                 });
@@ -30,7 +29,7 @@ export default function EditProductModal({ closeModal, productId, refreshProduct
             fetchProduct();
         } else {
             reset({
-                id: uuidv4(), // Genera un ID encriptado si es un producto nuevo
+                id: uuidv4(), 
                 name: '',
                 description: '',
                 price: '',
@@ -39,11 +38,11 @@ export default function EditProductModal({ closeModal, productId, refreshProduct
         }
     }, [productId, setValue, reset]);
 
-    // Guardar cambios
+    
     const onSubmit = async (data) => {
         try {
             if (productId) {
-                // Actualizar producto existente
+
                 await axios.put(`${url}/${productId}`, data);
             } else {
                 // Crear un nuevo producto
@@ -70,7 +69,10 @@ export default function EditProductModal({ closeModal, productId, refreshProduct
                         <label>Descripción:</label>
                         <input type="text" {...register("description", { required: true })} />
                     </div>
-
+                    <div>
+                        <label>Categoria:</label>
+                        <input type="text" {...register("category", { required: true })} />
+                    </div>
                     <div>
                         <label>Precio:</label>
                         <input type="number" {...register("price", { required: true })} />

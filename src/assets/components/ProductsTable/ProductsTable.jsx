@@ -4,7 +4,7 @@ import './ProductsTable.css';
 import { faEdit, faTrash ,faPlus} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SearchBar from '../SearchBar/SearchBar';
-import ConfirmModal from '../Modals/ConfirmModal/ConfirmModal';
+import DeleteProductModal from '../Modals/DeleteProductModal/DeleteProductModal';
 import EditProductModal from '../Modals/EditProductModal/EditProductModal';
 import AddProductModal from '../Modals/AddProductModal/AddProductModal';
 
@@ -80,7 +80,7 @@ export default function ProductsTable() {
             <main className="main-container">
                 {/* Modales */}
                 {isConfirmModalOpen && (
-                    <ConfirmModal
+                    <DeleteProductModal
                         closeModal={closeModals}
                         deleteProduct={deleteProduct}
                         id={selectedProduct}

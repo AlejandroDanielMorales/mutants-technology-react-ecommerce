@@ -1,9 +1,9 @@
 import React from 'react';
-import './ConfirmModal.css';
+import './DeleteProductModal.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
-export default function ConfirmModal({ closeModal, deleteProduct, id }) {
+export default function DeleteProductModal({ closeModal, deleteProduct, id }) {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
