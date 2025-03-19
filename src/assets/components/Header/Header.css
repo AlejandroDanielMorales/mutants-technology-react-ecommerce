@@ -60,7 +60,11 @@
     border-radius: 50%;
     font-size: 12px;
 }
-
+.user-name {
+    margin-left: 10px;
+    font-size: 16px;
+    font-weight: bold;
+  }
 .user-container {
     display: flex;
     justify-content: center;
