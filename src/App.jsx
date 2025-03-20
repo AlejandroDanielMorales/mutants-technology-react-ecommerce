@@ -44,7 +44,7 @@ function App() {
 
   return (
     <>
-      <Header userName={userName} userRole={userRole} onLogout={handleLogout} />
+      <Header userName={userName} userRole={userRole} handleLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/detail/:id" element={<Detail />} />
@@ -58,7 +58,9 @@ function App() {
             )
           }
         />
-        <Route path="/register" element={<Register />} />
+        <Route path="/register" element={userName === "" ? (<Register />) : (
+              <Navigate to="/" /> 
+            )} />
         <Route
           path="/login"
           element={<Login onLoginSuccess={handleLoginSuccess} />}

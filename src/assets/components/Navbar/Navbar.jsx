@@ -28,11 +28,15 @@ export default function Navbar({ userRole }) {
           </li>
         )}
 
-
-        <li className="nav-item">
-          <NavLink to="/register" className={({ isActive }) => isActive ? "active nav-link" : "nav-link"}>Registrarse</NavLink>
-        </li>
+        {userRole === "" && (
+          <li className="nav-item">
+            <NavLink to="/register" className={({ isActive }) => isActive ? "active nav-link" : "nav-link"}>
+              Registrarse
+            </NavLink>
+          </li>
+        )}
       </ul>
+
     </nav>
   )
 }
