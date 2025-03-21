@@ -8,6 +8,7 @@ import Detail from "./assets/pages/Detail/Detail";
 import Login from "./assets/pages/Login/Login";
 import "./App.css";
 import ProductAdmin from "./assets/pages/ProductAdmin/ProductAdmin";
+import UserAdmin from "./assets/pages/UserAdmin/UserAdmin";
 
 function App() {
   const [userName, setUserName] = useState("");
@@ -53,6 +54,17 @@ function App() {
           element={
             userRole === "admin" ? ( // Solo permite acceso si es admin
               <ProductAdmin />
+            ) : (
+              <Navigate to="/" /> // Redirige a Home si no tiene permisos
+            )
+          }
+        />
+
+      <Route
+          path="/UserAdmin"
+          element={
+            userRole === "admin" ? ( // Solo permite acceso si es admin
+              <UserAdmin/>
             ) : (
               <Navigate to="/" /> // Redirige a Home si no tiene permisos
             )
