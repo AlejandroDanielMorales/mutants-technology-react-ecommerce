@@ -22,7 +22,7 @@ export default function Navbar({ userRole }) {
 
         {userRole === "admin" && (
           <li className="nav-item">
-            <NavLink to="/user-admin" className={({ isActive }) => isActive ? "active nav-link" : "nav-link"}>
+            <NavLink to="/UserAdmin" className={({ isActive }) => isActive ? "active nav-link" : "nav-link"}>
               Adm. Usuarios
             </NavLink>
           </li>

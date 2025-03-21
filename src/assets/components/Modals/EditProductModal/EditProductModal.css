@@ -4,7 +4,18 @@ form {
     gap: 15px;
     text-align: left;
 }
-
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Asegúrate de que sea alto */
+}
 label {
     font-weight: bold;
     margin-bottom: 5px;
