@@ -1,0 +1,87 @@
+/* Modal overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Asegúrate de que sea alto */
+}
+
+/* Modal content */
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-height: 80vh; /* Limita la altura */
+    overflow-y: auto; /* Permite el desplazamiento si el contenido excede el tamaño */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+/* Close button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+/* Cart Items Container */
+.cart-items {
+    max-height: 300px; /* Define el tamaño máximo antes de permitir el desplazamiento */
+    overflow-y: auto; /* Habilita el scroll cuando el contenido exceda el tamaño */
+    margin-top: 20px;
+}
+
+/* Cart item style */
+.cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Product Image */
+.cart-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover; /* Asegura que la imagen no se distorsione */
+    margin-right: 15px;
+}
+
+/* Product name and price */
+.cart-item h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.cart-item p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+/* Remove button */
+.cart-item button {
+    background-color: #f44336; /* Rojo */
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.cart-item button:hover {
+    background-color: #d32f2f;
+}

@@ -3,7 +3,7 @@ import axios from 'axios';
 import './ProductsList.css';
 import ProductCard from '../ProductCard/ProductCard';
 
-export default function ProductsList(onAddToCart) {
+export default function ProductsList({onAddToCart}) {
     const [products, setProducts] = useState([]);
     const url = "https://67d4cb0dd2c7857431ee920f.mockapi.io/products";
 
@@ -46,7 +46,7 @@ export default function ProductsList(onAddToCart) {
                 <button className="scroll-button left" onClick={() => handleScroll(processorsSectionRef, 'left')}>‹</button>
                 <div className="product-cards-container" ref={processorsSectionRef}>
                     {products.map((product) => (product.category === "Procesadores" &&
-                        <ProductCard key={product.id} product={product} onAddToCart={onAddToCart} />
+                        <ProductCard key={product.id} product={product} onAddToCart={onAddToCart}  />
 
                     ))}
                 </div>

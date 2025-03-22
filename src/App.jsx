@@ -9,13 +9,20 @@ import Login from "./assets/pages/Login/Login";
 import ProductAdmin from "./assets/pages/ProductAdmin/ProductAdmin";
 import UserAdmin from "./assets/pages/UserAdmin/UserAdmin";
 import ShoppingCartModal from "./assets/components/Modals/ShoppingCartModal/ShoppingCartModal";
+import AddToCartModal from "./assets/components/Modals/AddToCartModal/AddToCartModal";
+import DeleteToCartModal from "./assets/components/Modals/DeleteToCartModal/DeleteToCartModal";
 import "./App.css";
 
 function App() {
   const [userName, setUserName] = useState("");
   const [userRole, setUserRole] = useState("");
-  const [cartItems, setCartItems] = useState([]); 
+  const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+
+  // Estados para los modales
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   // Recuperar usuario y carrito al cargar la app
   useEffect(() => {
@@ -33,8 +40,8 @@ function App() {
     }
   }, []);
 
-  // Guardar el carrito en localStorage cada vez que cambia
   useEffect(() => {
+    // Sincronizar el carrito con localStorage cuando cambia
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
@@ -53,11 +60,62 @@ function App() {
   };
 
   const onAddToCart = (product) => {
-    setCartItems((prevItems) => [...prevItems, product]);
+    setSelectedProduct(product);
+    setIsAddModalOpen(true);
+  };
+
+  const confirmAddToCart = (product) => {
+    setCartItems((prevItems) => {
+      // Verificar si el producto ya está en el carrito
+      const existingItemIndex = prevItems.findIndex(item => item.id === product.id);
+
+      if (existingItemIndex !== -1) {
+        // Si el producto ya existe, actualizamos solo la cantidad
+        const updatedCart = prevItems.map((item, index) => {
+          if (index === existingItemIndex) {
+            return { ...item, quantity: item.quantity + 1 }; // Aumentar la cantidad en 1
+          }
+          return item;
+        });
+
+        // Actualizamos el carrito en el localStorage
+        localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+        return updatedCart;
+      }
+
+      // Si el producto no está en el carrito, lo agregamos con cantidad 1
+      const updatedCart = [...prevItems, { ...product, quantity: 1 }];
+      localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+      return updatedCart;
+    });
   };
 
   const handleRemoveFromCart = (index) => {
-    setCartItems((prevItems) => prevItems.filter((_, i) => i !== index));
+    setSelectedProduct(cartItems[index]);
+    setIsRemoveModalOpen(true);
+  };
+
+  const confirmRemoveFromCart = () => {
+    setCartItems((prevItems) => {
+      const updatedCart = prevItems.filter((_, i) => i !== cartItems.indexOf(selectedProduct));
+      localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+      return updatedCart;
+    });
+  };
+
+  const handleQuantityChange = (index, newQuantity) => {
+    setCartItems(prevItems => {
+      const updatedItems = prevItems.map((item, i) => {
+        if (i === index) {
+          return { ...item, quantity: newQuantity };
+        }
+        return item;
+      });
+
+      // Guardar el carrito actualizado en localStorage
+      localStorage.setItem("cartItems", JSON.stringify(updatedItems));
+      return updatedItems;
+    });
   };
 
   const toggleCart = () => {
@@ -93,9 +151,24 @@ function App() {
         <ShoppingCartModal 
           cartItems={cartItems} 
           toggleCart={toggleCart} 
-          handleRemoveFromCart={handleRemoveFromCart} 
+          handleRemoveFromCart={handleRemoveFromCart}
+          handleQuantityChange={handleQuantityChange}  // Pasa la función aquí
         />
       )}
+
+      <AddToCartModal 
+        isOpen={isAddModalOpen} 
+        onClose={() => setIsAddModalOpen(false)} 
+        onConfirm={confirmAddToCart} 
+        product={selectedProduct} 
+      />
+
+      <DeleteToCartModal 
+        isOpen={isRemoveModalOpen} 
+        onClose={() => setIsRemoveModalOpen(false)} 
+        onConfirm={confirmRemoveFromCart} 
+        product={selectedProduct} 
+      />
 
       <Footer />
     </>
