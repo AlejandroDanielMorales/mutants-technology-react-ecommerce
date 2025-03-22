@@ -52,7 +52,7 @@ function App() {
     localStorage.removeItem("userRole");
   };
 
-  const handleAddToCart = (product) => {
+  const onAddToCart = (product) => {
     setCartItems((prevItems) => [...prevItems, product]);
   };
 
@@ -75,7 +75,7 @@ function App() {
       />
 
       <Routes>
-        <Route path="/" element={<Home onAddToCart={handleAddToCart} />} />
+        <Route path="/" element={<Home onAddToCart={onAddToCart} />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route
           path="/ProductAdmin"
