@@ -12,6 +12,7 @@ import ShoppingCartModal from "./assets/components/Modals/ShoppingCartModal/Shop
 import AddToCartModal from "./assets/components/Modals/AddToCartModal/AddToCartModal";
 import DeleteToCartModal from "./assets/components/Modals/DeleteToCartModal/DeleteToCartModal";
 import "./App.css";
+import AboutUs from "./assets/pages/AboutUs/AboutUs";
 
 function App() {
   const [userName, setUserName] = useState("");
@@ -135,6 +136,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home onAddToCart={onAddToCart} />} />
         <Route path="/detail/:id" element={<Detail onAddToCart={onAddToCart}/>} />
+        <Route path="/AboutUs" element={<AboutUs/>} />
         <Route
           path="/ProductAdmin"
           element={userRole === "admin" ? <ProductAdmin /> : <Navigate to="/" />}
