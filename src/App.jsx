@@ -134,7 +134,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home onAddToCart={onAddToCart} />} />
-        <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/detail/:id" element={<Detail onAddToCart={onAddToCart}/>} />
         <Route
           path="/ProductAdmin"
           element={userRole === "admin" ? <ProductAdmin /> : <Navigate to="/" />}

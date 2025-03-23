@@ -1,5 +1,5 @@
 import React from "react";
-import "../EditProductModal/EditProductModal.css"; // Añade tu estilo aquí
+import "../EditProductModal/EditProductModal.css"; 
 
 const AddToCartModal = ({ isOpen, onClose, onConfirm, product }) => {
   if (!isOpen) return null;
