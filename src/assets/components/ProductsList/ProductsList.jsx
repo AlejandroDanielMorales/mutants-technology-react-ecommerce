@@ -3,7 +3,7 @@ import axios from 'axios';
 import './ProductsList.css';
 import ProductCard from '../ProductCard/ProductCard';
 
-export default function ProductsList() {
+export default function ProductsList({onAddToCart}) {
     const [products, setProducts] = useState([]);
     const url = "https://67d4cb0dd2c7857431ee920f.mockapi.io/products";
 
@@ -46,7 +46,8 @@ export default function ProductsList() {
                 <button className="scroll-button left" onClick={() => handleScroll(processorsSectionRef, 'left')}>‹</button>
                 <div className="product-cards-container" ref={processorsSectionRef}>
                     {products.map((product) => (product.category === "Procesadores" &&
-                        <ProductCard key={product.id} product={product} />
+                        <ProductCard key={product.id} product={product} onAddToCart={onAddToCart}  />
+
                     ))}
                 </div>
                 <button className="scroll-button right" onClick={() => handleScroll(processorsSectionRef, 'right')}>›</button>
@@ -57,7 +58,8 @@ export default function ProductsList() {
                 <button className="scroll-button left" onClick={() => handleScroll(ramSectionRef, 'left')}>‹</button>
                 <div className="product-cards-container" ref={ramSectionRef}>
                     {products.map((product) => (product.category === "Memorias RAM" &&
-                        <ProductCard key={product.id} product={product} />
+                        <ProductCard key={product.id} product={product} onAddToCart={onAddToCart} />
+
                     ))}
                 </div>
                 <button className="scroll-button right" onClick={() => handleScroll(ramSectionRef, 'right')}>›</button>
@@ -68,7 +70,8 @@ export default function ProductsList() {
                 <button className="scroll-button left" onClick={() => handleScroll(gpuSectionRef, 'left')}>‹</button>
                 <div className="product-cards-container" ref={gpuSectionRef}>
                     {products.map((product) => (product.category === "Tarjetas Gráficas" &&
-                        <ProductCard key={product.id} product={product} />
+                        <ProductCard key={product.id} product={product} onAddToCart={onAddToCart} />
+
                     ))}
                 </div>
                 <button className="scroll-button right" onClick={() => handleScroll(gpuSectionRef, 'right')}>›</button>
@@ -79,7 +82,7 @@ export default function ProductsList() {
                 <button className="scroll-button left" onClick={() => handleScroll(powerSupplySectionRef, 'left')}>‹</button>
                 <div className="product-cards-container" ref={powerSupplySectionRef}>
                     {products.map((product) => (product.category === "Fuentes de Poder" &&
-                        <ProductCard key={product.id} product={product} />
+                        <ProductCard key={product.id} product={product} onAddToCart={onAddToCart} />
                     ))}
                 </div>
                 <button className="scroll-button right" onClick={() => handleScroll(powerSupplySectionRef, 'right')}>›</button>
@@ -90,7 +93,7 @@ export default function ProductsList() {
                 <button className="scroll-button left" onClick={() => handleScroll(monitorsSectionRef, 'left')}>‹</button>
                 <div className="product-cards-container" ref={monitorsSectionRef}>
                     {products.map((product) => (product.category === "Monitores" &&
-                        <ProductCard key={product.id} product={product} />
+                       <ProductCard key={product.id} product={product} onAddToCart={onAddToCart} />
                     ))}
                 </div>
                 <button className="scroll-button right" onClick={() => handleScroll(monitorsSectionRef, 'right')}>›</button>

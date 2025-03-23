@@ -3,8 +3,7 @@ import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faEye, faStar, faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import "./ProductCard.css";
-
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, onAddToCart }) {
     return (
         <div className="card-background" key={product.id}>
             <article className="card">
@@ -28,11 +27,10 @@ export default function ProductCard({ product }) {
                         ))}
                     </div>
                     <div className="card-actions">
-                        {/* Redirección usando NavLink con el ID del producto */}
                         <NavLink to={`/detail/${product.id}`} className="card-btn2">
                             <FontAwesomeIcon icon={faEye} className="btn-icon" size="1x" color="#2E3239" />
                         </NavLink>
-                        <button className="card-btn2">
+                        <button className="card-btn2" onClick={() => {onAddToCart(product)}}>
                             <FontAwesomeIcon icon={faShoppingCart} className="btn-icon" size="1x" color="#2E3239" />
                         </button>
                     </div>

@@ -5,13 +5,13 @@ import Features from './../../components/Features/Features'; // Ruta corregida
 import Categories from '../../components/Categories/Categories';
 import SearchBar from '../../components/SearchBar/SearchBar';
 
-export default function Home() {
+export default function Home({ onAddToCart }) {
     return (
         <>
             <Banner/>
             <SearchBar/>
             <Categories/>
-            <ProductsList/>
+            <ProductsList  onAddToCart={onAddToCart}/>
             <Features/>
         </>
     );

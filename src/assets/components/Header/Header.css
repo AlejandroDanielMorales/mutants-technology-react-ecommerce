@@ -38,35 +38,24 @@
 }
 
 .cart-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 40px;
-}
-
-.cart-container i {
-    font-size: 20px;
-    position: relative;
-    color: var(--color-text);
-}
-
-.cart-container i::after {
-    content: "1";
+    position: relative; /* Permite posicionar elementos dentro de este contenedor */
+    cursor: pointer;
+  }
+  
+  .cart-count {
     position: absolute;
-    top: -8px;
-    right: -8px;
-    height: 14px;
-    width: 14px;
-    background: linear-gradient(to left, indianred, darkred);
-    color: var(--color-terciario);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1.5px solid var(--color-terciario);
-    border-radius: 50%;
-    font-size: 12px;
-}
+    top: -5px; /* Ajusta este valor según lo necesites para que quede bien posicionado */
+    right: -5px; /* Ajusta este valor según lo necesites para que quede bien posicionado */
+    background-color: red; /* Fondo rojo */
+    color: white; /* Texto blanco */
+    font-size: 15px; /* Tamaño del texto */
+    padding-inline: 5px;
+    border-radius: 50%; /* Hace el contador redondo */
+    font-weight: bold; /* Pone el texto en negrita */
+    min-width: 20px; /* Tamaño mínimo para que el contador sea visible incluso si es un solo dígito */
+    text-align: center; /* Centra el texto */
+  }
+  
 .user-name {
     margin-left: 10px;
     font-size: 16px;
