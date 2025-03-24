@@ -3,9 +3,11 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart ,faBackward } from "@fortawesome/free-solid-svg-icons";
+import  { useOrder } from "../../context/OrderContext"
 import "./Detail.css";
 
-export default function Detail({onAddToCart}) {
+export default function Detail() {
+    const  { onAddToCart }   = useOrder() ;
     const { id } = useParams();
     const [product, setProduct] = useState(null);
 

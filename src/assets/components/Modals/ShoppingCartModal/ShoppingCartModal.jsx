@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faDollarSign } from "@fortawesome/free-solid-svg-icons";
+import { useOrder } from '../../../context/OrderContext';
 import './ShoppingCartModal.css';
 
-export default function ShoppingCartModal({ cartItems, toggleCart, handleRemoveFromCart, handleQuantityChange }) {
+export default function ShoppingCartModal() {
     const [quantities, setQuantities] = useState([]);
+    const { cartItems,
+        toggleCart,
+        handleRemoveFromCart,
+        handleQuantityChange
+       } = useOrder();
 
     // Cargar las cantidades del carrito al cargar el componente y cada vez que se abre el modal
     useEffect(() => {
