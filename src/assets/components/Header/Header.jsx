@@ -4,8 +4,17 @@ import "./Header.css";
 import Navbar from "../Navbar/Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserAstronaut, faCartShopping, faBars, faSignOut } from "@fortawesome/free-solid-svg-icons";
+import { useOrder } from "../../context/OrderContext";
+import { useUser } from "../../context/UserProvider";
 
-export default function Header({ userName, userRole, handleLogout, onToggleCart, cartItemCount }) {
+
+export default function Header() {
+  const { userName, userRole, handleLogout } = useUser();
+  const { toggleCart,cartItems } = useOrder();
+
+  const context = useOrder()
+  console.log(context);
+
   return (
     <header className="main-header">
       <input className="chkburger" type="checkbox" id="burger-menu" />
@@ -18,9 +27,9 @@ export default function Header({ userName, userRole, handleLogout, onToggleCart,
       <div className="user-info">
         {userName && <span className="user-name">{userName}</span>}
 
-        <div className="cart-container" onClick={onToggleCart}>
+        <div className="cart-container" onClick={toggleCart}>
           <FontAwesomeIcon icon={faCartShopping} size="2x" />
-          {cartItemCount > 0 && <span className="cart-count">{cartItemCount}</span>}
+          {cartItems.length > 0 && <span className="cart-count">{cartItems.length}</span>}
         </div>
 
         <div className="user-icon">

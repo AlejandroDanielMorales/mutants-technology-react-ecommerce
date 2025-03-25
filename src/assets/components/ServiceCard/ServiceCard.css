@@ -1,0 +1,49 @@
+
+.about{
+    border-radius: 8px;
+    text-align: center;
+    padding-top:0px;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-about-img {
+    height:50%;
+    width:90dvw;
+    img{
+        width: 90dvw;
+        height:35dvh;
+
+        object-fit: cover;
+        border-top-left-radius:8px;
+        border-top-right-radius:8px;
+    }
+}
+
+@media screen and (min-width: 780px) {
+
+    .card-about-img {
+        height:50%;
+        width:40dvw;
+        img{
+            width: 38dvw;
+            height:35dvh;
+        }
+    }
+
+    .about{
+
+        border-radius: 8px;
+        text-align: center;
+        padding-top:0px;
+        width:38dvw;
+        transition: transform 0.3s;
+        &:hover{
+            transform:scale(1.05)!important;
+        }
+    }
+
+}

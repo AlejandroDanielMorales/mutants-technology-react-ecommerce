@@ -1,14 +1,15 @@
 import React from 'react';
 import './Features.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { NavLink } from "react-router-dom";
 import { faUsers, faTruck, faTag } from '@fortawesome/free-solid-svg-icons';
 
 export default function Features() {
   return (
     <section className="main-features">
       <div className="feat-container">
-        <a href="aboutUs.html" className="enlace-div">
-          <div className="card-category ft">
+      <NavLink to="/AboutUs" className={({ isActive }) => isActive ? "active nav-link" : "nav-link"}>
+      <div className="card-category ft">
             <div className="icon-card-cat">
               <FontAwesomeIcon icon={faUsers} size="3x" />
             </div>
@@ -18,7 +19,8 @@ export default function Features() {
               </h4>
             </div>
           </div>
-        </a>
+      </NavLink>
+       
         <a href="index.html" className="enlace-div">
           <div className="card-category ft">
             <div className="icon-card-cat">
