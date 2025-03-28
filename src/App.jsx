@@ -12,6 +12,7 @@ import AddToCartModal from "./assets/components/Modals/AddToCartModal/AddToCartM
 import DeleteToCartModal from "./assets/components/Modals/DeleteToCartModal/DeleteToCartModal";
 import "./App.css";
 import AboutUs from "./assets/pages/AboutUs/AboutUs";
+import Contact from "./assets/pages/Contact/Contact";
 import { useOrder } from "./assets/context/OrderContext";
 import { useUser } from "./assets/context/UserProvider";
 
@@ -27,6 +28,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route
           path="/ProductAdmin"

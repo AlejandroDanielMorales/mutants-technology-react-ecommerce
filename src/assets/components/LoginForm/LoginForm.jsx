@@ -15,21 +15,17 @@ export default function LoginForm({ onLoginSuccess }) {
 
   const onSubmit = async (data) => {
     try {
-      // Obtener la lista de usuarios desde MockAPI
       const response = await axios.get(
         "https://67d4cb0dd2c7857431ee920f.mockapi.io/user"
       );
-  
-      // Buscar el usuario que coincida con el correo y la contraseña
       const user = response.data.find(
         (user) =>
           user.email === data.email && user.password === data.password
       );
   
       if (user) {
-        // Si el usuario existe, llamar a la función onLoginSuccess con el nombre y el rol
         onLoginSuccess(user.name, user.rol);
-        navigate("/"); // Redirigir al home
+        navigate("/"); 
       } else {
         setLoginError("Correo o contraseña incorrectos");
       }
@@ -43,7 +39,7 @@ export default function LoginForm({ onLoginSuccess }) {
     <div className="login-form-container">
       <h2>Iniciar sesión</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="input-group">
+        <div className="input-group-lg">
           <input
             type="email"
             placeholder="Correo electrónico"

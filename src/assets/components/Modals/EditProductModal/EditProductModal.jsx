@@ -59,7 +59,7 @@ export default function EditProductModal({ closeModal, productId, refreshProduct
         <div className="modal-overlay">
             <div className="modal-content">
                 <h3>{productId ? 'Editar Producto' : 'Agregar Producto'}</h3>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form className="form-edit"onSubmit={handleSubmit(onSubmit)}>
                     <div>
                         <label>Nombre:</label>
                         <input type="text" {...register("name", { required: true })} />

@@ -3,8 +3,8 @@ import UsersTable from '../../components/UsersTable/UsersTable'
 
 export default function UserAdmin() {
   return (
-    <div>
+    <main className="container">
       <UsersTable/> 
-    </div>
+    </main>
   )
 }

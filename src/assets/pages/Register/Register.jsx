@@ -3,7 +3,10 @@ import RegisterForm from '../../components/RegisterForm/RegisterForm'
 
 export default function Register() {
   return (
-    <RegisterForm/>
+    <main className="container">
+      <RegisterForm/>
+    </main>
+    
 
   )
 }

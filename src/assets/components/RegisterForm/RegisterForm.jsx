@@ -51,18 +51,21 @@ export default function RegisterForm() {
         };
 
         return (
-                <main className="cards-container">
+                
+                <>
                         {isRegisterModalOpen && (
                                 <RegisterUserModal closeModal={closeModals} onConfirm={onSubmit} />
                         )}
-                        <section className="tittle-conteiner">
-                                <h2>Registrate</h2>
-                                <h3>Las mejores ofertas te esperan</h3>
-                        </section>
+                        
 
-                        <div className="back-form reg">
+                        <div className="back-form">
+                        
                                 <form className="form" onSubmit={handleSubmit(openConfirmModal)}>
-                                        <div className="input-group">
+                                <div className="tittle-conteiner">
+                                <h4>Registrate</h4>
+                                <h5>Las mejores ofertas te esperan</h5>
+                        </div>
+                                        <div className="input-group first">
                                                 <input
                                                         className="input-box"
                                                         {...register("name", { required: "El nombre es obligatorio" })}
@@ -119,14 +122,15 @@ export default function RegisterForm() {
                                                 />
                                         </div>
 
-                                        <div className="is reg input-group">
+                                        <div className=" input-group">
                                                 <button type="submit" className="card-btn">Registrarse</button>
-                                        </div>
-                                        <NavLink to="/login" className="login-link">
+                                                <NavLink to="/login" className="login-link">
                                                 Ya tengo una cuenta
                                         </NavLink>
+                                        </div>
+                                        
                                 </form>
                         </div>
-                </main>
+                </>
         );
 }
