@@ -23,7 +23,7 @@ export default function AddUserModal({ closeModal, refreshUsers }) {
         <div className="modal-overlay">
             <div className="modal-content">
                 <h2>Agregar Nuevo Usuario</h2>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form className="form-edit" onSubmit={handleSubmit(onSubmit)}>
                     <div>
                         <label>Nombre:</label>
                         <input type="text" {...register("name", { required: true })} />

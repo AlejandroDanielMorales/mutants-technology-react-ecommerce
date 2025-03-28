@@ -7,10 +7,14 @@ export default function Navbar({ userRole }) {
     <nav className="main-navbar">
       <ul className="nav-menu">
         <li className="nav-item">
-          <NavLink to="/" className={({ isActive }) => isActive ? "active nav-link" : "nav-link"}>Inicio</NavLink>
+          <NavLink to="/" className={({ isActive }) => isActive ? "active nav-link" : "nav-link"}>
+          Inicio
+          </NavLink>
         </li>
         <li className="nav-item">
-          <NavLink to="/contact" className={({ isActive }) => isActive ? "active nav-link" : "nav-link"}>Contacto</NavLink>
+          <NavLink to="/contact" className={({ isActive }) => isActive ? "active nav-link" : "nav-link"}>
+          Contacto
+          </NavLink>
         </li>
         {userRole === "admin" && (
           <li className="nav-item">

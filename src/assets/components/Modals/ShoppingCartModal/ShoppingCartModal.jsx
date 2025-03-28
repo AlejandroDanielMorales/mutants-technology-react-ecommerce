@@ -1,38 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import { useOrder } from '../../../context/OrderContext';
 import './ShoppingCartModal.css';
 
 export default function ShoppingCartModal() {
-    const [quantities, setQuantities] = useState([]);
-    const { cartItems,
+    const {
+        cartItems,
         toggleCart,
         handleRemoveFromCart,
-        handleQuantityChange
-       } = useOrder();
+        handleQuantityChange,
+        totalPrice
+    } = useOrder();
 
-    // Cargar las cantidades del carrito al cargar el componente y cada vez que se abre el modal
-    useEffect(() => {
-        // Si cartItems se actualiza, actualizamos las cantidades en el estado
-        setQuantities(cartItems.map(item => item.quantity || 1));
-    }, [cartItems]);
-
-    // Calcular el total de la compra
-    const totalPrice = cartItems.reduce((total, item, index) => {
-        return total + item.price * quantities[index];
-    }, 0);
-
-    // Función para cerrar el modal y actualizar localStorage
     const closeModalAndUpdateStorage = () => {
-        // Guardar los cambios de cantidades en el localStorage antes de cerrar el modal
-        const updatedCartItems = cartItems.map((item, index) => ({
-            ...item,
-            quantity: quantities[index]
-        }));
-        localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
-
-        // Llamar a la función que cierra el modal
         toggleCart();
     };
 
@@ -52,12 +33,10 @@ export default function ShoppingCartModal() {
                                 <div>
                                     <h3>{item.name}</h3>
                                     <p>Precio: ${item.price}</p>
-
-                                    {/* Select para cantidad */}
                                     <label htmlFor={`quantity-${index}`}>Cantidad:</label>
                                     <select
                                         id={`quantity-${index}`}
-                                        value={quantities[index]}
+                                        value={item.quantity}
                                         onChange={(e) => handleQuantityChange(index, parseInt(e.target.value))}
                                     >
                                         {[...Array(10).keys()].map((n) => (
@@ -65,7 +44,7 @@ export default function ShoppingCartModal() {
                                         ))}
                                     </select>
 
-                                    <button onClick={() => handleRemoveFromCart(index)}>Eliminar</button>
+                                    <button onClick={() => handleRemoveFromCart(item)}>Eliminar</button>
                                 </div>
                             </div>
                         ))}

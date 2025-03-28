@@ -20,6 +20,20 @@ h1, h2, h3, h4, h5, h6 {
 
   color: var(--color-text);
 }
+main {
+  background-color: var(--color-secundario);
+  color: var(--color-text);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height:80dvh;
+  padding: 0px;
+}
+a {
+  text-decoration: none;
+  color: var(--color-text);
+}
 
 body {
   min-height: 100dvh;
@@ -91,7 +105,10 @@ img {
       width: 70%;
       margin-inline: auto;
   }
-
+  main {
+    min-height:75dvh;
+    padding: 20px;
+  }
   .cat-container {
       grid-template-columns: repeat(4, 1fr);
       width: 70%;

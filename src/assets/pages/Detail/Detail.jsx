@@ -20,7 +20,7 @@ export default function Detail() {
     if (!product) return <p>Cargando...</p>;
 
     return (
-        <main className="cards-container-2">
+        <main className="container">
             <h3 className="card-title-2"><em>{product.name}</em></h3>
             <div className="card-background-2">
                 <article className="card-detail-2">

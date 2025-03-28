@@ -19,6 +19,8 @@ function OrderProvider({ children }) {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
+  const totalPrice = cartItems.reduce((total, item) => total + item.price * (item.quantity || 1), 0);
+
   const onAddToCart = (product) => {
     setSelectedProduct(product);
     setIsAddModalOpen(true);
@@ -26,51 +28,45 @@ function OrderProvider({ children }) {
 
   const confirmAddToCart = (product) => {
     setCartItems((prevItems) => {
-      const existingItemIndex = prevItems.findIndex((item) => item.id === product.id);
-      let updatedCart;
+      const existingItem = prevItems.find((item) => item.id === product.id);
+      const updatedCart = existingItem
+        ? prevItems.map((item) =>
+            item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+          )
+        : [...prevItems, { ...product, quantity: 1 }];
 
-      if (existingItemIndex !== -1) {
-        updatedCart = prevItems.map((item, index) =>
-          index === existingItemIndex ? { ...item, quantity: item.quantity + 1 } : item
-        );
-      } else {
-        updatedCart = [...prevItems, { ...product, quantity: 1 }];
-      }
-
-      localStorage.setItem("cartItems", JSON.stringify(updatedCart));
       return updatedCart;
     });
   };
 
-  const handleRemoveFromCart = (index) => {
-    setSelectedProduct(cartItems[index]);
+  const handleRemoveFromCart = (product) => {
+    setSelectedProduct(product);
     setIsRemoveModalOpen(true);
   };
 
   const confirmRemoveFromCart = () => {
-    setCartItems((prevItems) => {
-      const updatedCart = prevItems.filter((_, i) => i !== cartItems.indexOf(selectedProduct));
-      localStorage.setItem("cartItems", JSON.stringify(updatedCart));
-      return updatedCart;
-    });
+    if (!selectedProduct) return;
+
+    setCartItems((prevItems) =>
+      prevItems.filter((item) => item.id !== selectedProduct.id)
+    );
   };
 
   const handleQuantityChange = (index, newQuantity) => {
-    setCartItems((prevItems) => {
-      const updatedItems = prevItems.map((item, i) =>
+    setCartItems((prevItems) =>
+      prevItems.map((item, i) =>
         i === index ? { ...item, quantity: newQuantity } : item
-      );
-      localStorage.setItem("cartItems", JSON.stringify(updatedItems));
-      return updatedItems;
-    });
+      )
+    );
   };
 
-  const toggleCart = () => setIsCartOpen(!isCartOpen);
+  const toggleCart = () => setIsCartOpen((prev) => !prev);
 
   return (
     <OrderContext.Provider
       value={{
         cartItems,
+        totalPrice,
         isCartOpen,
         isAddModalOpen,
         isRemoveModalOpen,
