@@ -28,16 +28,21 @@ function OrderProvider({ children }) {
 
   const confirmAddToCart = (product) => {
     setCartItems((prevItems) => {
-      const existingItem = prevItems.find((item) => item.id === product.id);
-      const updatedCart = existingItem
-        ? prevItems.map((item) =>
-            item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-          )
-        : [...prevItems, { ...product, quantity: 1 }];
-
-      return updatedCart;
+        const existingItem = prevItems.find((item) => item.id === product.id);
+        
+        if (existingItem) {
+            // Si el producto ya existe, sumamos la nueva cantidad
+            return prevItems.map((item) =>
+                item.id === product.id 
+                    ? { ...item, quantity: item.quantity + product.quantity } 
+                    : item
+            );
+        } else {
+            // Si es nuevo, lo agregamos con la cantidad especificada
+            return [...prevItems, { ...product }];
+        }
     });
-  };
+};
 
   const handleRemoveFromCart = (product) => {
     setSelectedProduct(product);
