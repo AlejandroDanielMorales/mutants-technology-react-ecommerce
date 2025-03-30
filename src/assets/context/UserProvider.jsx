@@ -16,6 +16,9 @@ function UserProvider({ children }) {
     }
   }, []);
 
+  // Añade esta línea para determinar si el usuario está logueado
+  const isLoggedIn = !!userName;
+
   const handleLoginSuccess = (name, role) => {
     setUserName(name);
     setUserRole(role);
@@ -31,7 +34,13 @@ function UserProvider({ children }) {
   };
 
   return (
-    <UserContext.Provider value={{ userName, userRole, handleLoginSuccess, handleLogout }}>
+    <UserContext.Provider value={{ 
+      userName, 
+      userRole, 
+      isLoggedIn, // Añade esta propiedad
+      handleLoginSuccess, 
+      handleLogout 
+    }}>
       {children}
     </UserContext.Provider>
   );
