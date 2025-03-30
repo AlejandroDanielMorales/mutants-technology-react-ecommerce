@@ -1,19 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./Header.css";
 import Navbar from "../Navbar/Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserAstronaut, faCartShopping, faBars, faSignOut } from "@fortawesome/free-solid-svg-icons";
+import { faUserAstronaut, faCartShopping, faBars} from "@fortawesome/free-solid-svg-icons";
 import { useOrder } from "../../context/OrderContext";
 import { useUser } from "../../context/UserProvider";
-
+import UserSidebar from "../UserSidebar/UserSidebar";
 
 export default function Header() {
-  const { userName, userRole, handleLogout } = useUser();
-  const { toggleCart,cartItems } = useOrder();
+  const { userName, userRole, } = useUser();
+  const { toggleCart, cartItems } = useOrder();
+  const [isUserSidebarOpen, setIsUserSidebarOpen] = useState(false);
 
-  const context = useOrder()
-  console.log(context);
+  const toggleUserSidebar = () => {
+    setIsUserSidebarOpen(!isUserSidebarOpen);
+  };
+
+  const closeUserSidebar = () => {
+    setIsUserSidebarOpen(false);
+  };
 
   return (
     <header className="main-header">
@@ -32,15 +38,14 @@ export default function Header() {
           {cartItems.length > 0 && <span className="cart-count">{cartItems.length}</span>}
         </div>
 
-        <div className="user-icon">
-          <NavLink to="/user" className="enlace-div">
-            <FontAwesomeIcon icon={faUserAstronaut} size="2x" />
-          </NavLink>
+        <div className="user-icon" onClick={toggleUserSidebar}>
+          <FontAwesomeIcon icon={faUserAstronaut} size="2x" />
         </div>
 
-        <button className="logout-btn" onClick={handleLogout}>
-          <FontAwesomeIcon icon={faSignOut} size="2x" />
-        </button>
+        <UserSidebar 
+          isOpen={isUserSidebarOpen} 
+          onClose={closeUserSidebar}
+        />
       </div>
     </header>
   );

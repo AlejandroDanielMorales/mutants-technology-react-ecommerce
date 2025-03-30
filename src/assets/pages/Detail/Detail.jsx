@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart, faBackward, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { faShoppingCart, faChevronRight, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { useOrder } from "../../context/OrderContext";
 import "./Detail.css";
 
@@ -76,7 +76,7 @@ export default function Detail() {
                                         justifyContent: "center"
                                     }}
                                 >
-                                    <FontAwesomeIcon icon={faChevronLeft} color="#2E3239" />
+                                    <FontAwesomeIcon icon={faMinus} color="#2E3239" />
                                 </button>
                                 <span className="card-p" style={{ minWidth: "30px", textAlign: "center" }}>
                                     {quantity}
@@ -102,7 +102,7 @@ export default function Detail() {
 
                         <div className="backdiv">
                             <button onClick={() => window.history.back()} className="card-btn2">
-                                <FontAwesomeIcon className="btn-icon" icon={faBackward} size="1x" color="#2E3239"/>
+                                <FontAwesomeIcon className="btn-icon" icon={faPlus} size="1x" color="var(--color-principal)!important;"/>
                                 Volver
                             </button>
                             <button 

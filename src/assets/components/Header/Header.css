@@ -9,7 +9,15 @@
     z-index: 1000;
     padding-inline: 15px ;
 }
-
+.user-icon {
+    cursor: pointer;
+    margin-left: 15px;
+    transition: color 0.3s;
+  }
+  
+  .user-icon:hover {
+    color: var(--color-hoverlinks);
+  }
 .chkburger {
     display: none;
 }
