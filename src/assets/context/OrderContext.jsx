@@ -23,6 +23,7 @@ function OrderProvider({ children }) {
 
   const onAddToCart = (product) => {
     setSelectedProduct(product);
+    localStorage.setItem("selectedProduct", JSON.stringify(product));
     setIsAddModalOpen(true);
   };
 
