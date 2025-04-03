@@ -3,7 +3,9 @@ import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faEye, faStar, faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import "./ProductCard.css";
-export default function ProductCard({ product, onAddToCart }) {
+import { useOrder } from "../../context/OrderContext"; 
+export default function ProductCard({ product}) {
+    const  { onAddToCart }   = useOrder() ;
     return (
         <div className="card-background" key={product.id}>
             <article className="card">
