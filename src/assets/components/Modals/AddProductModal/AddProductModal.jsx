@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 export default function AddProductModal({ closeModal, refreshProducts }) {
-    const { register, handleSubmit, reset } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
         try {
@@ -27,22 +27,41 @@ export default function AddProductModal({ closeModal, refreshProducts }) {
                 <form className="form-edit" onSubmit={handleSubmit(onSubmit)}>
                     <div>
                         <label>Nombre:</label>
-                        <input type="text" {...register("name", { required: true })} />
+                        <input type="text" {...register("name", { required: "El nombre es obligatorio" })} />
+                        {errors.name && <p className="error-message">{errors.name.message}</p>}
                     </div>
 
                     <div>
                         <label>Descripción:</label>
-                        <input type="text" {...register("description", { required: true })} />
+                        <input type="text" {...register("description", { required: "La descripción es obligatoria" })} />
+                        {errors.description && <p className="error-message">{errors.description.message}</p>}
                     </div>
 
                     <div>
                         <label>Precio:</label>
-                        <input type="number" {...register("price", { required: true })} />
+                        <input 
+                            type="number" 
+                            {...register("price", { 
+                                required: "El precio es obligatorio", 
+                                min: { value: 1, message: "El precio debe ser mayor a 0" }
+                            })} 
+                        />
+                        {errors.price && <p className="error-message">{errors.price.message}</p>}
                     </div>
 
                     <div>
                         <label>Imagen (URL):</label>
-                        <input type="text" {...register("image", { required: true })} />
+                        <input 
+                            type="text" 
+                            {...register("image", { 
+                                required: "La URL de la imagen es obligatoria",
+                                pattern: {
+                                    value: /^(ftp|http|https):\/\/[^ "]+$/,
+                                    message: "Ingrese una URL válida"
+                                }
+                            })} 
+                        />
+                        {errors.image && <p className="error-message">{errors.image.message}</p>}
                     </div>
 
                     <div className="btn-container">

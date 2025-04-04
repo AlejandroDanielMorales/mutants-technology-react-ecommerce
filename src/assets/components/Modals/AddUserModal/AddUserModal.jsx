@@ -6,7 +6,7 @@ import { faTimesCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import "../EditProductModal/EditProductModal.css";
 
 export default function AddUserModal({ closeModal, refreshUsers }) {
-    const { register, handleSubmit, reset } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
         try {
@@ -26,11 +26,13 @@ export default function AddUserModal({ closeModal, refreshUsers }) {
                 <form className="form-edit" onSubmit={handleSubmit(onSubmit)}>
                     <div>
                         <label>Nombre:</label>
-                        <input type="text" {...register("name", { required: true })} />
+                        <input type="text" {...register("name", { required: "El nombre es obligatorio" })} />
+                        {errors.name && <p className="error-message">{errors.name.message}</p>}
                     </div>
                     <div>
                         <label>Email:</label>
-                        <input type="email" {...register("email", { required: true })} />
+                        <input type="email" {...register("email", { required: "El email es obligatorio" })} />
+                        {errors.email && <p className="error-message">{errors.email.message}</p>}
                     </div>
                     <div>
                         <label>Contraseña:</label>
@@ -41,18 +43,20 @@ export default function AddUserModal({ closeModal, refreshUsers }) {
                                 minLength: { value: 6, message: "Debe tener al menos 6 caracteres" }
                             })}
                         />
+                        {errors.password && <p className="error-message">{errors.password.message}</p>}
                     </div>
                     <div>
-                        <label>Pais:</label>
-                        <input type="text" {...register("country", { required: true })} />
-
+                        <label>País:</label>
+                        <input type="text" {...register("country", { required: "El país es obligatorio" })} />
+                        {errors.country && <p className="error-message">{errors.country.message}</p>}
                     </div>
                     <div>
                         <label>Rol:</label>
-                        <select {...register("rol", { required: true })}>
+                        <select {...register("rol", { required: "El rol es obligatorio" })}>
                             <option value="admin">Admin</option>
                             <option value="usuario">Usuario</option>
                         </select>
+                        {errors.rol && <p className="error-message">{errors.rol.message}</p>}
                     </div>
 
                     <div className="btn-container">

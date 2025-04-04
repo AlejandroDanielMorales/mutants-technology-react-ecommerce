@@ -23,6 +23,7 @@ function OrderProvider({ children }) {
 
   const onAddToCart = (product) => {
     setSelectedProduct(product);
+    localStorage.setItem("selectedProduct", JSON.stringify(product));
     setIsAddModalOpen(true);
   };
 
@@ -38,6 +39,7 @@ function OrderProvider({ children }) {
                     : item
             );
         } else {
+          product.quantity = product.quantity || 1; 
             // Si es nuevo, lo agregamos con la cantidad especificada
             return [...prevItems, { ...product }];
         }

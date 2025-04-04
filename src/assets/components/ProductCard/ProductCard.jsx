@@ -3,15 +3,17 @@ import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faEye, faStar, faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import "./ProductCard.css";
-export default function ProductCard({ product, onAddToCart }) {
+import { useOrder } from "../../context/OrderContext"; 
+export default function ProductCard({ product}) {
+    const  { onAddToCart }   = useOrder() ;
     return (
         <div className="card-background" key={product.id}>
             <article className="card">
                 <img className="card-img" src={product.image} alt={product.name} />
                 <div className="card-body">
-                    <h4 className="card-title">
+                    <h5 className="card-title">
                         <em>{product.name}</em>
-                    </h4>
+                    </h5>
                     <p className="card-description">{product.description}</p>
                     <div className="card-price">
                         <FontAwesomeIcon icon={faDollarSign} className="price-icon" />
@@ -28,10 +30,10 @@ export default function ProductCard({ product, onAddToCart }) {
                     </div>
                     <div className="card-actions">
                         <NavLink to={`/detail/${product.id}`} className="card-btn2">
-                            <FontAwesomeIcon icon={faEye} className="btn-icon" size="1x" color="#2E3239" />
+                            <FontAwesomeIcon icon={faEye} className="btn-icon2" size="1x" color="#2E3239" />
                         </NavLink>
                         <button className="card-btn2" onClick={() => {onAddToCart(product)}}>
-                            <FontAwesomeIcon icon={faShoppingCart} className="btn-icon" size="1x" color="#2E3239" />
+                            <FontAwesomeIcon icon={faShoppingCart} className="btn-icon2" size="1x" color="#2E3239" />
                         </button>
                     </div>
                 </div>

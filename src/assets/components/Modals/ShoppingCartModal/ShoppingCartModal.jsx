@@ -70,7 +70,7 @@ export default function ShoppingCartModal() {
                     
                     <div className="cart-item-price">
                       <FontAwesomeIcon className="price-icon" icon={faDollarSign} />
-                      {item.price.toFixed(2)}
+                      {item.price}
                     </div>
                     
                     <div className="cart-item-quantity">
@@ -95,7 +95,7 @@ export default function ShoppingCartModal() {
                     
                     <div className="cart-item-price">
                       <FontAwesomeIcon className="price-icon" icon={faDollarSign} />
-                      {(item.price * item.quantity).toFixed(2)}
+                      {(item.price * item.quantity)}
                     </div>
                     
                     <div className="cart-item-remove">
@@ -117,7 +117,7 @@ export default function ShoppingCartModal() {
                 <span>Total:</span>
                 <span className="total-amount">
                   <FontAwesomeIcon className="price-icon"icon={faDollarSign} />
-                  {totalPrice.toFixed(2)}
+                  {totalPrice}
                 </span>
               </div>
               <button className="cart-checkout-btn">

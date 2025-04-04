@@ -6,6 +6,8 @@ export const useUser = () => useContext(UserContext);
 function UserProvider({ children }) {
   const [userName, setUserName] = useState("");
   const [userRole, setUserRole] = useState("");
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [isUserSidebarOpen, setIsUserSidebarOpen] = useState(false);
 
   useEffect(() => {
     const storedUserName = localStorage.getItem("userName");
@@ -31,15 +33,21 @@ function UserProvider({ children }) {
     setUserRole("");
     localStorage.removeItem("userName");
     localStorage.removeItem("userRole");
+    setShowLogoutModal(false);
+    setIsUserSidebarOpen(false);
   };
 
   return (
     <UserContext.Provider value={{ 
       userName, 
       userRole, 
-      isLoggedIn, // Añade esta propiedad
+      isLoggedIn, 
       handleLoginSuccess, 
-      handleLogout 
+      handleLogout,
+      showLogoutModal,
+      setShowLogoutModal,
+      isUserSidebarOpen, 
+      setIsUserSidebarOpen
     }}>
       {children}
     </UserContext.Provider>

@@ -35,7 +35,7 @@ input {
     margin-top: 20px;
 }
 
-.btn-cancel, .btn-save {
+.btn-cancel, .btn-save,.btn-danger {
     border: none;
     padding: 12px 18px;
     font-size: 14px;
@@ -65,7 +65,14 @@ input {
     background: #218838;
     transform: scale(1.05);
 }
-
+.btn-danger {
+    background: #f10e0e;
+    color: white;
+}
+.btn-danger:hover {
+    background: #f10e0e9e;
+    transform: scale(1.05);
+}
 .btn-icon {
     margin-right: 8px;
     font-size: 16px;

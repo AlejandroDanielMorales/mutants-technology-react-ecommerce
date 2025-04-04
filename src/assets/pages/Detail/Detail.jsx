@@ -14,7 +14,18 @@ export default function Detail() {
 
     useEffect(() => {
         axios.get(`https://67d4cb0dd2c7857431ee920f.mockapi.io/products/${id}`)
-            .then(response => setProduct(response.data))
+            .then(response => {
+                setProduct(response.data);
+                
+                // Buscar el producto en el carrito
+                const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+                const existingItem = cart.find(item => item.id === response.data.id);
+                
+                // Si el producto está en el carrito, cargar la cantidad guardada
+                if (existingItem) {
+                    setQuantity(existingItem.quantity);
+                }
+            })
             .catch(error => console.error("Error al obtener el producto:", error));
     }, [id]);
 
@@ -28,6 +39,26 @@ export default function Detail() {
 
     const handleAddToCart = () => {
         if (product) {
+            const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+            const existingItemIndex = cart.findIndex(item => item.id === product.id);
+            let newQuantity = quantity;
+
+            if (existingItemIndex !== -1) {
+                newQuantity = cart[existingItemIndex].quantity + quantity;
+            }
+
+            if (newQuantity > 10) {
+                alert("No puedes agregar más de 10 unidades de este producto.");
+                return;
+            }
+
+            if (existingItemIndex !== -1) {
+                cart[existingItemIndex].quantity = newQuantity;
+            } else {
+                cart.push({ ...product, quantity });
+            }
+
+            localStorage.setItem("cartItems", JSON.stringify(cart));
             onAddToCart({ ...product, quantity });
         }
     };
@@ -56,25 +87,12 @@ export default function Detail() {
                         {/* Selector de cantidad */}
                         <div style={{ margin: "15px 0" }}>
                             <h4><em>Cantidad</em></h4>
-                            <div style={{ 
-                                display: "flex", 
-                                alignItems: "center", 
-                                gap: "10px",
-                                margin: "10px 0"
-                            }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: "10px", margin: "10px 0" }}>
                                 <button 
                                     className="card-btn2"
                                     onClick={handleDecrease}
                                     disabled={quantity === 1}
-                                    style={{
-                                        width: "30px",
-                                        height: "30px",
-                                        borderRadius: "50%",
-                                        padding: 0,
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center"
-                                    }}
+                                    style={{ width: "30px", height: "30px", borderRadius: "50%", padding: 0, display: "flex", alignItems: "center", justifyContent: "center" }}
                                 >
                                     <FontAwesomeIcon icon={faMinus} color="#2E3239" />
                                 </button>
@@ -85,15 +103,7 @@ export default function Detail() {
                                     className="card-btn2"
                                     onClick={handleIncrease}
                                     disabled={quantity === 10}
-                                    style={{
-                                        width: "30px",
-                                        height: "30px",
-                                        borderRadius: "50%",
-                                        padding: 0,
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center"
-                                    }}
+                                    style={{ width: "30px", height: "30px", borderRadius: "50%", padding: 0, display: "flex", alignItems: "center", justifyContent: "center" }}
                                 >
                                     <FontAwesomeIcon icon={faChevronRight} color="#2E3239" />
                                 </button>
@@ -128,19 +138,10 @@ export default function Detail() {
                             {selectedProduct.name} al carrito?
                         </p>
                         <div className="btn-container">
-                            <button 
-                                className="btn-cancel" 
-                                onClick={() => {
-                                    setIsAddModalOpen(false);
-                                    setQuantity(1);
-                                }}
-                            >
+                            <button className="btn-cancel" onClick={() => { setIsAddModalOpen(false); setQuantity(1); }}>
                                 Cancelar
                             </button>
-                            <button 
-                                className="btn-save" 
-                                onClick={handleConfirmAdd}
-                            >
+                            <button className="btn-save" onClick={handleConfirmAdd}>
                                 Confirmar
                             </button>
                         </div>

@@ -1,19 +1,21 @@
-import React from 'react';
+
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOut, faUser, faSignInAlt } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../../context/UserProvider";
+import LogoutModal from "../../components/Modals/LogoutModal/LogoutModal"; // Asegúrate de poner la ruta correcta
 import './UserSidebar.css';
 
-export default function UserSidebar({ isOpen, onClose }) {
-  const { userName, isLoggedIn, handleLogout } = useUser();
+export default function UserSidebar({ onClose }) {
+  const { userName, isLoggedIn, handleLogout ,showLogoutModal, setShowLogoutModal,isUserSidebarOpen} = useUser();
+  
 
   return (
     <>
       {/* Overlay que se activa cuando el sidebar está abierto */}
-      {isOpen && <div className="sidebar-overlay" onClick={onClose}></div>}
+      {isUserSidebarOpen && <div className="sidebar-overlay" onClick={onClose}></div>}
       
-      <div className={`user-sidebar ${isOpen ? 'open' : ''}`}>
+      <div className={`user-sidebar ${isUserSidebarOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
           {isLoggedIn ? (
             <div className="user-greeting">Hola, {userName}</div>
@@ -38,10 +40,7 @@ export default function UserSidebar({ isOpen, onClose }) {
               <li className="sidebar-item">
                 <button 
                   className="sidebar-link logout-btn" 
-                  onClick={() => {
-                    handleLogout();
-                    onClose();
-                  }}
+                  onClick={() => setShowLogoutModal(true)}
                 >
                   <FontAwesomeIcon icon={faSignOut} className="sidebar-icon" />
                   Cerrar sesión
@@ -62,6 +61,13 @@ export default function UserSidebar({ isOpen, onClose }) {
           )}
         </ul>
       </div>
+
+      {showLogoutModal && (
+        <LogoutModal 
+          onClose={() => setShowLogoutModal(false)}
+          onConfirm={handleLogout}
+        />
+      )}
     </>
   );
 }
