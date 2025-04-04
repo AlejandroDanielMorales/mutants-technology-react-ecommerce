@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
 import "./Header.css";
 import Navbar from "../Navbar/Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,9 +7,9 @@ import { useUser } from "../../context/UserProvider";
 import UserSidebar from "../UserSidebar/UserSidebar";
 
 export default function Header() {
-  const { userName, userRole, } = useUser();
+  const { userName, userRole,isUserSidebarOpen, setIsUserSidebarOpen } = useUser();
   const { toggleCart, cartItems } = useOrder();
-  const [isUserSidebarOpen, setIsUserSidebarOpen] = useState(false);
+  
 
   const toggleUserSidebar = () => {
     setIsUserSidebarOpen(!isUserSidebarOpen);
@@ -43,7 +41,6 @@ export default function Header() {
         </div>
 
         <UserSidebar 
-          isOpen={isUserSidebarOpen} 
           onClose={closeUserSidebar}
         />
       </div>
