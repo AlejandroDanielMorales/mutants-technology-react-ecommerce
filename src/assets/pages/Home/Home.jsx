@@ -36,7 +36,7 @@ export default function Home() {
             
             {/* Secciones de productos */}
             <ProductsList 
-                title="El cerebro de tu sistema, potencia sin límites"
+                title="El cerebro de tu sistema"
                 products={filterProductsByCategory("Procesadores")} 
             />
             
@@ -51,12 +51,12 @@ export default function Home() {
             />
             
             <ProductsList 
-                title="Fuentes de Poder"
+                title="Potencia sin límites"
                 products={filterProductsByCategory("Fuentes de Poder")} 
             />
             
             <ProductsList 
-                title="Monitores"
+                title="Lo que ves es lo que hay"
                 products={filterProductsByCategory("Monitores")} 
             />
             

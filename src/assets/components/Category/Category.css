@@ -43,3 +43,17 @@
 .body-card-cat h5 {
     font-size: 0.7rem;
 }
+@media screen and (max-width: 780px) {
+    .card-category {
+        width: 100%;
+        flex-direction: row;
+    }
+    .body-card-cat {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-inline:auto;
+    }
+}
+    

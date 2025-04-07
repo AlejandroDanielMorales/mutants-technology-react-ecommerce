@@ -18,8 +18,7 @@
     .search-box {
         width: 35dvw;
         height: 5dvh;
-        padding-right: 30px;
-        padding-left:5px ; /* Espacio para el icono */
+       /* Espacio para el icono */
         box-sizing: border-box;
         border-radius:5px;
         color :black;
@@ -50,11 +49,15 @@
 
         padding-top: 4dvh;
         padding-bottom: 1dvh;
+        width: 100dvw;
+        margin-block: 5px;
+        padding: 0;
         align-items: center;
         justify-content: center;
         .search-box {
-            width: 50dvw;
-            height: 10dvh;
+            
+            width: 97dvw;
+            height: 5dvh;
         
         }
         

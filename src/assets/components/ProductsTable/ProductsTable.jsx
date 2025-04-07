@@ -68,13 +68,14 @@ export default function ProductsTable() {
     return (
         <div>
             <section className="table-head">
-            <button className="btn-add" onClick={() => setIsAddModalOpen(true)}>
-                <FontAwesomeIcon icon={faPlus} /> Agregar Producto
-            </button>
+            
 
             {isAddModalOpen && <AddProductModal closeModal={() => setIsAddModalOpen(false)} refreshProducts={getProducts} />}
 
                 <SearchBar />
+                <button className="btn-add" onClick={() => setIsAddModalOpen(true)}>
+                <FontAwesomeIcon icon={faPlus} /> Agregar Producto
+            </button>
             </section>
 
             <main className="main-container">
@@ -95,7 +96,9 @@ export default function ProductsTable() {
                 )}
 
                 {/* Tabla */}
+                
                 <div className="table-container">
+                
                     <table cellPadding="10" cellSpacing="0" className="table-products usrtbl">
                         <thead>
                             <tr>
@@ -116,6 +119,7 @@ export default function ProductsTable() {
                                     <td>{product.description}</td>
                                     <td>${product.price}</td>
                                     <td className="tool-cell tcp">
+                                    <div className="action-container">
                                         <button className="btn-edit" onClick={() => openEditModal(product.id)}>
                                             <FontAwesomeIcon icon={faEdit} size="2x" />
                                         </button>
@@ -123,6 +127,7 @@ export default function ProductsTable() {
                                         <button className="btn-delete" onClick={() => openConfirmModal(product.id)}>
                                             <FontAwesomeIcon icon={faTrash} size="2x" />
                                         </button>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}
