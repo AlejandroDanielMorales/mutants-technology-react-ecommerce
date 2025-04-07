@@ -7,8 +7,8 @@ import { useOrder } from "../../context/OrderContext";
 export default function ProductCard({ product}) {
     const  { onAddToCart }   = useOrder() ;
     return (
-        <div className="card-background" key={product.id}>
-            <article className="card">
+        <div className="card-background-2" key={product.id}>
+            <article className="card-2">
                 <img className="card-img" src={product.image} alt={product.name} />
                 <div className="card-body">
                     <h5 className="card-title">

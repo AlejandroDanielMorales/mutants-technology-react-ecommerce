@@ -3,7 +3,7 @@ import './Category.css';
 
 export default function Category({ title, subtitle, imageSrc, link }) {
   return (
-    <a href={link} className="enlace-div">
+    <a href={link}>
       <div className="card-category">
         <div className="icon-card-cat">
           <img src={imageSrc} alt="" />

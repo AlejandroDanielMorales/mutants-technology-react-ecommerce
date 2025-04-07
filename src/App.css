@@ -5,6 +5,7 @@
   --color-secundario: #2E3239;
   --color-terciario: #1c1e1f;
   --color-hoverlinks: #5F7ADB;
+  --color-hoverlinks-deg: hsla(227, 63%, 62%, 0.244);
   --color-text: #A2B2EE;
   --border-radius: 5px;
 }

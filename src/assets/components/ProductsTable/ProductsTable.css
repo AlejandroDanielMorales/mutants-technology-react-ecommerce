@@ -1,7 +1,7 @@
 @import '../ProductCard/ProductCard.css';
 
 .table-container {
-    width: 100%;
+    width: 90%;
     height: 90dvh;
     overflow-x: auto;
     padding: 2px;
@@ -24,8 +24,8 @@
     }
 }
 .table-head{
-    padding-top:5dvh;
-    width:90%;
+    
+    width:100%;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -87,12 +87,15 @@ td {
     }
 
 }
+.action-container {
+    display:flex;
+    flex-direction: row;
+   
+}
 .tool-cell {
-    display: flex;
-    justify-content: space-around;
-    height: 150px;
-    align-items: center;
 
+    height:100%;
+    max-height: fit-content;
     i {
         background-color: var(--color-terciario);
         font-size: 18px;
@@ -145,7 +148,27 @@ h1 {
 html {
     overflow-x: auto;
 }
-
+.btn-add {
+    width: 97%;
+    font-size: 1rem;
+    border-radius: 3px;
+    height:50px;
+    margin:5px;
+    background-color:var(--color-hoverlinks);
+    svg {
+        color: var(--color-principal);
+        padding: 2px;
+        width: auto;
+    }
+}
+.btn-icon {
+    color: var(--color-principal);
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+}
 @media screen and (min-width: 780px) {
     .table-head{
         padding-top:5dvh;

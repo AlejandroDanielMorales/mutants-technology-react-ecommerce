@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './UsersTable.css';
+import '../ProductsTable/ProductsTable.css';
 import { faEdit, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SearchBar from '../SearchBar/SearchBar';
@@ -63,13 +63,14 @@ export default function UsersTable() {
     }, []);
 
     return (
-        <div>
+        <div className="table-container">
             <section className="table-head">
+               
+                {isAddModalOpen && <AddUserModal closeModal={() => setIsAddModalOpen(false)} refreshUsers={getUsers} />}
+                <SearchBar />
                 <button className="btn-add" onClick={() => setIsAddModalOpen(true)}>
                     <FontAwesomeIcon icon={faPlus} /> Agregar Usuario
                 </button>
-                {isAddModalOpen && <AddUserModal closeModal={() => setIsAddModalOpen(false)} refreshUsers={getUsers} />}
-                <SearchBar />
             </section>
 
             <main className="main-container">
@@ -112,6 +113,7 @@ export default function UsersTable() {
                                     <td>{user.email}</td>
                                     <td>{user.country}</td>
                                     <td className="tool-cell">
+                                        <div className="action-container">
                                         <button className="btn-edit" onClick={() => openEditModal(user.id)}>
                                             <FontAwesomeIcon icon={faEdit} size="2x" />
                                         </button>
@@ -119,6 +121,7 @@ export default function UsersTable() {
                                         <button className="btn-delete" onClick={() => openConfirmModal(user.id)}>
                                             <FontAwesomeIcon icon={faTrash} size="2x" />
                                         </button>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}
