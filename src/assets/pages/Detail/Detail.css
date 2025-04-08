@@ -29,7 +29,7 @@ em {
 
     border-radius: 20px;
 
-    .card-background-2 {
+    .card-background-3 {
         margin-block: 20px;
         border-radius: 20px;
         padding-block: 20px;
@@ -129,7 +129,7 @@ em {
             }
         }
 
-        .card-btn-2 {
+        .card-btn-3 {
             height: auto;
             width: auto;
             padding: 5px;

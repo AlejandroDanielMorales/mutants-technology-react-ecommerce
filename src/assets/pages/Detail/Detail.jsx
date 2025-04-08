@@ -4,6 +4,7 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faChevronRight, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { useOrder } from "../../context/OrderContext";
+import Swal from "sweetalert2";
 import "./Detail.css";
 
 export default function Detail() {
@@ -39,34 +40,67 @@ export default function Detail() {
 
     const handleAddToCart = () => {
         if (product) {
+            // Verificamos si la cantidad excede el límite
+            if (quantity > 10) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Cantidad excedida',
+                    text: 'No puedes agregar más de 10 unidades de este producto.',
+                    confirmButtonText: 'Aceptar'
+                });
+                return; // Si la cantidad excede 10, no hacemos nada más
+            }
+
             const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
             const existingItemIndex = cart.findIndex(item => item.id === product.id);
             let newQuantity = quantity;
-
+    
             if (existingItemIndex !== -1) {
                 newQuantity = cart[existingItemIndex].quantity + quantity;
-            }
-
-            if (newQuantity > 10) {
-                alert("No puedes agregar más de 10 unidades de este producto.");
-                return;
-            }
-
-            if (existingItemIndex !== -1) {
+    
+                // Verificamos si la cantidad combinada excede el límite
+                if (newQuantity > 10) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Cantidad excedida',
+                        text: 'No puedes agregar más de 10 unidades de este producto.',
+                        confirmButtonText: 'Aceptar'
+                    });
+                    return;
+                }
+    
                 cart[existingItemIndex].quantity = newQuantity;
             } else {
                 cart.push({ ...product, quantity });
             }
-
+    
             localStorage.setItem("cartItems", JSON.stringify(cart));
+
             onAddToCart({ ...product, quantity });
         }
     };
-
+    
     const handleConfirmAdd = () => {
+        // Aseguramos que la cantidad y el producto sean los correctos al confirmar
+        if (!verifyQuantity(quantity)) return;
+
         confirmAddToCart({ ...selectedProduct, quantity });
         setIsAddModalOpen(false);
         setQuantity(1);
+    };
+
+    // Función para verificar la cantidad
+    const verifyQuantity = (newQuantity) => {
+        if (newQuantity > 10) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Cantidad excedida',
+                text: 'No puedes agregar más de 10 unidades de este producto.',
+                confirmButtonText: 'Aceptar'
+            });
+            return false; // No permite continuar si la cantidad excede 10
+        }
+        return true; // La cantidad es válida
     };
 
     if (!product) return <p>Cargando...</p>;
@@ -74,7 +108,7 @@ export default function Detail() {
     return (
         <main className="container cards-container-2">
             <h3 className="card-title-2"><em>{product.name}</em></h3>
-            <div className="card-background-2">
+            <div className="card-background-3">
                 <article className="card-detail-2">
                     <img className="card-img-2" src={product.image} alt={product.name} />
                     <div className="card-body-2">
@@ -89,7 +123,7 @@ export default function Detail() {
                             <h4><em>Cantidad</em></h4>
                             <div style={{ display: "flex", alignItems: "center", gap: "10px", margin: "10px 0" }}>
                                 <button 
-                                    className="card-btn2"
+                                    className="card-btn-3"
                                     onClick={handleDecrease}
                                     disabled={quantity === 1}
                                     style={{ width: "30px", height: "30px", borderRadius: "50%", padding: 0, display: "flex", alignItems: "center", justifyContent: "center" }}
@@ -100,7 +134,7 @@ export default function Detail() {
                                     {quantity}
                                 </span>
                                 <button 
-                                    className="card-btn2"
+                                    className="card-btn-3"
                                     onClick={handleIncrease}
                                     disabled={quantity === 10}
                                     style={{ width: "30px", height: "30px", borderRadius: "50%", padding: 0, display: "flex", alignItems: "center", justifyContent: "center" }}
@@ -111,12 +145,14 @@ export default function Detail() {
                         </div>
 
                         <div className="backdiv">
-                            <button onClick={() => window.history.back()} className="card-btn2">
+                            <button onClick={() => window.history.back()} className="card-btn-3"
+                                style={{ display: "flex", alignItems: "center", gap: "5px" }}
+                                >
                                 <FontAwesomeIcon className="btn-icon" icon={faPlus} size="1x" color="var(--color-principal)!important;"/>
                                 Volver
                             </button>
                             <button 
-                                className="card-btn2" 
+                                className="card-btn-3" 
                                 onClick={handleAddToCart}
                                 style={{ display: "flex", alignItems: "center", gap: "5px" }}
                             >

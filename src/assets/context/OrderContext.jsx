@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import Swal from "sweetalert2";
 
 const OrderContext = createContext();
 export const useOrder = () => useContext(OrderContext);
@@ -26,25 +27,66 @@ function OrderProvider({ children }) {
     localStorage.setItem("selectedProduct", JSON.stringify(product));
     setIsAddModalOpen(true);
   };
-
   const confirmAddToCart = (product) => {
+    // Aseguramos que product.quantity no sea null ni undefined
+    if (!product.quantity) {
+      product.quantity = 1;
+    }
+  
+    // Primero, validamos la cantidad antes de realizar cualquier otra acción
+    if (!verifyQuantity(product.quantity)) {
+      return; // Si la cantidad es inválida, no hacemos nada más
+    }
+  
     setCartItems((prevItems) => {
-        const existingItem = prevItems.find((item) => item.id === product.id);
-        
-        if (existingItem) {
-            // Si el producto ya existe, sumamos la nueva cantidad
-            return prevItems.map((item) =>
-                item.id === product.id 
-                    ? { ...item, quantity: item.quantity + product.quantity } 
-                    : item
-            );
-        } else {
-          product.quantity = product.quantity || 1; 
-            // Si es nuevo, lo agregamos con la cantidad especificada
-            return [...prevItems, { ...product }];
+      const existingItem = prevItems.find((item) => item.id === product.id);
+      let newQuantity = product.quantity;
+  
+      if (existingItem) {
+        // Si el producto ya existe, sumamos la nueva cantidad
+        newQuantity = existingItem.quantity + product.quantity;
+  
+        // Verificamos si la cantidad combinada es válida
+        if (!verifyQuantity(newQuantity)) {
+          return prevItems; // No modificamos el carrito si la cantidad excede el límite
         }
+  
+        // Actualizamos el carrito con la nueva cantidad
+        const updatedItems = prevItems.map((item) =>
+          item.id === product.id ? { ...item, quantity: newQuantity } : item
+        );
+  
+        // Guardamos el carrito actualizado en localStorage
+        localStorage.setItem("cartItems", JSON.stringify(updatedItems));
+  
+        return updatedItems;
+      } else {
+        // Si el producto no está en el carrito, lo agregamos con la cantidad especificada
+        const updatedItems = [...prevItems, { ...product }];
+        
+        // Guardamos el carrito actualizado en localStorage
+        localStorage.setItem("cartItems", JSON.stringify(updatedItems));
+  
+        return updatedItems;
+      }
     });
-};
+  };
+  
+  // Función para verificar la cantidad
+  const verifyQuantity = (newQuantity) => {
+    if (newQuantity > 10) {
+      // Si la cantidad es mayor a 10, disparamos el SweetAlert
+      Swal.fire({
+        icon: 'warning',
+        title: 'Cantidad excedida',
+        text: 'No puedes agregar más de 10 unidades de este producto.',
+        confirmButtonText: 'Aceptar'
+      });
+      return false; // Devuelve false si la cantidad no es válida
+    }
+    return true; // Si la cantidad es válida, devuelve true
+  };
+  
 
   const handleRemoveFromCart = (product) => {
     setSelectedProduct(product);
