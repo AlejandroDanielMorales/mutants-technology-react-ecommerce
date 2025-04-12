@@ -39,7 +39,7 @@ function OrderProvider({ children }) {
     }
   
     setCartItems((prevItems) => {
-      const existingItem = prevItems.find((item) => item.id === product.id);
+      const existingItem = prevItems.find((item) => item._id === product._id);
       let newQuantity = product.quantity;
   
       if (existingItem) {
@@ -53,7 +53,7 @@ function OrderProvider({ children }) {
   
         // Actualizamos el carrito con la nueva cantidad
         const updatedItems = prevItems.map((item) =>
-          item.id === product.id ? { ...item, quantity: newQuantity } : item
+          item._id === product._id ? { ...item, quantity: newQuantity } : item
         );
   
         // Guardamos el carrito actualizado en localStorage
@@ -97,7 +97,7 @@ function OrderProvider({ children }) {
     if (!selectedProduct) return;
 
     setCartItems((prevItems) =>
-      prevItems.filter((item) => item.id !== selectedProduct.id)
+      prevItems.filter((item) => item._id !== selectedProduct._id)
     );
   };
 

@@ -21,7 +21,7 @@ export default function Detail() {
                 
                 // Buscar el producto en el carrito
                 const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
-                const existingItem = cart.find(item => item.id === response.data.id);
+                const existingItem = cart.find(item => item._id === response.data._id);
                 
                 // Si el producto está en el carrito, cargar la cantidad guardada
                 if (existingItem) {
@@ -53,7 +53,7 @@ export default function Detail() {
             }
 
             const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
-            const existingItemIndex = cart.findIndex(item => item.id === product.id);
+            const existingItemIndex = cart.findIndex(item => item._id === product._id);
             let newQuantity = quantity;
     
             if (existingItemIndex !== -1) {
