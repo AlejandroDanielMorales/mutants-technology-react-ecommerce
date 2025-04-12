@@ -1,37 +1,26 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "./LoginForm.css"; // Estilos para el formulario
+import { useUser } from "../../context/UserProvider"; // Asegurate del path
+import "./LoginForm.css";
 
-export default function LoginForm({ onLoginSuccess }) {
+export default function LoginForm() {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
+  const { login } = useUser(); // 👈 Usamos el contexto
 
   const onSubmit = async (data) => {
-    try {
-      const response = await axios.get(
-        "https://67d4cb0dd2c7857431ee920f.mockapi.io/user"
-      );
-      const user = response.data.find(
-        (user) =>
-          user.email === data.email && user.password === data.password
-      );
-  
-      if (user) {
-        onLoginSuccess(user.name, user.rol);
-        navigate("/"); 
-      } else {
-        setLoginError("Correo o contraseña incorrectos");
-      }
-    } catch (error) {
-      console.error("Error al iniciar sesión", error);
-      setLoginError("Error al conectar con el servidor");
+    const result = await login(data.email, data.password);
+    if (result.success) {
+      navigate("/"); // Redirigimos al home
+    } else {
+      setLoginError(result.error);
     }
   };
 
@@ -70,7 +59,6 @@ export default function LoginForm({ onLoginSuccess }) {
         <button type="submit" className="login-button">
           Iniciar sesión
         </button>
-        
       </form>
     </div>
   );
