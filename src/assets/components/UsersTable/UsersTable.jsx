@@ -114,11 +114,11 @@ export default function UsersTable() {
                                     <td>{user.country}</td>
                                     <td className="tool-cell">
                                         <div className="action-container">
-                                        <button className="btn-edit" onClick={() => openEditModal(user.id)}>
+                                        <button className="btn-edit" onClick={() => openEditModal(user._id)}>
                                             <FontAwesomeIcon icon={faEdit} size="2x" />
                                         </button>
 
-                                        <button className="btn-delete" onClick={() => openConfirmModal(user.id)}>
+                                        <button className="btn-delete" onClick={() => openConfirmModal(user._id)}>
                                             <FontAwesomeIcon icon={faTrash} size="2x" />
                                         </button>
                                         </div>

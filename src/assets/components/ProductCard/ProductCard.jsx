@@ -29,7 +29,7 @@ export default function ProductCard({ product}) {
                         ))}
                     </div>
                     <div className="card-actions">
-                        <NavLink to={`/detail/${product.id}`} className="card-btn2">
+                        <NavLink to={`/detail/${product._id}`} className="card-btn2">
                             <FontAwesomeIcon icon={faEye} className="btn-icon2" size="1x" color="#2E3239" />
                         </NavLink>
                         <button className="card-btn2" onClick={() => {onAddToCart(product)}}>

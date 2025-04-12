@@ -12,9 +12,10 @@ export default function Detail() {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
     const [quantity, setQuantity] = useState(1);
+    const url = "http://localhost:3000/api/products";
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/api/products/${id}`)
+        axios.get(`${url}/${id}`)
             .then(response => {
                 setProduct(response.data);
                 

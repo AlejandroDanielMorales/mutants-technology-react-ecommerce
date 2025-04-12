@@ -9,10 +9,12 @@ import ProductsList from '../../components/ProductsList/ProductsList';
 export default function Home() {
     const [products, setProducts] = useState([]);
     const url = "http://localhost:3000/api/products";
+    
 
     const getProducts = async () => {
         try {
             const response = await axios.get(url);
+            console.log(response.data);
             setProducts(response.data);
         } catch (error) {
             console.error("Error fetching products:", error);

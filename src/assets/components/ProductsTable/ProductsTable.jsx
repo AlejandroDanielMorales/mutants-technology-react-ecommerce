@@ -120,11 +120,11 @@ export default function ProductsTable() {
                                     <td>${product.price}</td>
                                     <td className="tool-cell tcp">
                                     <div className="action-container">
-                                        <button className="btn-edit" onClick={() => openEditModal(product.id)}>
+                                        <button className="btn-edit" onClick={() => openEditModal(product._id)}>
                                             <FontAwesomeIcon icon={faEdit} size="2x" />
                                         </button>
 
-                                        <button className="btn-delete" onClick={() => openConfirmModal(product.id)}>
+                                        <button className="btn-delete" onClick={() => openConfirmModal(product._id)}>
                                             <FontAwesomeIcon icon={faTrash} size="2x" />
                                         </button>
                                         </div>
