@@ -10,7 +10,7 @@ export default function AddUserModal({ closeModal, refreshUsers }) {
 
     const onSubmit = async (data) => {
         try {
-            await axios.post("https://67d4cb0dd2c7857431ee920f.mockapi.io/user", data);
+            await axios.post("http://localhost:3000/api/users", data);
             refreshUsers();
             closeModal();
             reset();

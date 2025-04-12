@@ -8,7 +8,7 @@ import ProductsList from '../../components/ProductsList/ProductsList';
 
 export default function Home() {
     const [products, setProducts] = useState([]);
-    const url = "https://67d4cb0dd2c7857431ee920f.mockapi.io/products";
+    const url = "http://localhost:3000/api/products";
 
     const getProducts = async () => {
         try {

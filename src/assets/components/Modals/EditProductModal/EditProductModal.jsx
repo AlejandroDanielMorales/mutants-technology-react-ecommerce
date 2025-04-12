@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 
 export default function EditProductModal({ closeModal, productId, refreshProducts }) {
-    const url = "https://67d4cb0dd2c7857431ee920f.mockapi.io/products";
+    const url = "http://localhost:3000/api/products";
 
     const { register, handleSubmit, setValue, reset } = useForm();
 

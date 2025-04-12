@@ -15,7 +15,7 @@ export default function UsersTable() {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
 
-    const url = "https://67d4cb0dd2c7857431ee920f.mockapi.io/user";
+    const url = "http://localhost:3000/api/users";
 
     // Obtener lista de usuarios
     const getUsers = async () => {

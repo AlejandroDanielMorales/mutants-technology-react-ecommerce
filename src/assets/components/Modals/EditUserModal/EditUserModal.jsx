@@ -11,7 +11,7 @@ export default function EditUserModal({ closeModal, userId, refreshUsers }) {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await axios.get(`https://67d4cb0dd2c7857431ee920f.mockapi.io/user/${userId}`);
+                const response = await axios.get(`http://localhost:3000/api/users/${userId}`);
                 const data = response.data;
                 Object.keys(data).forEach((key) => setValue(key, data[key]));
             } catch (error) {

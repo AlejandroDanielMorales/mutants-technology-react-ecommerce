@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../../context/UserProvider"; // Asegurate del path
+import { useUser } from "../../context/UserProvider"; 
 import "./LoginForm.css";
 
 export default function LoginForm() {
@@ -13,7 +13,7 @@ export default function LoginForm() {
 
   const [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
-  const { login } = useUser(); // 👈 Usamos el contexto
+  const { login } = useUser(); 
 
   const onSubmit = async (data) => {
     const result = await login(data.email, data.password);

@@ -14,7 +14,7 @@ export default function Detail() {
     const [quantity, setQuantity] = useState(1);
 
     useEffect(() => {
-        axios.get(`https://67d4cb0dd2c7857431ee920f.mockapi.io/products/${id}`)
+        axios.get(`http://localhost:3000/api/products/${id}`)
             .then(response => {
                 setProduct(response.data);
                 

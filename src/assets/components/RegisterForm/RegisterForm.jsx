@@ -39,7 +39,7 @@ export default function RegisterForm() {
                         };
 
                         const response = await axios.post(
-                                "https://67d4cb0dd2c7857431ee920f.mockapi.io/user",
+                                "http://localhost:3000/api/users",
                                 newUser
                         );
 

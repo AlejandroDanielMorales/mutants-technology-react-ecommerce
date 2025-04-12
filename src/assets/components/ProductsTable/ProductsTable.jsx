@@ -15,7 +15,7 @@ export default function ProductsTable() {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
 
-    const url = "https://67d4cb0dd2c7857431ee920f.mockapi.io/products";
+    const url = "http://localhost:3000/api/products";
 
     // Obtener lista de productos
     const getProducts = async () => {
