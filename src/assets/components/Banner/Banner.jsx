@@ -12,7 +12,7 @@ export default function Banner() {
             </div>
             <div className="tittle-container">
                 <h1>Mutants technologies</h1>
-                <h2>Los mejores amigos de tu pc</h2>
+                <h2 >Los mejores amigos de tu pc</h2>
             </div>
         </section>
    

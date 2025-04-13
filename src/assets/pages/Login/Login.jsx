@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Swal from "sweetalert2";
 import LoginForm from "../../components/LoginForm/LoginForm";
+import "./Login.css";
 
 export default function Login({ onLoginSuccess }) {
   useEffect(() => {
@@ -16,8 +17,15 @@ export default function Login({ onLoginSuccess }) {
   }, []);
 
   return (
-    <main className="container">
-      <LoginForm onLoginSuccess={onLoginSuccess} />
+
+
+<main class="container login-container">
+  <div class="login-content">
+  <LoginForm onLoginSuccess={onLoginSuccess} />
+  </div>
+
+
+     
     </main>
   );
 }

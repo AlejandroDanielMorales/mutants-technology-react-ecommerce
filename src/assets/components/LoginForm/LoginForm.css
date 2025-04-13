@@ -2,20 +2,26 @@
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--color-principal);
     border-radius: 8px;
-    background-color: #f9f9f9;
+    background-color:var(--color-terciario);
+     box-shadow: 0 0 50px  rgba(0, 0, 0, 0.5);
   }
-  
+  .subtitle {
+    text-align: center;
+    margin-bottom: 20px;
+  }
   .input-group-lg {
-    margin-bottom: 15px;
+    margin: 10px 0 5px;
   }
   
-  .input-group input {
+  .input-group-lg input {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
+    background-color:var(--color-secundario);;
+    border: 1px solid var(--color-secundario);
     border-radius: 4px;
+    color: var(--color-text)
   }
   
   .error {
@@ -26,13 +32,32 @@
   .login-button {
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
+    background-color: var(--color-hoverlinks);
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    margin: 5px 0;
   }
   
   .login-button:hover {
     background-color: #0056b3;
   }
+
+  
+  .register-link {
+    margin-top: 15px;
+    font-size: 14px;
+    text-align: center;
+    color: #ccc;
+  }
+  
+  .register-link a {
+    color: #9f7aea;
+    text-decoration: none;
+  }
+  
+  .register-link a:hover {
+    text-decoration: underline;
+  }
+ 

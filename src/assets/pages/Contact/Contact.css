@@ -1,0 +1,32 @@
+.contact-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80dvh;
+    background-image: url('https://i.pinimg.com/564x/19/67/16/196716f77265a2f59c94d1b09fb12385.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+  
+  /* Si querés el efecto de desenfoque solo en el fondo, podés usar un overlay separado */
+  .contact-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: inherit;
+    background-size: cover;
+    background-position: center;
+    filter: blur(5px);
+    z-index: 1;
+  }
+  
+  /* Para que el contenido se vea arriba del blur */
+  .contact-content {
+    position: relative;
+    z-index: 2;
+  }
+  

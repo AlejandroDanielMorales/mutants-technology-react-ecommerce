@@ -4,6 +4,7 @@
     border-radius: 20px;
     padding-block: 20px;
     background: linear-gradient(90deg, #5F7ADB, #A2B2EE);
+    box-shadow: 0 0 50px  rgba(0, 0, 0, 0.5);
 }
 
 .form {
@@ -62,6 +63,7 @@
 
     .input-box {
         background-color: #2E3239;
+        color: var(--color-text);
         border-radius: 5px;
         margin-block: 10px;
         border: none;

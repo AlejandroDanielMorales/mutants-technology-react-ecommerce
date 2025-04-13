@@ -1,32 +1,33 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./RegisterForm.css";
 import { NavLink } from "react-router-dom";
-import RegisterUserModal from "../Modals/RegisterUserModal/RegisterUserModal"; //  Importar el modal
+import RegisterUserModal from "../Modals/RegisterUserModal/RegisterUserModal"; 
 
 export default function RegisterForm() {
         const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
-        const [formData, setFormData] = useState(null); // Guarda temporalmente los datos
+        const [formData, setFormData] = useState(null); 
+        const navigate = useNavigate();
         const {
                 register,
-                handleSubmit,
+                handleSubmit,reset,
                 formState: { errors },
         } = useForm();
 
+
         const openConfirmModal = (data) => {
-                console.log("Abriendo modal...", data); // Debug
-                setFormData(data); // Guarda los datos antes de abrir el modal
+                setFormData(data); 
                 setRegisterModalOpen(true);
         };
 
         const closeModals = () => {
-                console.log("Cerrando modal..."); // Debug
                 setRegisterModalOpen(false);
         };
 
         const onSubmit = async () => {
-                if (!formData) return; // Evita errores si el modal se cierra sin datos
+                if (!formData) return;
                 try {
                         const newUser = {
                                 createdAt: new Date().toISOString(),
@@ -36,7 +37,9 @@ export default function RegisterForm() {
                                 country: formData.country,
                                 email: formData.email,
                                 password: formData.password,
+                                isLogged: false,
                         };
+
 
                         const response = await axios.post(
                                 "http://localhost:3000/api/users",
@@ -44,7 +47,9 @@ export default function RegisterForm() {
                         );
 
                         console.log("Registro exitoso", response.data);
-                        closeModals(); // Cierra el modal después del registro
+                        reset();
+                        closeModals(); 
+                        navigate("/Login"); 
                 } catch (error) {
                         console.error("Error en el registro", error);
                 }

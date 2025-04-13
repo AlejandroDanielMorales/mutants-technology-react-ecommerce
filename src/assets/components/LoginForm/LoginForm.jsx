@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { useUser } from "../../context/UserProvider"; 
+import { useNavigate, Link } from "react-router-dom";
+import { useUser } from "../../context/UserProvider";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import "./LoginForm.css";
 
 export default function LoginForm() {
@@ -11,22 +13,23 @@ export default function LoginForm() {
     formState: { errors },
   } = useForm();
 
-  const [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
-  const { login } = useUser(); 
+  const { login } = useUser();
+  const [loginError, setLoginError] = useState("");
 
   const onSubmit = async (data) => {
     const result = await login(data.email, data.password);
     if (result.success) {
-      navigate("/"); // Redirigimos al home
+      navigate("/");
     } else {
       setLoginError(result.error);
     }
   };
 
+
   return (
     <div className="login-form-container">
-      <h2>Iniciar sesión</h2>
+      <h2 className="subtitle">Iniciar sesión</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="input-group-lg">
           <input
@@ -43,7 +46,7 @@ export default function LoginForm() {
           {errors.email && <p className="error">{errors.email.message}</p>}
         </div>
 
-        <div className="input-group">
+        <div className="input-group-lg password-wrapper">
           <input
             type="password"
             placeholder="Contraseña"
@@ -51,6 +54,7 @@ export default function LoginForm() {
               required: "La contraseña es obligatoria",
             })}
           />
+          
           {errors.password && <p className="error">{errors.password.message}</p>}
         </div>
 
@@ -60,6 +64,10 @@ export default function LoginForm() {
           Iniciar sesión
         </button>
       </form>
+
+      <p className="register-link">
+        ¿No estás registrado? <Link to="/register">Crear cuenta</Link>
+      </p>
     </div>
   );
 }

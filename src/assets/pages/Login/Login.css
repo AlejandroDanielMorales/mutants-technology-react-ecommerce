@@ -1,0 +1,32 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80dvh;
+    background-image: url('https://png.pngtree.com/thumb_back/fw800/background/20230720/pngtree-d-render-of-gaming-setup-mechanical-keyboard-led-lights-mouse-and-image_3713058.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+  
+  /* Si querés el efecto de desenfoque solo en el fondo, podés usar un overlay separado */
+  .login-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: inherit;
+    background-size: cover;
+    background-position: center;
+    filter: blur(5px);
+    z-index: 1;
+  }
+  
+  /* Para que el contenido se vea arriba del blur */
+  .login-content {
+    position: relative;
+    z-index: 2;
+  }
+  
