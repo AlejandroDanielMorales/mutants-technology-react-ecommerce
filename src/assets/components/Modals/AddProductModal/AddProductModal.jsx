@@ -49,6 +49,21 @@ export default function AddProductModal({ closeModal, refreshProducts }) {
                         {errors.price && <p className="error-message">{errors.price.message}</p>}
                     </div>
 
+
+                    <div>
+                        <label>Categoría:</label>
+                        <select {...register("category", { required: "La categoría es obligatoria" })}>
+                            <option value="">Seleccione una categoría</option>
+                            <option value="Procesadores">Procesadores</option>
+                            <option value="Memorias RAM">Memorias RAM</option>
+                            <option value="Tarjetas Gráficas">Tarjetas Gráficas</option>
+                            <option value="Fuentes de Poder">Fuentes de Poder</option>
+                            <option value="Monitores">Monitores</option>
+                        </select>
+                        {errors.category && <p className="error-message">{errors.category.message}</p>}
+                    </div>
+                    
+
                     <div>
                         <label>Imagen (URL):</label>
                         <input 
