@@ -7,15 +7,18 @@ export const useUser = () => useContext(UserContext);
 function UserProvider({ children }) {
   const [userName, setUserName] = useState("");
   const [userRole, setUserRole] = useState("");
+  const [userProfilePicture, setUserProfilePicture] = useState("");
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isUserSidebarOpen, setIsUserSidebarOpen] = useState(false);
 
   useEffect(() => {
     const storedUserName = localStorage.getItem("userName");
     const storedUserRole = localStorage.getItem("userRole");
+    const storedUserProfilePicture = localStorage.getItem("userProfilePicture");
     if (storedUserName && storedUserRole) {
       setUserName(storedUserName);
       setUserRole(storedUserRole);
+      setUserProfilePicture(storedUserProfilePicture);
     }
   }, []);
 
@@ -25,6 +28,7 @@ function UserProvider({ children }) {
   const handleLoginSuccess = (name, role) => {
     setUserName(name);
     setUserRole(role);
+    setUserProfilePicture(localStorage.getItem("userProfilePicture"));
     localStorage.setItem("userName", name);
     localStorage.setItem("userRole", role);
   };
@@ -32,8 +36,10 @@ function UserProvider({ children }) {
   const handleLogout = () => {
     setUserName("");
     setUserRole("");
+    setUserProfilePicture("");
     localStorage.removeItem("userName");
     localStorage.removeItem("userRole");
+    localStorage.removeItem("userProfilePicture");
     setShowLogoutModal(false);
     setIsUserSidebarOpen(false);
   };
@@ -52,9 +58,12 @@ const login = async (email, password) => {
     localStorage.setItem("token", token);
     localStorage.setItem("userName", user.name);
     localStorage.setItem("userRole", user.role);
+    localStorage.setItem("userProfilePicture", user.profilePicture);
+
 
     setUserName(user.name);
     setUserRole(user.role);
+    setUserProfilePicture(user.profilePicture);
 
     return { success: true };
   } catch (error) {
@@ -78,7 +87,8 @@ const login = async (email, password) => {
       setShowLogoutModal,
       isUserSidebarOpen, 
       setIsUserSidebarOpen,
-      login, // Añade la función login aquí
+      login,
+      userProfilePicture,
     }}>
       {children}
     </UserContext.Provider>

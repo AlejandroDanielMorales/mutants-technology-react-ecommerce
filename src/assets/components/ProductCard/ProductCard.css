@@ -160,7 +160,7 @@ svg,i,a {
     width:auto;
 }
 
-@media screen and (width < 650px)  {
+@media screen and (width < 950px)  {
     .card-background-2{
         width: 42dvw;
         max-width:42dvw ;

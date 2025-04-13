@@ -114,11 +114,3 @@
     }
 }
 
-@media screen and (min-width: 781px) and (max-width: 1200px) {
-    .product-list-section ,
-    .main-section {
-        width: 85%;
-        
-    }
-    
-}

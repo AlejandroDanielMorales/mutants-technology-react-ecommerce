@@ -7,7 +7,7 @@ import { useUser } from "../../context/UserProvider";
 import UserSidebar from "../UserSidebar/UserSidebar";
 
 export default function Header() {
-  const { userName, userRole,isUserSidebarOpen, setIsUserSidebarOpen } = useUser();
+  const { userName, userRole,isUserSidebarOpen, setIsUserSidebarOpen,userProfilePicture } = useUser();
   const { toggleCart, cartItems } = useOrder();
   
 
@@ -29,7 +29,7 @@ export default function Header() {
       <Navbar userRole={userRole} />
 
       <div className="user-info">
-        {userName && <span className="user-name">{userName}</span>}
+
 
         <div className="cart-container" onClick={toggleCart}>
           <FontAwesomeIcon icon={faCartShopping} size="2x" />
@@ -37,8 +37,22 @@ export default function Header() {
         </div>
 
         <div className="user-icon" onClick={toggleUserSidebar}>
-          <FontAwesomeIcon icon={faUserAstronaut} size="2x" />
+        {userName ? (
+        <img className="profile-pic"
+        src={userProfilePicture}
+        alt="Foto de perfil"
+        onError={(e) => {
+          e.target.onerror = null; // para evitar loops infinitos
+          e.target.src = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"; // ruta de la imagen por defecto
+        }}
+      />
+      
+      ) : (
+        <FontAwesomeIcon icon={faUserAstronaut} size="2x" />
+      )}
+
         </div>
+
 
         <UserSidebar 
           onClose={closeUserSidebar}

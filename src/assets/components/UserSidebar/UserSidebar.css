@@ -27,6 +27,10 @@
   .sidebar-header {
     padding: 20px;
     border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
   }
   
   .user-greeting {
@@ -45,7 +49,15 @@
     padding: 15px 20px;
     border-bottom: 1px solid #eee;
   }
-  
+  .profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-image: url('/ruta/a/la/foto.jpg'); /* cambiá esto por el path real */
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+  }
   .sidebar-link {
     display: flex;
     align-items: center;

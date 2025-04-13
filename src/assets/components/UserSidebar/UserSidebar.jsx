@@ -7,7 +7,7 @@ import LogoutModal from "../../components/Modals/LogoutModal/LogoutModal"; // As
 import './UserSidebar.css';
 
 export default function UserSidebar({ onClose }) {
-  const { userName, isLoggedIn, handleLogout ,showLogoutModal, setShowLogoutModal,isUserSidebarOpen} = useUser();
+  const { userName, isLoggedIn, handleLogout ,showLogoutModal, setShowLogoutModal,isUserSidebarOpen,userProfilePicture} = useUser();
   
 
   return (
@@ -17,8 +17,18 @@ export default function UserSidebar({ onClose }) {
       
       <div className={`user-sidebar ${isUserSidebarOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
-          {isLoggedIn ? (
+            
+          {isLoggedIn ? (<>
+            <img className="profile-pic"
+        src={userProfilePicture}
+        alt="Foto de perfil"
+        onError={(e) => {
+          e.target.onerror = null; // para evitar loops infinitos
+          e.target.src = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"; // ruta de la imagen por defecto
+        }}
+      />
             <div className="user-greeting">Hola, {userName}</div>
+            </>
           ) : (
             <div className="user-greeting">Bienvenido</div>
           )}
