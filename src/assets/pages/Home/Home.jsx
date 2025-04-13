@@ -38,26 +38,31 @@ export default function Home() {
             
             {/* Secciones de productos */}
             <ProductsList 
+                ref="Procesadores"
                 title="El cerebro de tu sistema"
                 products={filterProductsByCategory("Procesadores")} 
             />
             
             <ProductsList 
+                ref="Ram"
                 title="Memoria para rato"
                 products={filterProductsByCategory("Memorias RAM")} 
             />
             
             <ProductsList 
+                ref="Placas"
                 title="Placas de video"
                 products={filterProductsByCategory("Tarjetas Gráficas")} 
             />
             
             <ProductsList 
+                ref="Fuentes"
                 title="Potencia sin límites"
                 products={filterProductsByCategory("Fuentes de Poder")} 
             />
             
             <ProductsList 
+                ref="Monitores"
                 title="Lo que ves es lo que hay"
                 products={filterProductsByCategory("Monitores")} 
             />
