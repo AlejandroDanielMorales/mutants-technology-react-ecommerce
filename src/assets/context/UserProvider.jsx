@@ -7,11 +7,13 @@ export const useUser = () => useContext(UserContext);
 function UserProvider({ children }) {
   const [userName, setUserName] = useState("");
   const [userRole, setUserRole] = useState("");
-<<<<<<< Updated upstream
+
   const [userProfilePicture, setUserProfilePicture] = useState("");
-=======
+
   const [token, setToken] = useState("");
->>>>>>> Stashed changes
+
+
+
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isUserSidebarOpen, setIsUserSidebarOpen] = useState(false);
 
@@ -62,13 +64,13 @@ const login = async (email, password) => {
     localStorage.setItem("token", token);
     localStorage.setItem("userName", user.name);
     localStorage.setItem("userRole", user.role);
-<<<<<<< Updated upstream
+
     localStorage.setItem("userProfilePicture", user.profilePicture);
 
-
-=======
     setToken(token);
->>>>>>> Stashed changes
+
+    setToken(token);
+
     setUserName(user.name);
     setUserRole(user.role);
     setUserProfilePicture(user.profilePicture);
@@ -97,10 +99,7 @@ const login = async (email, password) => {
       isUserSidebarOpen, 
       setIsUserSidebarOpen,
       login,
-<<<<<<< Updated upstream
       userProfilePicture,
-=======
->>>>>>> Stashed changes
     }}>
       {children}
     </UserContext.Provider>
