@@ -7,19 +7,32 @@ import { faTimesCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 export default function AddProductModal({ closeModal, refreshProducts }) {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-
+    
     const onSubmit = async (data) => {
         try {
-            data.createdAt = new Date().toISOString(); // Agrega la fecha de creación
-            await axios.post("http://localhost:3000/api/products", data);
-            refreshProducts(); // Para actualizar la lista de productos
+            const formData = new FormData();
+            formData.append("image", data.image[0]); // Primer archivo
+            formData.append("createdAt", new Date().toISOString());
+            formData.append("description", data.description);
+            formData.append("category", data.category);
+            formData.append("rating", data.rating);
+            formData.append("name", data.name); // Otros campos que tengas
+            formData.append("price", data.price);
+    
+            await axios.post("http://localhost:3000/api/products", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+    
+            refreshProducts();
             closeModal();
-            reset(); // Resetea el formulario
+            reset();
         } catch (error) {
             console.error("Error al agregar producto:", error);
         }
     };
-
+    
     return (
         <div className="modal-overlay">
             <div className="modal-content">
@@ -62,20 +75,27 @@ export default function AddProductModal({ closeModal, refreshProducts }) {
                         </select>
                         {errors.category && <p className="error-message">{errors.category.message}</p>}
                     </div>
-                    
-
+                    <div>
+                    <label >Puntaje</label>
+                        <input 
+                            type="range"
+                            id="rating"
+                            min="1"
+                            max="5"
+                            step="1"
+                            {...register("rating", { required: "El puntaje es obligatorio" })}
+                        />
+                    </div>  
                     <div>
                         <label>Imagen (URL):</label>
                         <input 
-                            type="text" 
+                            type="file" 
+                            accept="image/*"
                             {...register("image", { 
-                                required: "La URL de la imagen es obligatoria",
-                                pattern: {
-                                    value: /^(ftp|http|https):\/\/[^ "]+$/,
-                                    message: "Ingrese una URL válida"
-                                }
-                            })} 
+                            required: "La imagen es obligatoria"
+                            })}
                         />
+
                         {errors.image && <p className="error-message">{errors.image.message}</p>}
                     </div>
 

@@ -9,7 +9,9 @@ export default function ProductCard({ product}) {
     return (
         <div className="card-background-2" key={product.id}>
             <article className="card-2">
-                <img className="card-img" src={product.image} alt={product.name} />
+
+                
+                <img className="card-img" src={"http://localhost:3000/api/uploads/products/" + product.image} alt={product.name} />
                 <div className="card-body">
                     <h5 className="card-title">
                         <em>{product.name}</em>

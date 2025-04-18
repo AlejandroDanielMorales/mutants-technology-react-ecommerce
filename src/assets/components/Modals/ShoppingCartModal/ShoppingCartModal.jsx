@@ -61,7 +61,7 @@ export default function ShoppingCartModal() {
                   <div key={`${item.id}-${index}`} className="cart-item">
                     <div className="cart-item-product">
                       <img 
-                        src={item.image} 
+                        src={"http://localhost:3000/api/uploads/products/" + item.image}
                         alt={item.name} 
                         className="cart-item-image" 
                       />

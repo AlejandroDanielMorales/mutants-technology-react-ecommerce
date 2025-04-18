@@ -111,7 +111,7 @@ export default function Detail() {
             <h3 className="card-title-2"><em>{product.name}</em></h3>
             <div className="card-background-3">
                 <article className="card-detail-2">
-                    <img className="card-img-2" src={product.image} alt={product.name} />
+                    <img className="card-img-2" src={"http://localhost:3000/api/uploads/products/" + product.image} alt={product.name} />
                     <div className="card-body-2">
                         <h4><em>Especificaciones Técnicas</em></h4>
                         <h4><em>Descripción</em></h4>

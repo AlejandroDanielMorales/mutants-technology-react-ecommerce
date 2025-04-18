@@ -113,7 +113,7 @@ export default function ProductsTable() {
                             {products.map((product) => (
                                 <tr key={product.id}>
                                     <td className="cell-image">
-                                        <img className="table-img" src={product.image} alt={product.name} />
+                                        <img className="table-img" src={"http://localhost:3000/api/uploads/products/" + product.image} alt={product.name} />
                                     </td>
                                     <td>{product.name}</td>
                                     <td>{product.description}</td>
