@@ -33,7 +33,7 @@ export default function ProductsList({ products, title , ref }) {
                 </button>
                 <div className="product-cards-container" ref={sectionRef}>
                     {products.map((product) => (
-                        <ProductCard key={product.id} product={product} />
+                        <ProductCard key={product._id} product={product} />
                     ))}
                 </div>
                 <button 

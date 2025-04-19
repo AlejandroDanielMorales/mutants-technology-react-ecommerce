@@ -1,9 +1,9 @@
 import React from 'react';
 import './Category.css';
 
-export default function Category({ title, subtitle, imageSrc, link }) {
+export default function Category({ key,title, subtitle, imageSrc}) {
   return (
-    <a href={link}>
+    <a href={key}>
       <div className="card-category">
         <div className="icon-card-cat">
           <img src={imageSrc} alt="" />
