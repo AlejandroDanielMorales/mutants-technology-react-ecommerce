@@ -26,7 +26,7 @@ export default function Home() {
   }, []);
 
   const filterProductsByCategory = (categoryName) => {
-    return products.filter(product => product.category === categoryName);
+    return products.filter(product => product.category.toLowerCase() === categoryName.toLowerCase());
   };
 
   return (
@@ -36,8 +36,8 @@ export default function Home() {
       <Categories />
 
       {categories.map((cat) => (
+        console.log(cat.name),
         <ProductsList
-          key={cat._id}
           ref={`main-section-${cat._id}`}
           title={cat.description || cat.name}
           products={filterProductsByCategory(cat.name)}

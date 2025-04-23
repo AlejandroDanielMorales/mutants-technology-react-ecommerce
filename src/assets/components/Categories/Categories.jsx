@@ -11,7 +11,6 @@ export default function Categories() {
       <div className="cat-container">
         {categories.map((cat) => (
           <Category
-            key={cat._id}
             title={cat.name}
             subtitle={cat.description}
             imageSrc={`http://localhost:3000/api/uploads/categories/${cat.image}`}
