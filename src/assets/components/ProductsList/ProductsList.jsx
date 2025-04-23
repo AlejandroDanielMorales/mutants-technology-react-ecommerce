@@ -5,7 +5,7 @@ import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { useRef } from 'react';
 import './ProductsList.css';
 
-export default function ProductsList({ products, title , ref }) {
+export default function ProductsList({ title , ref ,products }) {
     const sectionRef = useRef(null);
 
     const handleScroll = (direction) => {
@@ -19,7 +19,7 @@ export default function ProductsList({ products, title , ref }) {
     };
 
     return (
-        <div  id={`main-section-${ref}`} className="product-list-section">
+        <div  id={`${ref}`} className="product-list-section">
             {title && <h3>{title}</h3>}
             <section className="main-section">
 
@@ -32,8 +32,9 @@ export default function ProductsList({ products, title , ref }) {
                     <FontAwesomeIcon icon={faArrowLeft} size="1x" className='arrow-scroll'/>
                 </button>
                 <div className="product-cards-container" ref={sectionRef}>
+                    {products.length === 0 && <p>No products available</p>}
                     {products.map((product) => (
-                        <ProductCard key={product.id} product={product} />
+                        <ProductCard key={product._id} product={product} />
                     ))}
                 </div>
                 <button 

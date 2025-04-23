@@ -1,7 +1,7 @@
 import React from 'react';
 import './Category.css';
 
-export default function Category({ title, subtitle, imageSrc, link }) {
+export default function Category({ title, subtitle, imageSrc,link}) {
   return (
     <a href={link}>
       <div className="card-category">
