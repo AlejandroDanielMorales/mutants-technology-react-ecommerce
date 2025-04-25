@@ -5,7 +5,7 @@ import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { useRef } from 'react';
 import './ProductsList.css';
 
-export default function ProductsList({ title , ref ,products }) {
+export default function ProductsList({ refkey , title , products }) {
     const sectionRef = useRef(null);
 
     const handleScroll = (direction) => {
@@ -19,7 +19,7 @@ export default function ProductsList({ title , ref ,products }) {
     };
 
     return (
-        <div  id={`${ref}`} className="product-list-section">
+        <div  id={`main-section-${refkey}`} className="product-list-section">
             {title && <h3>{title}</h3>}
             <section className="main-section">
 

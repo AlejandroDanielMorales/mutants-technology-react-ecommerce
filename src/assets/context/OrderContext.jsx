@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const OrderContext = createContext();
 export const useOrder = () => useContext(OrderContext);
@@ -10,8 +11,21 @@ function OrderProvider({ children }) {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [products, setProducts] = useState([]);
+    
+    const url = "http://localhost:3000/api/products";
+  
+    const getProducts = async () => {
+      try {
+        const response = await axios.get(url);
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
 
   useEffect(() => {
+    getProducts();
     const storedCart = localStorage.getItem("cartItems");
     if (storedCart) setCartItems(JSON.parse(storedCart));
   }, []);
@@ -128,6 +142,8 @@ function OrderProvider({ children }) {
         handleRemoveFromCart,
         confirmRemoveFromCart,
         handleQuantityChange,
+        getProducts,
+        products,
       }}
     >
       {children}

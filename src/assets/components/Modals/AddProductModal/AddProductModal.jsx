@@ -1,5 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useCategories } from "../../../context/CategoryProvider"; // Asegúrate de tener un hook o función que te dé las categorías disponibles
+//                         "Content-Type": "multipart/form-data",
 import axios from "axios";
 import "../EditProductModal/EditProductModal.css"; // Reutiliza los estilos
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,6 +9,8 @@ import { faTimesCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 export default function AddProductModal({ closeModal, refreshProducts }) {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
+
+    const {categories} = useCategories(); // Asegúrate de tener un hook o función que te dé las categorías disponibles
     
     const onSubmit = async (data) => {
         try {
@@ -66,12 +70,11 @@ export default function AddProductModal({ closeModal, refreshProducts }) {
                     <div>
                         <label>Categoría:</label>
                         <select {...register("category", { required: "La categoría es obligatoria" })}>
-                            <option value="">Seleccione una categoría</option>
-                            <option value="Procesadores">Procesadores</option>
-                            <option value="Memorias RAM">Memorias RAM</option>
-                            <option value="Tarjetas Gráficas">Tarjetas Gráficas</option>
-                            <option value="Fuentes de Poder">Fuentes de Poder</option>
-                            <option value="Monitores">Monitores</option>
+                        {categories.map((cat) => (
+                            <option key={cat._id} value={cat.name}>
+                                {cat.name}
+                            </option>
+                        ))}
                         </select>
                         {errors.category && <p className="error-message">{errors.category.message}</p>}
                     </div>

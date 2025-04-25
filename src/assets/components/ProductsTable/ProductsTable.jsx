@@ -7,6 +7,10 @@ import SearchBar from '../SearchBar/SearchBar';
 import DeleteProductModal from '../Modals/DeleteProductModal/DeleteProductModal';
 import EditProductModal from '../Modals/EditProductModal/EditProductModal';
 import AddProductModal from '../Modals/AddProductModal/AddProductModal';
+import AddCategoryModal from '../Modals/AddCategoryModal/AddCategoryModal';
+
+import { useCategories } from '../../context/CategoryProvider';
+
 
 export default function ProductsTable() {
     const [products, setProducts] = useState([]);
@@ -14,10 +18,17 @@ export default function ProductsTable() {
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
+    const [isAddCategoryModalOpen, setIsAddCategoryModalOpen] = useState(false);
+    const {fetchCategories} = useCategories();
+
+    
 
     const url = "http://localhost:3000/api/products";
 
-    // Obtener lista de productos
+    const refreshCategories = () => {
+        fetchCategories();
+    };
+    
     const getProducts = async () => {
         try {
             const response = await axios.get(url);
@@ -63,6 +74,7 @@ export default function ProductsTable() {
 
     useEffect(() => {
         getProducts();
+        fetchCategories(); // Cargar categorías al inicio
     }, []);
 
     return (
@@ -75,6 +87,9 @@ export default function ProductsTable() {
                 <SearchBar />
                 <button className="btn-add" onClick={() => setIsAddModalOpen(true)}>
                 <FontAwesomeIcon icon={faPlus} /> Agregar Producto
+            </button>
+            <button className="btn-add" onClick={() => setIsAddCategoryModalOpen(true)}>
+                <FontAwesomeIcon icon={faPlus} /> Agregar Categoría 
             </button>
             </section>
 
@@ -94,6 +109,14 @@ export default function ProductsTable() {
                         refreshProducts={refreshProducts}
                     />
                 )}
+
+                {isAddCategoryModalOpen && (
+                    <AddCategoryModal 
+                        closeModal={() => setIsAddCategoryModalOpen(false)} 
+                        refreshCategories={refreshCategories} 
+                    />
+                )}
+
 
                 {/* Tabla */}
                 

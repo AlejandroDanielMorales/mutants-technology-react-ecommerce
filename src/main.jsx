@@ -5,7 +5,7 @@ import App from './App.jsx'
 import OrderProvider from "./assets/context/OrderContext.jsx"
 import UserProvider from './assets/context/UserProvider.jsx'
 import { BrowserRouter } from 'react-router-dom'
-import CategoryProvider from './assets/context/categoryProvider.jsx'
+import CategoryProvider from './assets/context/CategoryProvider.jsx'
 
 createRoot(document.getElementById('root')).render(
 

@@ -30,7 +30,7 @@ export function CategoryProvider({ children }) {
   };
 
   return (
-    <CategoryContext.Provider value={{ categories, setCategories}}>
+    <CategoryContext.Provider value={{ categories, setCategories,fetchCategories}}>
       {children}
     </CategoryContext.Provider>
   );

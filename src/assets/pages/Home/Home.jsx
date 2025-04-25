@@ -1,29 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import Banner from '../../components/Banner/Banner';
 import Features from '../../components/Features/Features';
 import Categories from '../../components/Categories/Categories';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import ProductsList from '../../components/ProductsList/ProductsList';
 import { useCategories } from '../../context/CategoryProvider';
+import { useOrder } from '../../context/OrderContext';
 
 export default function Home() {
-  const [products, setProducts] = useState([]);
   const { categories } = useCategories();
-  const url = "http://localhost:3000/api/products";
+  const { products} = useOrder();
+  
 
-  const getProducts = async () => {
-    try {
-      const response = await axios.get(url);
-      setProducts(response.data);
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    }
-  };
 
-  useEffect(() => {
-    getProducts();
-  }, []);
 
   const filterProductsByCategory = (categoryName) => {
     return products.filter(product => product.category.toLowerCase() === categoryName.toLowerCase());
@@ -35,14 +24,17 @@ export default function Home() {
       <SearchBar />
       <Categories />
 
-      {categories.map((cat) => (
-        console.log(cat.name),
-        <ProductsList
-          ref={`main-section-${cat._id}`}
-          title={cat.description || cat.name}
-          products={filterProductsByCategory(cat.name)}
-        />
-      ))}
+      {categories.map((cat) => {
+        const filteredProducts = filterProductsByCategory(cat.name);
+        console.log(cat._id);
+        return filteredProducts.length > 0 ? (
+          <ProductsList
+            refkey={cat._id}
+            title={cat.description || cat.name}
+            products={filteredProducts}
+          />
+        ) : null;
+      })}
 
       <Features />
     </>
