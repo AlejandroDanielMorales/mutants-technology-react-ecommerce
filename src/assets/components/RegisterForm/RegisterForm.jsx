@@ -25,36 +25,35 @@ export default function RegisterForm() {
         const closeModals = () => {
                 setRegisterModalOpen(false);
         };
-
         const onSubmit = async () => {
                 if (!formData) return;
                 try {
-                        const newUser = {
-                                createdAt: new Date().toISOString(),
-                                name: formData.name,
-                                profilePicture: formData.profilePicture[0]?.name || "default.jpg",
-                                rol: "usuario",
-                                country: formData.country,
-                                email: formData.email,
-                                password: formData.password,
-                                isLogged: false,
-                        };
-
-
+                        const dataToSend = new FormData();
+                        dataToSend.append("name", formData.name);
+                        dataToSend.append("rol", "user");
+                        dataToSend.append("email", formData.email);
+                        dataToSend.append("password", formData.password);
+                        dataToSend.append("country", formData.country);
+                        if (formData.profilePicture && formData.profilePicture[0]) {
+                        dataToSend.append("profilePicture", formData.profilePicture[0]); // archivo real
+                        }
                         const response = await axios.post(
                                 "http://localhost:3000/api/users",
-                                newUser
+                                dataToSend,  
+                                {
+                                        headers: {
+                                        "Content-Type": "multipart/form-data",
+                                        },
+                                }
                         );
-
                         console.log("Registro exitoso", response.data);
                         reset();
-                        closeModals(); 
-                        navigate("/Login"); 
+                        closeModals();
+                        navigate("/Login");
                 } catch (error) {
                         console.error("Error en el registro", error);
                 }
-        };
-
+                }; 
         return (
                 
                 <>

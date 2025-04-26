@@ -39,7 +39,7 @@ export default function Header() {
         <div className="user-icon" onClick={toggleUserSidebar}>
         {userName ? (
         <img className="profile-pic"
-        src={userProfilePicture}
+        src={"http://localhost:3000/api/uploads/users/" + userProfilePicture} 
         alt="Foto de perfil"
         onError={(e) => {
           e.target.onerror = null; // para evitar loops infinitos
