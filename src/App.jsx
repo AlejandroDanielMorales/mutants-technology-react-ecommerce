@@ -10,6 +10,7 @@ import UserAdmin from "./assets/pages/UserAdmin/UserAdmin";
 import ShoppingCartModal from "./assets/components/Modals/ShoppingCartModal/ShoppingCartModal";
 import AddToCartModal from "./assets/components/Modals/AddToCartModal/AddToCartModal";
 import DeleteToCartModal from "./assets/components/Modals/DeleteToCartModal/DeleteToCartModal";
+import OrderAdmin from "./assets/pages/OrderAdmin/OrderAdmin";
 import "./App.css";
 import AboutUs from "./assets/pages/AboutUs/AboutUs";
 import Contact from "./assets/pages/Contact/Contact";
@@ -19,8 +20,6 @@ import { useUser } from "./assets/context/UserProvider";
 function App() {
   const { userName, userRole, handleLoginSuccess } = useUser();
   const { isCartOpen } = useOrder();
-
-
 
   return (
     <>
@@ -37,6 +36,10 @@ function App() {
         <Route
           path="/UserAdmin"
           element={userRole === "admin" ? <UserAdmin /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/OrderAdmin"
+          element={userRole === "admin" ? <OrderAdmin /> : <Navigate to="/" />}
         />
         <Route path="/register" element={userName === "" ? <Register /> : <Navigate to="/" />} />
         <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
