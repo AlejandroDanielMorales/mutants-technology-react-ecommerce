@@ -18,15 +18,28 @@ function UserProvider({ children }) {
   const [isUserSidebarOpen, setIsUserSidebarOpen] = useState(false);
 
   useEffect(() => {
-    const storedUserName = localStorage.getItem("userName");
-    const storedUserRole = localStorage.getItem("userRole");
-    const storedUserProfilePicture = localStorage.getItem("userProfilePicture");
-    if (storedUserName && storedUserRole) {
-      setUserName(storedUserName);
-      setUserRole(storedUserRole);
-      setUserProfilePicture(storedUserProfilePicture);
+    const storedToken = localStorage.getItem("token");
+  
+    if (storedToken) {
+      axios.get("http://localhost:3000/api/users/me", {
+        headers: {
+          Authorization: `Bearer ${storedToken}`
+        }
+      })
+      .then(response => {
+        const user = response.data;
+        setUserName(user.name);
+        setUserRole(user.role);
+        setUserProfilePicture(user.profilePicture);
+        setToken(storedToken);
+      })
+      .catch(error => {
+        console.error("Error al recuperar datos del usuario:", error);
+        handleLogout(); // Si hay error, cerrar sesión
+      });
     }
   }, []);
+  
 
   // Añade esta línea para determinar si el usuario está logueado
   const isLoggedIn = !!userName;
@@ -35,17 +48,15 @@ function UserProvider({ children }) {
     setUserName(name);
     setUserRole(role);
     setUserProfilePicture(localStorage.getItem("userProfilePicture"));
-    localStorage.setItem("userName", name);
-    localStorage.setItem("userRole", role);
+    setToken(localStorage.getItem("token"));
   };
 
   const handleLogout = () => {
     setUserName("");
     setUserRole("");
     setUserProfilePicture("");
-    localStorage.removeItem("userName");
-    localStorage.removeItem("userRole");
-    localStorage.removeItem("userProfilePicture");
+    setToken("");
+    localStorage.removeItem("token");
     setShowLogoutModal(false);
     setIsUserSidebarOpen(false);
   };
@@ -62,10 +73,7 @@ const login = async (email, password) => {
 
     // Guardar token y datos del usuario
     localStorage.setItem("token", token);
-    localStorage.setItem("userName", user.name);
-    localStorage.setItem("userRole", user.role);
-
-    localStorage.setItem("userProfilePicture", user.profilePicture);
+    
 
     setToken(token);
 

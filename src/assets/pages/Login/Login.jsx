@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 import LoginForm from "../../components/LoginForm/LoginForm";
 import "./Login.css";
 
-export default function Login({ onLoginSuccess }) {
+export default function Login() {
   useEffect(() => {
     Swal.fire({
       title: "Cuenta de prueba",
@@ -21,7 +21,7 @@ export default function Login({ onLoginSuccess }) {
 
 <main class="container login-container">
   <div class="login-content">
-  <LoginForm onLoginSuccess={onLoginSuccess} />
+  <LoginForm />
   </div>
 
 
