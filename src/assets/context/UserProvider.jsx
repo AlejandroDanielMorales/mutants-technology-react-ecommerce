@@ -19,6 +19,13 @@ function UserProvider({ children }) {
   const [isUserSidebarOpen, setIsUserSidebarOpen] = useState(false);
 
   useEffect(() => {
+    fechCurrentUser();
+    console.log(userName)
+    console.log(userRole)
+  }, []);
+  
+  const fechCurrentUser = async () => {
+
     const storedToken = localStorage.getItem("token");
   
     if (storedToken) {
@@ -29,8 +36,9 @@ function UserProvider({ children }) {
       })
       .then(response => {
         const user = response.data;
+        console.log(user)
         setUserName(user.name);
-        setUserRole(user.role);
+        setUserRole(user.rol);
         setUserProfilePicture(user.profilePicture);
         setToken(storedToken);
       })
@@ -39,9 +47,9 @@ function UserProvider({ children }) {
         handleLogout(); // Si hay error, cerrar sesión
       });
     }
-  }, []);
-  
 
+
+  }
   // Añade esta línea para determinar si el usuario está logueado
   const isLoggedIn = !!userName;
 
@@ -81,7 +89,7 @@ const login = async (email, password) => {
     setToken(token);
 
     setUserName(user.name);
-    setUserRole(user.role);
+    setUserRole(user.rol);
     setUserProfilePicture(user.profilePicture);
 
     return { success: true };
@@ -109,10 +117,10 @@ const login = async (email, password) => {
       setIsUserSidebarOpen,
       login,
       userProfilePicture,
+      fechCurrentUser
     }}>
       {children}
     </UserContext.Provider>
   );
 }
-
 export default UserProvider;
