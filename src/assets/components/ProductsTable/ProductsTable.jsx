@@ -11,6 +11,7 @@ import AddCategoryModal from '../Modals/AddCategoryModal/AddCategoryModal';
 
 import { useCategories } from '../../context/CategoryProvider';
 
+const API_URL = import.meta.env.VITE_API_URL; 
 
 export default function ProductsTable() {
     const [products, setProducts] = useState([]);
@@ -21,17 +22,13 @@ export default function ProductsTable() {
     const [isAddCategoryModalOpen, setIsAddCategoryModalOpen] = useState(false);
     const {fetchCategories} = useCategories();
 
-    
-
-    const url = "http://localhost:3000/api/products";
-
     const refreshCategories = () => {
         fetchCategories();
     };
     
     const getProducts = async () => {
         try {
-            const response = await axios.get(url);
+            const response = await axios.get(`${API_URL}/products`);
             setProducts(response.data);
         } catch (error) {
             console.error("Error fetching products:", error);
@@ -41,7 +38,7 @@ export default function ProductsTable() {
     // Eliminar producto
     const deleteProduct = async (id) => {
         try {
-            await axios.delete(`${url}/${id}`);
+            await axios.delete(`${API_URL}/products/${id}`);
             getProducts();
         } catch (error) {
             console.error("Error deleting product:", error);
@@ -136,7 +133,7 @@ export default function ProductsTable() {
                             {products.map((product) => (
                                 <tr key={product.id}>
                                     <td className="cell-image">
-                                        <img className="table-img" src={"http://localhost:3000/api/uploads/products/" + product.image} alt={product.name} />
+                                        <img className="table-img" src={`${API_URL}/uploads/products/${product.image}`} alt={product.name} />
                                     </td>
                                     <td>{product.name}</td>
                                     <td>{product.description}</td>

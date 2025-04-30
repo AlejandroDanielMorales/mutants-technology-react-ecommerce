@@ -4,6 +4,7 @@ import axios from "axios";
 import "../EditProductModal/EditProductModal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+const API_URL = import.meta.env.VITE_API_URL
 
 export default function AddCategoryModal({ closeModal, refreshCategories }) {
 const { register, handleSubmit, reset, formState: { errors } } = useForm();
@@ -15,7 +16,7 @@ const onSubmit = async (data) => {
         formData.append("description", data.description);
         formData.append("image", data.image[0]); // archivo seleccionado
 
-        await axios.post("http://localhost:3000/api/categories", formData, {
+        await axios.post(`${API_URL}/categories`, formData, {
         headers: {
             "Content-Type": "multipart/form-data",
         },

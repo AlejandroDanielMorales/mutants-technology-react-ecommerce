@@ -6,16 +6,16 @@ import { faShoppingCart, faChevronRight, faPlus, faMinus } from "@fortawesome/fr
 import { useOrder } from "../../context/OrderContext";
 import Swal from "sweetalert2";
 import "./Detail.css";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Detail() {
     const { onAddToCart, isAddModalOpen, selectedProduct, setIsAddModalOpen, confirmAddToCart } = useOrder();
     const { id } = useParams();
     const [product, setProduct] = useState(null);
     const [quantity, setQuantity] = useState(1);
-    const url = "http://localhost:3000/api/products";
 
     useEffect(() => {
-        axios.get(`${url}/${id}`)
+        axios.get(`${API_URL}/products/${id}`)
             .then(response => {
                 setProduct(response.data);
                 
@@ -111,7 +111,7 @@ export default function Detail() {
             <h3 className="card-title-2"><em>{product.name}</em></h3>
             <div className="card-background-3">
                 <article className="card-detail-2">
-                    <img className="card-img-2" src={"http://localhost:3000/api/uploads/products/" + product.image} alt={product.name} />
+                    <img className="card-img-2" src={`${API_URL}/uploads/products/${product.image}`} alt={product.name} />
                     <div className="card-body-2">
                         <h4><em>Especificaciones Técnicas</em></h4>
                         <h4><em>Descripción</em></h4>

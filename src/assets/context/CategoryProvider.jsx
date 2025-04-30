@@ -1,6 +1,7 @@
 // src/context/useCategories.js
 import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const CategoryContext = createContext();
 
@@ -20,7 +21,7 @@ export function CategoryProvider({ children }) {
 
   const fetchCategories = async () => {
     try {
-      const { data } = await axios.get("http://localhost:3000/api/categories");
+      const { data } = await axios.get(`${API_URL}/categories`);
       setCategories(data);
       console.log(data);
       localStorage.setItem("categories", JSON.stringify(data));

@@ -7,6 +7,7 @@ import SearchBar from '../SearchBar/SearchBar';
 import DeleteUserModal from '../Modals/DeleteUserModal/DeleteUserModal';
 import EditUserModal from '..//Modals/EditUserModal/EditUserModal';
 import AddUserModal from '../Modals/AddUserModal/AddUserModal';
+const API_URL = import.meta.env.VITE_API_URL; 
 
 export default function UsersTable() {
     const [users, setUsers] = useState([]);
@@ -15,7 +16,7 @@ export default function UsersTable() {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
 
-    const url = "http://localhost:3000/api/users";
+    const url = `${API_URL}/users`;
 
     // Obtener lista de usuarios
     const getUsers = async () => {

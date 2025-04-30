@@ -6,6 +6,8 @@ import axios from "axios";
 import "../EditProductModal/EditProductModal.css"; // Reutiliza los estilos
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+const API_URL = import.meta.env.VITE_API_URL
+
 
 export default function AddProductModal({ closeModal, refreshProducts }) {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
@@ -23,7 +25,7 @@ export default function AddProductModal({ closeModal, refreshProducts }) {
             formData.append("name", data.name); // Otros campos que tengas
             formData.append("price", data.price);
     
-            await axios.post("http://localhost:3000/api/products", formData, {
+            await axios.post(`${API_URL}/products`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },

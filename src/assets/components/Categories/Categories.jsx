@@ -1,8 +1,10 @@
+
 import React from 'react';
 import './Categories.css';
 import Category from '../Category/Category';
 import { useCategories } from '../../context/CategoryProvider';
 import { useOrder } from '../../context/OrderContext';
+const API_URL = import.meta.env.VITE_API_URL; 
 
 export default function Categories() {
   const { categories } = useCategories();
@@ -24,7 +26,7 @@ export default function Categories() {
             key={cat._id}
             title={cat.name}
             subtitle={cat.description}
-            imageSrc={`http://localhost:3000/api/uploads/categories/${cat.image}`}
+            imageSrc={`${API_URL}/uploads/categories/${cat.image}`}
             link={`#main-section-${cat._id}`}
           />
         ))}

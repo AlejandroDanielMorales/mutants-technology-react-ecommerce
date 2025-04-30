@@ -4,13 +4,15 @@ import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SearchBar from '../SearchBar/SearchBar';
 import '../ProductsTable/ProductsTable.css';
+const API_URL = import.meta.env.VITE_API_URL; 
+
 export default function OrdersTable() {
     const [orders, setOrders] = useState([]);
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [selectedOrder, setSelectedOrder] = useState(null);
 
-    const url = "http://localhost:3000/api/orders";
+    const url = `${API_URL}/orders`;
 
     const getOrders = async () => {
         try {

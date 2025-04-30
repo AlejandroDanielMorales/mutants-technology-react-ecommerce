@@ -16,10 +16,8 @@ const DeleteToCartModal = () => {
     <div className="modal-overlay">
       <div className="modal-content">
         <h2>Confirmar eliminación</h2>
-        {/* Mostrar solo el nombre del producto */}
         <p>¿Estás seguro de que deseas eliminar {selectedProduct?.name} del carrito?</p>
         <div className="btn-container">
-          {/* Corregido: pasar función en lugar de ejecutarla directamente */}
           <button 
             className="btn-cancel" 
             onClick={() => setIsRemoveModalOpen(false)}

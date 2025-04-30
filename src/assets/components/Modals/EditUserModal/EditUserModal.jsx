@@ -4,6 +4,7 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle, faSave } from "@fortawesome/free-solid-svg-icons";
 import "../EditProductModal/EditProductModal.css"; 
+const API_URL = import.meta.env.VITE_API_URL; // Cambia esto a la URL de tu API
 
 export default function EditUserModal({ closeModal, userId, refreshUsers }) {
     const { register, handleSubmit, setValue} = useForm();
@@ -11,7 +12,7 @@ export default function EditUserModal({ closeModal, userId, refreshUsers }) {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/api/users/${userId}`);
+                const response = await axios.get(`${API_URL}/users/${userId}`);
                 const data = response.data;
                 Object.keys(data).forEach((key) => setValue(key, data[key]));
             } catch (error) {
@@ -24,7 +25,7 @@ export default function EditUserModal({ closeModal, userId, refreshUsers }) {
 
     const onSubmit = async (data) => {
         try {
-            await axios.put(`https://67d4cb0dd2c7857431ee920f.mockapi.io/user/${userId}`, data);
+            await axios.put(`${API_URL}/users/${userId}`, data);
             refreshUsers();
             closeModal();
         } catch (error) {

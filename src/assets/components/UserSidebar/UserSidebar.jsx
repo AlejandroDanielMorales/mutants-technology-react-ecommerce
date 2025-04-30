@@ -5,6 +5,7 @@ import { faSignOut, faUser, faSignInAlt } from "@fortawesome/free-solid-svg-icon
 import { useUser } from "../../context/UserProvider";
 import LogoutModal from "../../components/Modals/LogoutModal/LogoutModal"; // Asegúrate de poner la ruta correcta
 import './UserSidebar.css';
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function UserSidebar({ onClose }) {
   const { userName, isLoggedIn, handleLogout ,showLogoutModal, setShowLogoutModal,isUserSidebarOpen,userProfilePicture} = useUser();
@@ -20,7 +21,7 @@ export default function UserSidebar({ onClose }) {
             
           {isLoggedIn ? (<>
             <img className="profile-pic"
-        src={"http://localhost:3000/api/uploads/users/" + userProfilePicture} 
+        src={`${API_URL}/uploads/users/${userProfilePicture}`}
         alt="Foto de perfil"
         onError={(e) => {
           e.target.onerror = null; // para evitar loops infinitos

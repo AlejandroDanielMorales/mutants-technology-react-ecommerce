@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL; // Asegúrate de que esta variable esté definida en tu archivo .env
 
 const UserContext = createContext();
 export const useUser = () => useContext(UserContext);
@@ -21,7 +22,7 @@ function UserProvider({ children }) {
     const storedToken = localStorage.getItem("token");
   
     if (storedToken) {
-      axios.get("http://localhost:3000/api/users/me", {
+      axios.get(`${API_URL}/users/me`, {
         headers: {
           Authorization: `Bearer ${storedToken}`
         }
@@ -64,7 +65,7 @@ function UserProvider({ children }) {
 
 const login = async (email, password) => {
   try {
-    const response = await axios.post("http://localhost:3000/api/users/login", {
+    const response = await axios.post(`${API_URL}/users/login`, {
       email,
       password,
     });

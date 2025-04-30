@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL; 
 
 const OrderContext = createContext();
 export const useOrder = () => useContext(OrderContext);
@@ -13,7 +14,7 @@ function OrderProvider({ children }) {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [products, setProducts] = useState([]);
     
-    const url = "http://localhost:3000/api/products";
+    const url = `${API_URL}/products`;
   
     const getProducts = async () => {
       try {

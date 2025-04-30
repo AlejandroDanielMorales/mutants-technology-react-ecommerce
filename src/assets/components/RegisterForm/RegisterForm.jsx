@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "./RegisterForm.css";
 import { NavLink } from "react-router-dom";
 import RegisterUserModal from "../Modals/RegisterUserModal/RegisterUserModal"; 
+const API_URL = import.meta.env.VITE_API_URL; 
 
 export default function RegisterForm() {
         const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
@@ -38,7 +39,7 @@ export default function RegisterForm() {
                         dataToSend.append("profilePicture", formData.profilePicture[0]); // archivo real
                         }
                         const response = await axios.post(
-                                "http://localhost:3000/api/users",
+                                `${API_URL}/users`,
                                 dataToSend,  
                                 {
                                         headers: {
