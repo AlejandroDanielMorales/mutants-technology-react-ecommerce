@@ -17,15 +17,24 @@ import Contact from "./assets/pages/Contact/Contact";
 import { useOrder } from "./assets/context/OrderContext";
 import { useUser } from "./assets/context/UserProvider";
 import { useEffect } from "react";
+import { useState } from "react";
 
 function App() {
   const { userName, userRole, fechCurrentUser} = useUser();
   const { isCartOpen } = useOrder();
+  const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
-    fechCurrentUser();
-  },[]);// Fetch current user on component mount};
+    const loadUser = async () => {
+      await fechCurrentUser();
+      setIsLoading(false);
+    };
+    loadUser();
+  }, []);
 
+  if (isLoading) return <div>Cargando...</div>;
+  
   return (
     <>
       <Header />
