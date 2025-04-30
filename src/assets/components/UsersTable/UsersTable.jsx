@@ -108,7 +108,7 @@ export default function UsersTable() {
                             {users.map((user) => (
                                 <tr key={user.id}>
                                     <td className="cell-image">
-                                        <img className="table-img" src={`${API_URL}/uploads/users${user.profilePicture}`} alt={user.name} />
+                                        <img className="table-img" src={`${API_URL}/uploads/users/${user.profilePicture}`} alt={user.name} />
                                     </td>
                                     <td>{user.name}</td>
                                     <td>{user.email}</td>
