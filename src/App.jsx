@@ -16,10 +16,15 @@ import AboutUs from "./assets/pages/AboutUs/AboutUs";
 import Contact from "./assets/pages/Contact/Contact";
 import { useOrder } from "./assets/context/OrderContext";
 import { useUser } from "./assets/context/UserProvider";
+import { useEffect } from "react";
 
 function App() {
-  const { userName, userRole, handleLoginSuccess } = useUser();
+  const { userName, userRole, fechCurrentUser} = useUser();
   const { isCartOpen } = useOrder();
+
+  useEffect(() => {
+    fechCurrentUser();
+  },[]);// Fetch current user on component mount};
 
   return (
     <>
@@ -42,7 +47,7 @@ function App() {
           element={userRole === "admin" ? <OrderAdmin /> : <Navigate to="/" />}
         />
         <Route path="/register" element={userName === "" ? <Register /> : <Navigate to="/" />} />
-        <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
 
       {isCartOpen && (
