@@ -54,7 +54,7 @@ function App() {
         />
         <Route
           path="/OrderAdmin"
-          element={<PrivateRoute> <OrderAdmin /> <PrivateRoute>}
+          element={<PrivateRoute> <OrderAdmin /> </PrivateRoute>}
         />
         <Route path="/register" element={userName === "" ? <Register /> : <Navigate to="/" />} />
         <Route path="/login" element={<Login />} />
