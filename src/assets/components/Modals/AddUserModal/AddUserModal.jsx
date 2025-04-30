@@ -4,13 +4,14 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import "../EditProductModal/EditProductModal.css";
+const API_URL = import.meta.env.VITE_API_URL
 
 export default function AddUserModal({ closeModal, refreshUsers }) {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
         try {
-            await axios.post("http://localhost:3000/api/users", data);
+            await axios.post(`${API_URL}/users`, data);
             refreshUsers();
             closeModal();
             reset();

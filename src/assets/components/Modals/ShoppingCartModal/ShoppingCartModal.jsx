@@ -9,6 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useOrder } from '../../../context/OrderContext';
 import './ShoppingCartModal.css';
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function ShoppingCartModal() {
   const {
@@ -61,7 +62,7 @@ export default function ShoppingCartModal() {
                   <div key={`${item.id}-${index}`} className="cart-item">
                     <div className="cart-item-product">
                       <img 
-                        src={"http://localhost:3000/api/uploads/products/" + item.image}
+                        src={`${API_URL}/uploads/products/${item.image}`}
                         alt={item.name} 
                         className="cart-item-image" 
                       />

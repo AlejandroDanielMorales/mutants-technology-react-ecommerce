@@ -4,9 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle, faSave } from '@fortawesome/free-solid-svg-icons';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function EditProductModal({ closeModal, productId, refreshProducts }) {
-    const url = "http://localhost:3000/api/products";
+
 
     const { register, handleSubmit, setValue, reset, watch, formState: { errors } } = useForm();
     const [existingImage, setExistingImage] = useState(null); // Guarda la imagen actual
@@ -14,7 +15,7 @@ export default function EditProductModal({ closeModal, productId, refreshProduct
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await axios.get(`${url}/${productId}`);
+                const response = await axios.get(`${API_URL}/products/${productId}`);
                 const data = response.data;
 
                 Object.keys(data).forEach((key) => {
@@ -56,7 +57,7 @@ export default function EditProductModal({ closeModal, productId, refreshProduct
                 formData.append("price", data.price);
                 formData.append("rating", data.rating);
 
-                response = await axios.put(`${url}/${productId}`, formData, {
+                response = await axios.put(`${API_URL}/products/${productId}`, formData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }
@@ -72,7 +73,7 @@ export default function EditProductModal({ closeModal, productId, refreshProduct
                     image: existingImage // Reutiliza la imagen anterior
                 };
 
-                response = await axios.put(`${url}/${productId}`, productData);
+                response = await axios.put(`${API_URL}/products/${productId}`, productData);
                 console.log("Producto actualizado:", response.data);
 
             }

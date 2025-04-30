@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faEye, faStar, faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import "./ProductCard.css";
 import { useOrder } from "../../context/OrderContext"; 
+const API_URL = import.meta.env.VITE_API_URL; 
+
 export default function ProductCard({ product}) {
     const  { onAddToCart }   = useOrder() ;
     return (
@@ -11,7 +13,7 @@ export default function ProductCard({ product}) {
             <article className="card-2">
 
                 
-                <img className="card-img" src={"http://localhost:3000/api/uploads/products/" + product.image} alt={product.name} />
+                <img className="card-img" src={`${API_URL}/uploads/products/${product.image}`} alt={product.name} />
                 <div className="card-body">
                     <h5 className="card-title">
                         <em>{product.name}</em>

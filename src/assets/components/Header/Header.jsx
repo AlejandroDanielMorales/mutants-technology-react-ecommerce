@@ -5,6 +5,7 @@ import { faUserAstronaut, faCartShopping, faBars} from "@fortawesome/free-solid-
 import { useOrder } from "../../context/OrderContext";
 import { useUser } from "../../context/UserProvider";
 import UserSidebar from "../UserSidebar/UserSidebar";
+const API_URL = import.meta.env.VITE_API_URL; 
 
 export default function Header() {
   const { userName, userRole,isUserSidebarOpen, setIsUserSidebarOpen,userProfilePicture } = useUser();
@@ -39,7 +40,7 @@ export default function Header() {
         <div className="user-icon" onClick={toggleUserSidebar}>
         {userName ? (
         <img className="profile-pic"
-        src={"http://localhost:3000/api/uploads/users/" + userProfilePicture} 
+        src={`${API_URL}/uploads/users/${userProfilePicture}`}
         alt="Foto de perfil"
         onError={(e) => {
           e.target.onerror = null; // para evitar loops infinitos
