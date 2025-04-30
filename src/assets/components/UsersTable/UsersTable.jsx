@@ -22,7 +22,7 @@ export default function UsersTable() {
     const getUsers = async () => {
         try {
             const response = await axios.get(url);
-            const filteredUsers = response.data.filter(user => user.rol.toLowerCase() === "usuario");
+            const filteredUsers = response.data.filter(user => user.rol.toLowerCase() === "user");
             setUsers(filteredUsers);
         } catch (error) {
             console.error("Error fetching users:", error);

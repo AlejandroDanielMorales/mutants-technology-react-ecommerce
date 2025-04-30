@@ -53,12 +53,6 @@ function UserProvider({ children }) {
   // Añade esta línea para determinar si el usuario está logueado
   const isLoggedIn = !!userName;
 
-  const handleLoginSuccess = (name, role) => {
-    setUserName(name);
-    setUserRole(role);
-    setUserProfilePicture(localStorage.getItem("userProfilePicture"));
-    setToken(localStorage.getItem("token"));
-  };
 
   const handleLogout = () => {
     setUserName("");
@@ -109,7 +103,6 @@ const login = async (email, password) => {
       userRole,
       token, 
       isLoggedIn, 
-      handleLoginSuccess, 
       handleLogout,
       showLogoutModal,
       setShowLogoutModal,
