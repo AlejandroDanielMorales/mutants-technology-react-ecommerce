@@ -1,36 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Payment from '../../components/Payment/Payment';
 import Swal from 'sweetalert2';
 import { useUser } from '../../context/UserProvider';
 import { useNavigate } from 'react-router-dom';
+import Spinner from '../../components/Spinner/Spinner';
 
 export default function PaymentMethods() {
-  const { user } = useUser();
+  const { token ,user } = useUser();
   const navigate = useNavigate();
-  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
-    // Mostramos la alerta solo si user === null
-    if (user === null) {
-      setShowAlert(true);
-    }
-  }, []);
+    checkAuth();
+  }, [token, user, navigate]);
 
-  useEffect(() => {
-    if (showAlert) {
-      Swal.fire({
+  const checkAuth = async () => {
+    if (user !== undefined && (!token || token === '')) {
+      const result = await Swal.fire({
         icon: 'warning',
         title: 'Iniciá sesión',
         text: 'Debés estar logueado para terminar la compra.',
         confirmButtonText: 'Ir al login',
-      }).then(() => {
-        navigate('/login');
       });
-    }
-  }, [showAlert]);
 
-  // Mostramos un loader si user aún no se cargó
-  if (user === undefined) return <p>Cargando...</p>;
+      if (result.isConfirmed) {
+        navigate('/login');
+      }
+    }
+  };
+
+  // Mostramos un loader mientras `user` se está cargando
+  if (user === undefined) return <Spinner />;
 
   return (
     <main className="container">
