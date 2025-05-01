@@ -12,6 +12,7 @@ import AddToCartModal from "./assets/components/Modals/AddToCartModal/AddToCartM
 import DeleteToCartModal from "./assets/components/Modals/DeleteToCartModal/DeleteToCartModal";
 import OrderAdmin from "./assets/pages/OrderAdmin/OrderAdmin";
 import PrivateRoute from "./assets/components/PrivateRoute/PrivateRoute";
+import PaymentMethods from "./assets/pages/PaymentMethods/PaymentMethods";
 import "./App.css";
 import AboutUs from "./assets/pages/AboutUs/AboutUs";
 import Contact from "./assets/pages/Contact/Contact";
@@ -21,7 +22,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 
 function App() {
-  const { userName, userRole, fechCurrentUser} = useUser();
+  const { userName,fechCurrentUser} = useUser();
   const { isCartOpen } = useOrder();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -51,6 +52,10 @@ function App() {
         <Route
           path="/UserAdmin"
           element={<PrivateRoute> <UserAdmin /> </PrivateRoute>}
+        />
+        <Route
+          path="/PaymentMethods"
+          element={<PaymentMethods />}
         />
         <Route
           path="/OrderAdmin"

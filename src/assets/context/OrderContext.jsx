@@ -1,7 +1,10 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
-const API_URL = import.meta.env.VITE_API_URL; 
+import { useUser } from "./UserProvider";
+import { useNavigate } from "react-router-dom"; // Asegúrate de tener acceso a navigate
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 const OrderContext = createContext();
 export const useOrder = () => useContext(OrderContext);
@@ -13,95 +16,103 @@ function OrderProvider({ children }) {
   const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [products, setProducts] = useState([]);
-    
-    const url = `${API_URL}/products`;
-  
-    const getProducts = async () => {
-      try {
-        const response = await axios.get(url);
-        setProducts(response.data);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
+  const [orderData, setOrderData] = useState(null);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const { user } = useUser();
+  const navigate = useNavigate(); // Usar navigate para redirigir
 
   useEffect(() => {
-    getProducts();
     const storedCart = localStorage.getItem("cartItems");
     if (storedCart) setCartItems(JSON.parse(storedCart));
+    getProducts();
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  }, [cartItems]);
+    // Verificamos si el usuario está logueado antes de continuar
+    
+    // Si el usuario está logueado, se continua con la lógica del carrito
+    const products = cartItems.map((item) => ({
+      product: {
+        _id: item._id,
+        name: item.name,
+        price: item.price,
+      },
+      quantity: item.quantity,
+      price: item.price,
+    }));
 
-  const totalPrice = cartItems.reduce((total, item) => total + item.price * (item.quantity || 1), 0);
+    const newTotalPrice = products.reduce(
+      (acc, item) => acc + item.price * item.quantity,
+      0
+    );
+
+    setTotalPrice(newTotalPrice);
+ if (user) {
+    setOrderData({
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+      },
+      products,
+      totalPrice: newTotalPrice,
+      status: "pending",
+    });
+  } 
+  }, [cartItems, user, navigate]); // Asegurarse de que navigate esté en la dependencia
+
+  const getProducts = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/products`);
+      setProducts(response.data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+
+  // El resto del código...
 
   const onAddToCart = (product) => {
     setSelectedProduct(product);
     localStorage.setItem("selectedProduct", JSON.stringify(product));
     setIsAddModalOpen(true);
   };
+
   const confirmAddToCart = (product) => {
-    // Aseguramos que product.quantity no sea null ni undefined
-    if (!product.quantity) {
-      product.quantity = 1;
-    }
-  
-    // Primero, validamos la cantidad antes de realizar cualquier otra acción
-    if (!verifyQuantity(product.quantity)) {
-      return; // Si la cantidad es inválida, no hacemos nada más
-    }
-  
+    if (!product.quantity) product.quantity = 1;
+    if (!verifyQuantity(product.quantity)) return;
+
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((item) => item._id === product._id);
-      let newQuantity = product.quantity;
-  
+      let updatedItems;
+
       if (existingItem) {
-        // Si el producto ya existe, sumamos la nueva cantidad
-        newQuantity = existingItem.quantity + product.quantity;
-  
-        // Verificamos si la cantidad combinada es válida
-        if (!verifyQuantity(newQuantity)) {
-          return prevItems; // No modificamos el carrito si la cantidad excede el límite
-        }
-  
-        // Actualizamos el carrito con la nueva cantidad
-        const updatedItems = prevItems.map((item) =>
+        const newQuantity = existingItem.quantity + product.quantity;
+        if (!verifyQuantity(newQuantity)) return prevItems;
+
+        updatedItems = prevItems.map((item) =>
           item._id === product._id ? { ...item, quantity: newQuantity } : item
         );
-  
-        // Guardamos el carrito actualizado en localStorage
-        localStorage.setItem("cartItems", JSON.stringify(updatedItems));
-  
-        return updatedItems;
       } else {
-        // Si el producto no está en el carrito, lo agregamos con la cantidad especificada
-        const updatedItems = [...prevItems, { ...product }];
-        
-        // Guardamos el carrito actualizado en localStorage
-        localStorage.setItem("cartItems", JSON.stringify(updatedItems));
-  
-        return updatedItems;
+        updatedItems = [...prevItems, { ...product }];
       }
+
+      return updatedItems;
     });
   };
-  
-  // Función para verificar la cantidad
-  const verifyQuantity = (newQuantity) => {
-    if (newQuantity > 10) {
-      // Si la cantidad es mayor a 10, disparamos el SweetAlert
+
+  const verifyQuantity = (quantity) => {
+    if (quantity > 10) {
       Swal.fire({
-        icon: 'warning',
-        title: 'Cantidad excedida',
-        text: 'No puedes agregar más de 10 unidades de este producto.',
-        confirmButtonText: 'Aceptar'
+        icon: "warning",
+        title: "Cantidad excedida",
+        text: "No puedes agregar más de 10 unidades de este producto.",
+        confirmButtonText: "Aceptar",
       });
-      return false; // Devuelve false si la cantidad no es válida
+      return false;
     }
-    return true; // Si la cantidad es válida, devuelve true
+    return true;
   };
-  
 
   const handleRemoveFromCart = (product) => {
     setSelectedProduct(product);
@@ -114,6 +125,8 @@ function OrderProvider({ children }) {
     setCartItems((prevItems) =>
       prevItems.filter((item) => item._id !== selectedProduct._id)
     );
+    setIsRemoveModalOpen(false);
+    setSelectedProduct(null);
   };
 
   const handleQuantityChange = (index, newQuantity) => {
@@ -124,13 +137,17 @@ function OrderProvider({ children }) {
     );
   };
 
+  const clearCart = () => {
+    setCartItems([]);
+    localStorage.removeItem("cartItems");
+  };
+
   const toggleCart = () => setIsCartOpen((prev) => !prev);
 
   return (
     <OrderContext.Provider
       value={{
         cartItems,
-        totalPrice,
         isCartOpen,
         isAddModalOpen,
         isRemoveModalOpen,
@@ -145,6 +162,9 @@ function OrderProvider({ children }) {
         handleQuantityChange,
         getProducts,
         products,
+        totalPrice,
+        orderData,
+        clearCart, // nueva función disponible para vaciar carrito tras el pago
       }}
     >
       {children}

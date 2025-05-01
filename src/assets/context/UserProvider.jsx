@@ -1,5 +1,8 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Asegúrate de importar useNavigate desde react-router-dom
+
+
 const API_URL = import.meta.env.VITE_API_URL; // Asegúrate de que esta variable esté definida en tu archivo .env
 
 const UserContext = createContext();
@@ -7,6 +10,9 @@ export const useUser = () => useContext(UserContext);
 
 function UserProvider({ children }) {
   const [userName, setUserName] = useState("");
+
+  const [user,setUser] = useState({});
+
   const [userRole, setUserRole] = useState("");
 
   const [userProfilePicture, setUserProfilePicture] = useState("");
@@ -17,6 +23,8 @@ function UserProvider({ children }) {
 
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isUserSidebarOpen, setIsUserSidebarOpen] = useState(false);
+
+  const navigate = useNavigate(); // Asegúrate de importar useNavigate desde react-router-dom
 
   useEffect(() => {
     fechCurrentUser();
@@ -36,6 +44,7 @@ function UserProvider({ children }) {
       })
       .then(response => {
         const user = response.data;
+        setUser(user);
         console.log(user)
         setUserName(user.name);
         setUserRole(user.rol);
@@ -58,10 +67,13 @@ function UserProvider({ children }) {
     setUserName("");
     setUserRole("");
     setUserProfilePicture("");
+    setUser(null);
     setToken("");
     localStorage.removeItem("token");
     setShowLogoutModal(false);
     setIsUserSidebarOpen(false);
+    navigate("/"); // Redirigir a la página de inicio o a donde desees
+    
   };
 // Dentro de UserProvider
 
@@ -110,7 +122,8 @@ const login = async (email, password) => {
       setIsUserSidebarOpen,
       login,
       userProfilePicture,
-      fechCurrentUser
+      fechCurrentUser,
+      user
     }}>
       {children}
     </UserContext.Provider>
