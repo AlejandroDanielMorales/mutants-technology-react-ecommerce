@@ -13,6 +13,7 @@ import DeleteToCartModal from "./assets/components/Modals/DeleteToCartModal/Dele
 import OrderAdmin from "./assets/pages/OrderAdmin/OrderAdmin";
 import PrivateRoute from "./assets/components/PrivateRoute/PrivateRoute";
 import PaymentMethods from "./assets/pages/PaymentMethods/PaymentMethods";
+import Profile  from "./assets/pages/Profile/Profile"
 import "./App.css";
 import AboutUs from "./assets/pages/AboutUs/AboutUs";
 import Contact from "./assets/pages/Contact/Contact";
@@ -61,6 +62,7 @@ function App() {
           path="/OrderAdmin"
           element={<PrivateRoute> <OrderAdmin /> </PrivateRoute>}
         />
+        <Route path="/profile" element={userName === "" ? <Profile /> : <Navigate to="/" />} />
         <Route path="/register" element={userName === "" ? <Register /> : <Navigate to="/" />} />
         <Route path="/login" element={<Login />} />
       </Routes>
