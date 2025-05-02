@@ -1,0 +1,46 @@
+.user-profile-container {
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .user-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    max-width: 500px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .user-profile-pic {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+  }
+  
+  .user-info {
+    text-align: center;
+  }
+  
+  .user-info h2 {
+    margin: 0.5rem 0;
+  }
+  
+  @media (max-width: 600px) {
+    .user-card {
+      padding: 1rem;
+    }
+  
+    .user-profile-pic {
+      width: 100px;
+      height: 100px;
+    }
+  }
+  

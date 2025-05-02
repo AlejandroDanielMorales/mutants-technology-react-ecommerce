@@ -40,7 +40,7 @@ export default function UserSidebar({ onClose }) {
             <>
               <li className="sidebar-item">
                 <NavLink 
-                  to="/user/profile" 
+                  to="/profile" 
                   className="sidebar-link" 
                   onClick={onClose}
                 >
