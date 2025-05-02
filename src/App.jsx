@@ -62,7 +62,7 @@ function App() {
           path="/OrderAdmin"
           element={<PrivateRoute> <OrderAdmin /> </PrivateRoute>}
         />
-        <Route path="/profile" element={userName === "" ? <Profile /> : <Navigate to="/" />} />
+        <Route path="/profile" element={userName !== "" ? <Profile /> : <Navigate to="/" />} />
         <Route path="/register" element={userName === "" ? <Register /> : <Navigate to="/" />} />
         <Route path="/login" element={<Login />} />
       </Routes>
