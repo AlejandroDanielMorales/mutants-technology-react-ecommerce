@@ -8,8 +8,8 @@ export default function Login() {
     Swal.fire({
       title: "Cuenta de prueba",
       html: `
-        <p><strong>Email:</strong> martinalejandrorodriguez@gmail.com</p>
-        <p><strong>Password:</strong> bootcamp2025</p>
+        <p><strong>Email:</strong> admin@admin.com</p>
+        <p><strong>Password:</strong> 1234</p>
       `,
       icon: "info",
       confirmButtonText: "Entendido",

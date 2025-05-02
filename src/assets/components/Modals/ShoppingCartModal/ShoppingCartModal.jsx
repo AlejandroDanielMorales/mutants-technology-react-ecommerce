@@ -9,6 +9,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useOrder } from '../../../context/OrderContext';
 import './ShoppingCartModal.css';
+import { useNavigate } from 'react-router-dom';
+
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default function ShoppingCartModal() {
@@ -25,7 +27,12 @@ export default function ShoppingCartModal() {
       toggleCart();
     }
   };
+  const navigate = useNavigate();
 
+  const handleCheckout = () => {
+    toggleCart(); // opcional: cierra el modal
+    navigate('/PaymentMethods');
+  };
   return (
     <div className="cart-modal-overlay" onClick={closeModal}>
       <div className="cart-modal">
@@ -121,9 +128,10 @@ export default function ShoppingCartModal() {
                   {totalPrice}
                 </span>
               </div>
-              <button className="cart-checkout-btn">
-                Terminar compra
-              </button>
+              <button className="cart-checkout-btn" onClick={handleCheckout}>
+                 Terminar compra
+             </button>
+
             </div>
           </>
         )}

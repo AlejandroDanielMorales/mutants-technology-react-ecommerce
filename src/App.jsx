@@ -11,21 +11,32 @@ import ShoppingCartModal from "./assets/components/Modals/ShoppingCartModal/Shop
 import AddToCartModal from "./assets/components/Modals/AddToCartModal/AddToCartModal";
 import DeleteToCartModal from "./assets/components/Modals/DeleteToCartModal/DeleteToCartModal";
 import OrderAdmin from "./assets/pages/OrderAdmin/OrderAdmin";
+import PrivateRoute from "./assets/components/PrivateRoute/PrivateRoute";
+import PaymentMethods from "./assets/pages/PaymentMethods/PaymentMethods";
 import "./App.css";
 import AboutUs from "./assets/pages/AboutUs/AboutUs";
 import Contact from "./assets/pages/Contact/Contact";
 import { useOrder } from "./assets/context/OrderContext";
 import { useUser } from "./assets/context/UserProvider";
 import { useEffect } from "react";
+import { useState } from "react";
 
 function App() {
-  const { userName, userRole, fechCurrentUser} = useUser();
+  const { userName,fechCurrentUser} = useUser();
   const { isCartOpen } = useOrder();
+  const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
-    fechCurrentUser();
-  },[]);// Fetch current user on component mount};
+    const loadUser = async () => {
+      await fechCurrentUser();
+      setIsLoading(false);
+    };
+    loadUser();
+  }, []);
 
+  if (isLoading) return <div>Cargando...</div>;
+  
   return (
     <>
       <Header />
@@ -36,15 +47,19 @@ function App() {
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route
           path="/ProductAdmin"
-          element={userRole === "admin" ? <ProductAdmin /> : <Navigate to="/" />}
+          element={<PrivateRoute> <ProductAdmin /> </PrivateRoute>}
         />
         <Route
           path="/UserAdmin"
-          element={userRole === "admin" ? <UserAdmin /> : <Navigate to="/" />}
+          element={<PrivateRoute> <UserAdmin /> </PrivateRoute>}
+        />
+        <Route
+          path="/PaymentMethods"
+          element={<PaymentMethods />}
         />
         <Route
           path="/OrderAdmin"
-          element={userRole === "admin" ? <OrderAdmin /> : <Navigate to="/" />}
+          element={<PrivateRoute> <OrderAdmin /> </PrivateRoute>}
         />
         <Route path="/register" element={userName === "" ? <Register /> : <Navigate to="/" />} />
         <Route path="/login" element={<Login />} />

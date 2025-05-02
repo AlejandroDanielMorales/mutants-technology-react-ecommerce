@@ -10,14 +10,14 @@ import CategoryProvider from './assets/context/CategoryProvider.jsx'
 createRoot(document.getElementById('root')).render(
 
   <BrowserRouter>
-  <OrderProvider>
-<UserProvider>
-  <CategoryProvider>
-  <StrictMode>
-    <App />
-  </StrictMode>
-  </CategoryProvider>
-  </UserProvider>
-  </OrderProvider>
+    <UserProvider> 
+      <OrderProvider>
+        <CategoryProvider>
+          <StrictMode>
+            <App />
+          </StrictMode>
+        </CategoryProvider>
+      </OrderProvider>
+    </UserProvider>
   </BrowserRouter>,
 )
