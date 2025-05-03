@@ -1,46 +1,170 @@
 .user-profile-container {
-    padding: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.user-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30dvw;
+  width: 100%;
+}
+
+.avatar, .user-profile-pic {
+  height: 20dvh;
+  width: 20dvh;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+.user-info {
+  text-align: center;
+}
+
+.user-info h2 {
+  margin: 0.5rem 0;
+}
+
+.orders-section {
+  flex: 1 1 500px;
+  width: 100%;
+  width: 30dvw;
+  
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  max-height: 50dvh;
+  min-height: 50dvh;
+  position: relative;
+}
+
+.filter-container {
+  position: sticky;
+  background-color: var(--color-secundario);
+  z-index: 1;
+  top: 0;
+}
+
+.status-filter {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.status-filter label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.status-filter select {
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.order-card {
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.2s;
+}
+
+.order-card:hover {
+  transform: translateY(-2px);
+}
+
+.order-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.order-header i {
+  font-size: 24px;
+  color: #555;
+  margin-top: 2px;
+}
+
+.order-products ul {
+  margin: 8px 0 0 20px;
+  padding: 0;
+}
+.profile-container{
+  display: flex;
+  flex-direction: row;
+  padding:2rem;
+  gap: 1rem;
+}
+/* Horizontal layout on larger screens */
+@media (min-width: 768px) {
+  .order-card {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
   }
   
-  .user-card {
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    max-width: 500px;
-    width: 100%;
-    display: flex;
+  .order-products {
+    width: 30dvw;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .user-profile-container {
+    padding: 1rem;
     flex-direction: column;
     align-items: center;
   }
-  
-  .user-profile-pic {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-bottom: 1rem;
+  .user-card {
+    width: 98dvw;
   }
-  
-  .user-info {
-    text-align: center;
+  .profile-container {
+    flex-direction: column;
+    align-items: center;
   }
-  
-  .user-info h2 {
-    margin: 0.5rem 0;
+
+  .user-profile-container {
+    flex-direction: column;
+    align-items: center;
   }
-  
-  @media (max-width: 600px) {
-    .user-card {
-      padding: 1rem;
-    }
-  
-    .user-profile-pic {
-      width: 100px;
-      height: 100px;
-    }
+
+  .user-card,
+  .orders-section {
+    width: 98dvw;
   }
-  
+}
+
+@media (max-width: 600px) {
+  .user-card {
+    padding: 1rem;
+  }
+
+  .avatar, .user-profile-pic {
+    width: 100px;
+    height: 100px;
+  }
+}
