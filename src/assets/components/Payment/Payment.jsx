@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const Payment = () => {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
-  const { orderData } = useOrder();
+  const { orderData ,setCartItems} = useOrder();
   const { user } = useUser();
   const navigate = useNavigate();
   const API_URL = import.meta.env.VITE_API_URL;
@@ -49,14 +49,18 @@ const Payment = () => {
   const handlePayment = async () => {
     setLoading(true);
     setMessage('');
+    // Limpiar el carrito en el contexto
     try {
       await createOrder(orderData);
       setMessage('✅ Orden creada con éxito');
+      
+      localStorage.removeItem('cartItems'); 
     } catch (err) {
       console.error(err);
       setMessage('❌ Error al crear la orden');
     } finally {
       setLoading(false);
+      setCartItems([]); 
     }
   };
 

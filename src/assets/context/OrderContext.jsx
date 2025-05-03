@@ -164,7 +164,8 @@ function OrderProvider({ children }) {
         products,
         totalPrice,
         orderData,
-        clearCart, // nueva función disponible para vaciar carrito tras el pago
+        clearCart,
+        setCartItems, // nueva función disponible para vaciar carrito tras el pago
       }}
     >
       {children}
