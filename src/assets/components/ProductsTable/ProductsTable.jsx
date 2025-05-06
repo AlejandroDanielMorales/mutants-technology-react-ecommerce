@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ProductsTable.css';
-import { faEdit, faTrash ,faPlus} from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash ,faPlus, faList } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SearchBar from '../SearchBar/SearchBar';
 import DeleteProductModal from '../Modals/DeleteProductModal/DeleteProductModal';
 import EditProductModal from '../Modals/EditProductModal/EditProductModal';
 import AddProductModal from '../Modals/AddProductModal/AddProductModal';
 import AddCategoryModal from '../Modals/AddCategoryModal/AddCategoryModal';
+import CategoriesTableModal from '../Modals/CategoryTableModal/CategoryTableModal';
 
 import { useCategories } from '../../context/CategoryProvider';
 
@@ -20,7 +21,9 @@ export default function ProductsTable() {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [isAddCategoryModalOpen, setIsAddCategoryModalOpen] = useState(false);
-    const {fetchCategories} = useCategories();
+    const [isCategoriesModalOpen, setIsCategoriesModalOpen] = useState(false);
+    
+    const { fetchCategories } = useCategories();
 
     const refreshCategories = () => {
         fetchCategories();
@@ -35,7 +38,6 @@ export default function ProductsTable() {
         }
     };
 
-    // Eliminar producto
     const deleteProduct = async (id) => {
         try {
             await axios.delete(`${API_URL}/products/${id}`);
@@ -45,49 +47,51 @@ export default function ProductsTable() {
         }
     };
 
-    // Abrir modal de confirmación para eliminar
     const openConfirmModal = (productId) => {
         setSelectedProduct(productId);
         setIsConfirmModalOpen(true);
     };
 
-    // Abrir modal de edición
     const openEditModal = (productId) => {
         setSelectedProduct(productId);
         setIsEditModalOpen(true);
     };
 
-    // Cerrar modales
     const closeModals = () => {
         setIsConfirmModalOpen(false);
         setIsEditModalOpen(false);
+        setIsAddCategoryModalOpen(false);
+        setIsCategoriesModalOpen(false);
         setSelectedProduct(null);
     };
 
-    // Recargar lista después de edición
     const refreshProducts = () => {
         getProducts();
     };
 
     useEffect(() => {
         getProducts();
-        fetchCategories(); // Cargar categorías al inicio
+        fetchCategories(); 
     }, []);
 
     return (
         <div>
             <section className="table-head">
-            
-
-            {isAddModalOpen && <AddProductModal closeModal={() => setIsAddModalOpen(false)} refreshProducts={getProducts} />}
+                {isAddModalOpen && <AddProductModal closeModal={() => setIsAddModalOpen(false)} refreshProducts={getProducts} />}
 
                 <SearchBar />
+
                 <button className="btn-add" onClick={() => setIsAddModalOpen(true)}>
-                <FontAwesomeIcon icon={faPlus} /> Agregar Producto
-            </button>
-            <button className="btn-add" onClick={() => setIsAddCategoryModalOpen(true)}>
-                <FontAwesomeIcon icon={faPlus} /> Agregar Categoría 
-            </button>
+                    <FontAwesomeIcon icon={faPlus} /> Agregar Producto
+                </button>
+
+                <button className="btn-add" onClick={() => setIsAddCategoryModalOpen(true)}>
+                    <FontAwesomeIcon icon={faPlus} /> Agregar Categoría 
+                </button>
+
+                <button className="btn-add" onClick={() => setIsCategoriesModalOpen(true)}>
+                    <FontAwesomeIcon icon={faList} /> Ver Categorías
+                </button>
             </section>
 
             <main className="main-container">
@@ -99,6 +103,7 @@ export default function ProductsTable() {
                         id={selectedProduct}
                     />
                 )}
+
                 {isEditModalOpen && (
                     <EditProductModal
                         closeModal={closeModals}
@@ -114,11 +119,14 @@ export default function ProductsTable() {
                     />
                 )}
 
+                {isCategoriesModalOpen && (
+                    <CategoriesTableModal 
+                        closeModal={() => setIsCategoriesModalOpen(false)}
+                    />
+                )}
 
-                {/* Tabla */}
-                
+                {/* Tabla de productos */}
                 <div className="table-container">
-                
                     <table cellPadding="10" cellSpacing="0" className="table-products usrtbl">
                         <thead>
                             <tr>
@@ -131,7 +139,7 @@ export default function ProductsTable() {
                         </thead>
                         <tbody>
                             {products.map((product) => (
-                                <tr key={product.id}>
+                                <tr key={product._id}>
                                     <td className="cell-image">
                                         <img className="table-img" src={`${API_URL}/uploads/products/${product.image}`} alt={product.name} />
                                     </td>
@@ -139,14 +147,14 @@ export default function ProductsTable() {
                                     <td>{product.description}</td>
                                     <td>${product.price}</td>
                                     <td className="tool-cell tcp">
-                                    <div className="action-container">
-                                        <button className="btn-edit" onClick={() => openEditModal(product._id)}>
-                                            <FontAwesomeIcon icon={faEdit} size="2x" />
-                                        </button>
+                                        <div className="action-container">
+                                            <button className="btn-edit" onClick={() => openEditModal(product._id)}>
+                                                <FontAwesomeIcon icon={faEdit} size="2x" />
+                                            </button>
 
-                                        <button className="btn-delete" onClick={() => openConfirmModal(product._id)}>
-                                            <FontAwesomeIcon icon={faTrash} size="2x" />
-                                        </button>
+                                            <button className="btn-delete" onClick={() => openConfirmModal(product._id)}>
+                                                <FontAwesomeIcon icon={faTrash} size="2x" />
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
