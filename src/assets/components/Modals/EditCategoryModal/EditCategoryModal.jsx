@@ -67,12 +67,12 @@ export default function EditCategoryModal({ closeModal, categoryId }) {
         response = await axios.put(`${API_URL}/categories/${categoryId}`, categoryData);
       }
         console.log("Categoría actualizada:", response.data);
+        await Swal.fire({
+          icon: 'success',
+          text: 'Categoria modificada',
+          confirmButtonText: 'Ok',
+        });
       fetchCategories();
-      await Swal.fire({
-        icon: 'success',
-        text: 'Categoria modificada',
-        confirmButtonText: 'Ok',
-      });
       closeModal();
     } catch (error) {
       console.error("Error updating category:", error);

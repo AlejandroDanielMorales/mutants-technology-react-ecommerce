@@ -21,7 +21,11 @@ const onSubmit = async (data) => {
             "Content-Type": "multipart/form-data",
         },
 });
-
+await Swal.fire({
+    icon: 'success',
+    text: 'Categoria Agregada',
+    confirmButtonText: 'Ok',
+  });
       refreshCategories(); // Actualiza la lista luego de agregar
       closeModal();        // Cierra el modal
       reset();             // Limpia el formulario
