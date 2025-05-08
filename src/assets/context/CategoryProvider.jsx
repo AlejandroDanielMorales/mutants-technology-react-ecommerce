@@ -49,7 +49,7 @@ export function CategoryProvider({ children }) {
     }
   };
 
-  const deleteCategory = async (categoryId) => {
+  const deleteCategory = async (categoryId,closeModal) => {
     try {
       const hasProducts = await hasProductsInCategoryByID(categoryId);
 
@@ -69,6 +69,8 @@ export function CategoryProvider({ children }) {
       const updatedCategories = categories.filter(cat => cat._id !== categoryId);
       setCategories(updatedCategories);
       localStorage.setItem("categories", JSON.stringify(updatedCategories));
+      closeModal();
+
     } catch (error) {
       console.error("Error al eliminar categoría:", error);
     }

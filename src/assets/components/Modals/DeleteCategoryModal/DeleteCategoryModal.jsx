@@ -16,7 +16,7 @@ export default function DeleteCategoryModal({ closeModal, categoryId }) {
                         <FontAwesomeIcon icon={faTimesCircle} className="btn-icon" />
                         Cancelar
                     </button>
-                    <button type="button" className="btn-delete" onClick={() => deleteCategory(categoryId)}>
+                    <button type="button" className="btn-delete" onClick={() => deleteCategory(categoryId,closeModal)}>
                         <FontAwesomeIcon icon={faTrash} className="btn-icon" />
                         Eliminar
                     </button>
