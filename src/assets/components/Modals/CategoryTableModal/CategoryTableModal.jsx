@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose, faEdit ,faTrash} from '@fortawesome/free-solid-svg-icons';
 import { useCategories } from '../../../context/CategoryProvider';
 import EditCategoryModal from '../EditCategoryModal/EditCategoryModal';
-import EditCategoryModal from '../DeleteCategoryModal/DeleteCategoryModal';
+import DeleteCategoryModal from '../DeleteCategoryModal/DeleteCategoryModal';
 import './CategoryTableModal.css';
 
 export default function CategoryTableModal({ closeModal }) {
