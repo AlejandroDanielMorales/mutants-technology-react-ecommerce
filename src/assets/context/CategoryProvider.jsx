@@ -69,7 +69,13 @@ export function CategoryProvider({ children }) {
       const updatedCategories = categories.filter(cat => cat._id !== categoryId);
       setCategories(updatedCategories);
       localStorage.setItem("categories", JSON.stringify(updatedCategories));
+      await Swal.fire({
+        icon: 'success',
+        text: 'Categoria Eliminada',
+        confirmButtonText: 'Ok',
+      });
       closeModal();
+      
 
     } catch (error) {
       console.error("Error al eliminar categoría:", error);

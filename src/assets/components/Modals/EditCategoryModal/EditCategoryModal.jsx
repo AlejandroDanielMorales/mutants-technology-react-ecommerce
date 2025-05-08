@@ -68,6 +68,11 @@ export default function EditCategoryModal({ closeModal, categoryId }) {
       }
         console.log("Categoría actualizada:", response.data);
       fetchCategories();
+      await Swal.fire({
+        icon: 'success',
+        text: 'Categoria modificada',
+        confirmButtonText: 'Ok',
+      });
       closeModal();
     } catch (error) {
       console.error("Error updating category:", error);

@@ -14,6 +14,7 @@ import OrderAdmin from "./assets/pages/OrderAdmin/OrderAdmin";
 import PrivateRoute from "./assets/components/PrivateRoute/PrivateRoute";
 import PaymentMethods from "./assets/pages/PaymentMethods/PaymentMethods";
 import Profile  from "./assets/pages/Profile/Profile"
+import Spinner from "./assets/components/Spinner/Spinner"
 import "./App.css";
 import AboutUs from "./assets/pages/AboutUs/AboutUs";
 import Contact from "./assets/pages/Contact/Contact";
@@ -36,7 +37,7 @@ function App() {
     loadUser();
   }, []);
 
-  if (isLoading) return <div>Cargando...</div>;
+  if (isLoading) return <Spinner/>;
   
   return (
     <>
