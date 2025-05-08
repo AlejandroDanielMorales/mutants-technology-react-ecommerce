@@ -1,5 +1,6 @@
 // src/components/EditCategoryModal/EditCategoryModal.jsx
 import React, { useEffect, useState } from "react";
+import Swal from 'sweetalert2';
 import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle, faSave } from "@fortawesome/free-solid-svg-icons";
