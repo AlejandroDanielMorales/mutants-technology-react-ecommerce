@@ -3,18 +3,14 @@ import React from 'react';
 import './Categories.css';
 import Category from '../Category/Category';
 import { useCategories } from '../../context/CategoryProvider';
-import { useOrder } from '../../context/OrderContext';
+
 const API_URL = import.meta.env.VITE_API_URL; 
 
 export default function Categories() {
-  const { categories } = useCategories();
-  const { products } = useOrder();
+  const { categories , hasProductsInCategory } = useCategories();
 
-  const hasProductsInCategory = (categoryName) => {
-    const result = products.some(product => product.category.toLowerCase() === categoryName.toLowerCase());
-    console.log(`¿Tiene productos la categoría "${categoryName}"?`, result);
-    return result;
-  };
+
+ 
   
   const filteredCategories = categories.filter(cat => hasProductsInCategory(cat.name));
 

@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClose, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faClose, faEdit ,faTrash} from '@fortawesome/free-solid-svg-icons';
 import { useCategories } from '../../../context/CategoryProvider';
 import EditCategoryModal from '../EditCategoryModal/EditCategoryModal';
+import EditCategoryModal from '../DeleteCategoryModal/DeleteCategoryModal';
 import './CategoryTableModal.css';
 
 export default function CategoryTableModal({ closeModal }) {
     const { categories, fetchCategories } = useCategories();
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [selectedCategoryId, setSelectedCategoryId] = useState(null);
 
     useEffect(() => {
@@ -17,6 +19,11 @@ export default function CategoryTableModal({ closeModal }) {
     const openEditModal = (id) => {
         setSelectedCategoryId(id);
         setIsEditModalOpen(true);
+    };
+
+    const openDeleteModal = (id) => {
+        setSelectedCategoryId(id);
+        setIsDeleteModalOpen(true);
     };
 
     return (
@@ -53,6 +60,9 @@ export default function CategoryTableModal({ closeModal }) {
                                     <button className="btn-edit" onClick={() => openEditModal(cat._id)}>
                                         <FontAwesomeIcon icon={faEdit} />
                                     </button>
+                                    <button type="button" className="btn-delete" onClick={() => openDeleteModal(cat._id)}>
+                                         <FontAwesomeIcon icon={faTrash} className="btn-icon" />
+                                    </button>
                                 </td>
                             </tr>
                         ))}
@@ -62,6 +72,12 @@ export default function CategoryTableModal({ closeModal }) {
                 {isEditModalOpen && (
                     <EditCategoryModal
                         closeModal={() => setIsEditModalOpen(false)}
+                        categoryId={selectedCategoryId}
+                    />
+                )}
+                {isDeleteModalOpen && (
+                    <DeleteCategoryModal
+                        closeModal={() => setIsDeleteModalOpen(false)}
                         categoryId={selectedCategoryId}
                     />
                 )}
