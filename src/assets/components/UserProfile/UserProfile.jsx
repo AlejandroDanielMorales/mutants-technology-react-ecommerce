@@ -16,6 +16,7 @@ export default function UserProfile() {
 
   useEffect(() => {
     if (isLoggedIn) {
+      fechCurrentUser();
       fetchOrders();
     }
   }, []);
