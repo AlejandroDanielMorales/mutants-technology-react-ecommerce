@@ -70,7 +70,6 @@ export default function EditProductModal({ closeModal, productId, refreshProduct
                     category: data.category,
                     price: data.price,
                     rating: data.rating,
-                    image: existingImage 
                 };
 
                 response = await axios.put(`${API_URL}/products/${productId}`, productData);
