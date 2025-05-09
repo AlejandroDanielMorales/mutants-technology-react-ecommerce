@@ -10,33 +10,40 @@ const API_URL = import.meta.env.VITE_API_URL
 export default function AddUserModal({ closeModal, refreshUsers }) {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-   const onSubmit = async (data) => {
-    try {
-        const formData = new FormData();
 
-        formData.append("name", data.name);
-        formData.append("email", data.email);
-        formData.append("password", data.password);
-        formData.append("country", data.country);
-        formData.append("rol", data.rol);
-
-        await axios.post(`${API_URL}/users`, formData, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-        });
-        await Swal.fire({
-            icon: 'success',
-            text: 'Usuario agregado',
-            confirmButtonText: 'Ok',
-        });
-        refreshUsers();
-        closeModal();
-        reset();
-    } catch (error) {
-        console.error("Error al agregar usuario:", error);
-    }
-};
+const onSubmit = async () => {
+                if (!formData) return;
+                try {
+                        const dataToSend = new FormData();
+                        dataToSend.append("name", formData.name);
+                        dataToSend.append("rol", "user");
+                        dataToSend.append("email", formData.email);
+                        dataToSend.append("password", formData.password);
+                        dataToSend.append("country", formData.country);
+                        if (formData.profilePicture && formData.profilePicture[0]) {
+                        dataToSend.append("profilePicture", formData.profilePicture[0]);
+                        }
+                        const response = await axios.post(
+                                `${API_URL}/users`,
+                                dataToSend,  
+                                {
+                                        headers: {
+                                        "Content-Type": "multipart/form-data",
+                                        },
+                                }
+                        );
+                        await Swal.fire({
+                           icon: 'success',
+                           text: 'Registro exitoso',
+                           confirmButtonText: 'Ok',
+                         });
+                        refreshUsers();
+                        closeModal();
+                        reset();
+                } catch (error) {
+                        console.error("Error en el registro", error);
+                }
+                }; 
 
     return (
         <div className="modal-overlay">
@@ -77,6 +84,13 @@ export default function AddUserModal({ closeModal, refreshUsers }) {
                         </select>
                         {errors.rol && <p className="error-message">{errors.rol.message}</p>}
                     </div>
+                    <div className="input-group">
+                                                <input
+                                                        className="input-box"
+                                                        {...register("profilePicture")}
+                                                        type="file"
+                                                />
+                                        </div>
 
                     <div className="btn-container">
                         <button type="button" className="btn-cancel" onClick={closeModal}>
