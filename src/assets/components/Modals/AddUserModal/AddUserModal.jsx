@@ -10,21 +10,33 @@ const API_URL = import.meta.env.VITE_API_URL
 export default function AddUserModal({ closeModal, refreshUsers }) {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-    const onSubmit = async (data) => {
-        try {
-            await axios.post(`${API_URL}/users`, data);
-            await Swal.fire({
-                    icon: 'success',
-                    text: 'Usuario agregado',
-                    confirmButtonText: 'Ok',
-                  });
-            refreshUsers();
-            closeModal();
-            reset();
-        } catch (error) {
-            console.error("Error al agregar usuario:", error);
-        }
-    };
+   const onSubmit = async (data) => {
+    try {
+        const formData = new FormData();
+
+        formData.append("name", data.name);
+        formData.append("email", data.email);
+        formData.append("password", data.password);
+        formData.append("country", data.country);
+        formData.append("rol", data.rol);
+
+        await axios.post(`${API_URL}/users`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
+        await Swal.fire({
+            icon: 'success',
+            text: 'Usuario agregado',
+            confirmButtonText: 'Ok',
+        });
+        refreshUsers();
+        closeModal();
+        reset();
+    } catch (error) {
+        console.error("Error al agregar usuario:", error);
+    }
+};
 
     return (
         <div className="modal-overlay">
