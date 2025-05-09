@@ -83,8 +83,11 @@ export default function AddUserModal({ closeModal, refreshUsers }) {
                         <label>Rol:</label>
                         <select {...register("rol", { required: "El rol es obligatorio" })}>
                             <option value="">Seleccionar...</option>
-                            <option value="admin">Admin</option>
-                            <option value="usuario">Usuario</option>
+                            <select {...register("rol", { required: "El rol es obligatorio" })}>
+                              <option value="admin">Admin</option>
+                              <option value="user">Usuario</option>
+                            </select>
+
                         </select>
                         {errors.rol && <p className="error-message">{errors.rol.message}</p>}
                     </div>
