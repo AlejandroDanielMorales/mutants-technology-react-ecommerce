@@ -9,7 +9,7 @@ import "./UserProfile.css";
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default function UserProfile() {
-  const { user, isLoggedIn, token } = useUser();
+  const { user, isLoggedIn, token , fechCurrentUser } = useUser();
   const [orders, setOrders] = useState([]);
   const [filter, setFilter] = useState("all");
 
@@ -32,30 +32,55 @@ export default function UserProfile() {
     }
   };
     const handleProfilePicChange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-  
-    const formData = new FormData();
-    formData.append("profilePicture", file);
-  
-    try {
-      const res = await axios.put(`${API_URL}/users/${user._id}`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
-      });
-        await Swal.fire({
-                          icon: 'success',
-                          text: 'Foto Actualizada',
-                          confirmButtonText: 'Ok',
-                        });
-          
-      fetchOrders();
-    } catch (error) {
-      console.error("Error al actualizar foto:", error);
-    }
-  };
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const imagePreview = URL.createObjectURL(file); // crea URL temporal para mostrar la miniatura
+
+  const result = await Swal.fire({
+    title: "¿Actualizar foto de perfil?",
+    html: `
+      <p>Vas a actualizar tu foto de perfil con esta imagen:</p>
+      <img src="${imagePreview}" alt="Preview" style="max-width: 100px; border-radius: 50%; margin-top: 10px;" />
+    `,
+    showCancelButton: true,
+    confirmButtonText: "Sí, actualizar",
+    cancelButtonText: "Cancelar",
+    reverseButtons: true,
+  });
+
+  if (!result.isConfirmed) {
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("profilePicture", file);
+
+  try {
+    const res = await axios.put(`${API_URL}/users/${user._id}`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    await Swal.fire({
+      icon: "success",
+      text: "Foto actualizada correctamente",
+      confirmButtonText: "Ok",
+    });
+
+    fechCurrentUser();
+    fetchOrders();
+  } catch (error) {
+    console.error("Error al actualizar foto:", error);
+    await Swal.fire({
+      icon: "error",
+      text: "Ocurrió un error al actualizar la foto",
+    });
+  }
+};
+
   
   const handleEditInfo = () => {
     // Podés abrir un modal, redireccionar o mostrar campos editables
