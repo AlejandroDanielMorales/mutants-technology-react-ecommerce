@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useUser } from "../../context/UserProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
+import Swal from "sweetalert2";
 
 import axios from "axios";
 import "./UserProfile.css";
