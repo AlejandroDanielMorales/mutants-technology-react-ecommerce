@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import {useUser} from "../../../context/UserProvider"
 import Swal from "sweetalert2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle, faSave } from "@fortawesome/free-solid-svg-icons";
@@ -9,6 +10,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 export default function EditUserModal({ closeModal, userId, refreshUsers }) {
     const { register, handleSubmit, setValue} = useForm();
+    const {token} = useUser();
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -26,7 +28,11 @@ export default function EditUserModal({ closeModal, userId, refreshUsers }) {
 
     const onSubmit = async (data) => {
         try {
-            await axios.put(`${API_URL}/users/${userId}`, data);
+                await axios.put(`${API_URL}/users/${userId}`, data, {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  }
+                });
             await Swal.fire({
                     icon: 'success',
                     text: 'Usuario editado',
