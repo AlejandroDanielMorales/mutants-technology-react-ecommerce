@@ -15,20 +15,18 @@ const Payment = () => {
 
   useEffect(() => {
     if (!user) {
-      // Si el usuario no está logueado, mostramos la alerta y redirigimos
       Swal.fire({
         icon: 'warning',
         title: 'Iniciá sesión',
         text: 'Debés estar logueado para terminar la compra.',
         confirmButtonText: 'Ir al login',
       }).then(() => {
-        navigate('/login'); // Redirige al login
+        navigate('/login');
       });
     }
-  }, []); // Solo se ejecuta si el estado del usuario cambia
+  }, []);
 
   if (!user) {
-    // Si no hay usuario logueado, no renderizamos nada del componente de pago
     return null;
   }
 
@@ -37,21 +35,29 @@ const Payment = () => {
   }
 
   const createOrder = async (order) => {
+    
     const response = await axios.post(`${API_URL}/orders`, order, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     });
+    
     return response.data;
   };
 
   const handlePayment = async () => {
     setLoading(true);
     setMessage('');
-    // Limpiar el carrito en el contexto
     try {
+      
       await createOrder(orderData);
+
+      await Swal.fire({
+            icon: 'success',
+            text: 'Orden de compra creada',
+            confirmButtonText: 'Ok',
+          });
       setMessage('✅ Orden creada con éxito');
       
       localStorage.removeItem('cartItems'); 

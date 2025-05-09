@@ -13,7 +13,6 @@ export default function UserSidebar({ onClose }) {
 
   return (
     <>
-      {/* Overlay que se activa cuando el sidebar está abierto */}
       {isUserSidebarOpen && <div className="sidebar-overlay" onClick={onClose}></div>}
       
       <div className={`user-sidebar ${isUserSidebarOpen ? 'open' : ''}`}>

@@ -1,7 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOut, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
-import "../EditProductModal/EditProductModal.css"; // Asegúrate de crear este archivo CSS
+import "../EditProductModal/EditProductModal.css"; 
 
 export default function LogoutModal({ onClose, onConfirm }) {
   return (

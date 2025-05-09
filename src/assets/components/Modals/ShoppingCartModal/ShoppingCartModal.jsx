@@ -30,7 +30,7 @@ export default function ShoppingCartModal() {
   const navigate = useNavigate();
 
   const handleCheckout = () => {
-    toggleCart(); // opcional: cierra el modal
+    toggleCart(); 
     navigate('/PaymentMethods');
   };
   return (

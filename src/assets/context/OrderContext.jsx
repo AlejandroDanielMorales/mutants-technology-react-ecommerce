@@ -19,7 +19,7 @@ function OrderProvider({ children }) {
   const [orderData, setOrderData] = useState(null);
   const [totalPrice, setTotalPrice] = useState(0);
   const { user } = useUser();
-  const navigate = useNavigate(); // Usar navigate para redirigir
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const storedCart = localStorage.getItem("cartItems");
@@ -28,9 +28,7 @@ function OrderProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    // Verificamos si el usuario está logueado antes de continuar
-    
-    // Si el usuario está logueado, se continua con la lógica del carrito
+
     const products = cartItems.map((item) => ({
       product: {
         _id: item._id,
@@ -59,7 +57,7 @@ function OrderProvider({ children }) {
       status: "pending",
     });
   } 
-  }, [cartItems, user, navigate]); // Asegurarse de que navigate esté en la dependencia
+  }, [cartItems, user, navigate]);
 
   const getProducts = async () => {
     try {
@@ -165,7 +163,7 @@ function OrderProvider({ children }) {
         totalPrice,
         orderData,
         clearCart,
-        setCartItems, // nueva función disponible para vaciar carrito tras el pago
+        setCartItems,
       }}
     >
       {children}

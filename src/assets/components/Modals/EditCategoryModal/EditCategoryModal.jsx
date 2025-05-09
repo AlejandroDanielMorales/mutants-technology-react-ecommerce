@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle, faSave } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import "../EditProductModal/EditProductModal.css"; // Reutilizás estilos
+import "../EditProductModal/EditProductModal.css"; 
 import { useCategories } from "../../../context/CategoryProvider";
 
 const API_URL = import.meta.env.VITE_API_URL;

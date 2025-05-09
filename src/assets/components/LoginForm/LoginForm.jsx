@@ -20,6 +20,7 @@ export default function LoginForm() {
   const onSubmit = async (data) => {
     const result = await login(data.email, data.password);
     if (result.success) {
+      
       navigate("/");
     } else {
       setLoginError(result.error);

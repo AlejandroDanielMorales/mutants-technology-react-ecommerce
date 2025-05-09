@@ -36,7 +36,7 @@ export default function RegisterForm() {
                         dataToSend.append("password", formData.password);
                         dataToSend.append("country", formData.country);
                         if (formData.profilePicture && formData.profilePicture[0]) {
-                        dataToSend.append("profilePicture", formData.profilePicture[0]); // archivo real
+                        dataToSend.append("profilePicture", formData.profilePicture[0]);
                         }
                         const response = await axios.post(
                                 `${API_URL}/users`,
@@ -47,7 +47,11 @@ export default function RegisterForm() {
                                         },
                                 }
                         );
-                        console.log("Registro exitoso", response.data);
+                        await Swal.fire({
+                           icon: 'success',
+                           text: 'Registro exitoso',
+                           confirmButtonText: 'Ok',
+                         });
                         reset();
                         closeModals();
                         navigate("/Login");

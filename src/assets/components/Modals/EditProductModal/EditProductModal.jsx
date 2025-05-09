@@ -10,7 +10,7 @@ export default function EditProductModal({ closeModal, productId, refreshProduct
 
 
     const { register, handleSubmit, setValue, reset, watch, formState: { errors } } = useForm();
-    const [existingImage, setExistingImage] = useState(null); // Guarda la imagen actual
+    const [existingImage, setExistingImage] = useState(null);
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -47,7 +47,6 @@ export default function EditProductModal({ closeModal, productId, refreshProduct
         try {
             let response;
 
-            // Si el usuario sube una nueva imagen, usar FormData
             if (data.image && data.image.length > 0) {
                 const formData = new FormData();
                 formData.append("image", data.image[0]);
@@ -63,20 +62,24 @@ export default function EditProductModal({ closeModal, productId, refreshProduct
                     }
                 });
             } else {
-                // Si no hay nueva imagen, mandar como objeto JSON
+
                 const productData = {
                     name: data.name,
                     description: data.description,
                     category: data.category,
                     price: data.price,
                     rating: data.rating,
-                    image: existingImage // Reutiliza la imagen anterior
+                    image: existingImage 
                 };
 
                 response = await axios.put(`${API_URL}/products/${productId}`, productData);
-                console.log("Producto actualizado:", response.data);
 
             }
+            await Swal.fire({
+                    icon: 'success',
+                    text: 'Producto modificado',
+                    confirmButtonText: 'Ok',
+                  });
 
             refreshProducts();
             closeModal();

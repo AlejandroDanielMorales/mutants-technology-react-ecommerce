@@ -12,6 +12,11 @@ export default function AddUserModal({ closeModal, refreshUsers }) {
     const onSubmit = async (data) => {
         try {
             await axios.post(`${API_URL}/users`, data);
+            await Swal.fire({
+                    icon: 'success',
+                    text: 'Usuario agregado',
+                    confirmButtonText: 'Ok',
+                  });
             refreshUsers();
             closeModal();
             reset();

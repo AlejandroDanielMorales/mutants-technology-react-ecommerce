@@ -1,9 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useCategories } from "../../../context/CategoryProvider"; // Asegúrate de tener un hook o función que te dé las categorías disponibles
-//                         "Content-Type": "multipart/form-data",
+import { useCategories } from "../../../context/CategoryProvider"; 
 import axios from "axios";
-import "../EditProductModal/EditProductModal.css"; // Reutiliza los estilos
+import "../EditProductModal/EditProductModal.css"; 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 const API_URL = import.meta.env.VITE_API_URL
@@ -12,17 +11,17 @@ const API_URL = import.meta.env.VITE_API_URL
 export default function AddProductModal({ closeModal, refreshProducts }) {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-    const {categories} = useCategories(); // Asegúrate de tener un hook o función que te dé las categorías disponibles
+    const {categories} = useCategories(); 
     
     const onSubmit = async (data) => {
         try {
             const formData = new FormData();
-            formData.append("image", data.image[0]); // Primer archivo
+            formData.append("image", data.image[0]);
             formData.append("createdAt", new Date().toISOString());
             formData.append("description", data.description);
             formData.append("category", data.category);
             formData.append("rating", data.rating);
-            formData.append("name", data.name); // Otros campos que tengas
+            formData.append("name", data.name); 
             formData.append("price", data.price);
     
             await axios.post(`${API_URL}/products`, formData, {
@@ -30,6 +29,12 @@ export default function AddProductModal({ closeModal, refreshProducts }) {
                     "Content-Type": "multipart/form-data",
                 },
             });
+
+            await Swal.fire({
+                    icon: 'success',
+                    text: 'Producto agregado',
+                    confirmButtonText: 'Ok',
+                  });
     
             refreshProducts();
             closeModal();

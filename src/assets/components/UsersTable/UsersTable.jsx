@@ -18,7 +18,6 @@ export default function UsersTable() {
 
     const url = `${API_URL}/users`;
 
-    // Obtener lista de usuarios
     const getUsers = async () => {
         try {
             const response = await axios.get(url);
@@ -33,6 +32,12 @@ export default function UsersTable() {
     const deleteUser = async (id) => {
         try {
             await axios.delete(`${url}/${id}`);
+
+            await Swal.fire({
+            icon: 'success',
+            text: 'Usuario Eliminado',
+            confirmButtonText: 'Ok',
+          });
             closeModals();
             getUsers();
         } catch (error) {
@@ -40,19 +45,16 @@ export default function UsersTable() {
         }
     };
 
-    // Abrir modal de confirmación para eliminar
     const openConfirmModal = (userId) => {
         setSelectedUser(userId);
         setIsConfirmModalOpen(true);
     };
 
-    // Abrir modal de edición
     const openEditModal = (userId) => {
         setSelectedUser(userId);
         setIsEditModalOpen(true);
     };
 
-    // Cerrar modales
     const closeModals = () => {
         setIsConfirmModalOpen(false);
         setIsEditModalOpen(false);

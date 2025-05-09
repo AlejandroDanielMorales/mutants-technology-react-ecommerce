@@ -1,9 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; // Asegúrate de importar useNavigate desde react-router-dom
-
-
-const API_URL = import.meta.env.VITE_API_URL; // Asegúrate de que esta variable esté definida en tu archivo .env
+import { useNavigate } from "react-router-dom"; 
+const API_URL = import.meta.env.VITE_API_URL;
 
 const UserContext = createContext();
 export const useUser = () => useContext(UserContext);
@@ -24,7 +22,7 @@ function UserProvider({ children }) {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isUserSidebarOpen, setIsUserSidebarOpen] = useState(false);
 
-  const navigate = useNavigate(); // Asegúrate de importar useNavigate desde react-router-dom
+  const navigate = useNavigate();
 
   useEffect(() => {
     fechCurrentUser();
@@ -45,7 +43,6 @@ function UserProvider({ children }) {
       .then(response => {
         const user = response.data;
         setUser(user);
-        console.log(user)
         setUserName(user.name);
         setUserRole(user.rol);
         setUserProfilePicture(user.profilePicture);
@@ -53,13 +50,12 @@ function UserProvider({ children }) {
       })
       .catch(error => {
         console.error("Error al recuperar datos del usuario:", error);
-        handleLogout(); // Si hay error, cerrar sesión
+        handleLogout();
       });
     }
 
 
   }
-  // Añade esta línea para determinar si el usuario está logueado
   const isLoggedIn = !!userName;
 
 
@@ -72,7 +68,7 @@ function UserProvider({ children }) {
     localStorage.removeItem("token");
     setShowLogoutModal(false);
     setIsUserSidebarOpen(false);
-    navigate("/"); // Redirigir a la página de inicio o a donde desees
+    navigate("/");
     
   };
 // Dentro de UserProvider
@@ -85,18 +81,18 @@ const login = async (email, password) => {
     });
 
     const { user, token } = response.data;
-
-    // Guardar token y datos del usuario
-    localStorage.setItem("token", token);
     
-
+    localStorage.setItem("token", token);
     setToken(token);
-
-    setToken(token);
-
     setUserName(user.name);
     setUserRole(user.rol);
     setUserProfilePicture(user.profilePicture);
+    await Swal.fire({
+            icon: 'success',
+            text: ´Bienvenido ${user.name}´,
+            confirmButtonText: 'Ok',
+          });
+
 
     return { success: true };
   } catch (error) {

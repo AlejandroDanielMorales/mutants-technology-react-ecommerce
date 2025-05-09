@@ -26,6 +26,11 @@ export default function OrdersTable() {
     const deleteOrder = async (id) => {
         try {
             await axios.delete(`${url}/${id}`);
+            await Swal.fire({
+                    icon: 'success',
+                    text: 'Orden eliminada',
+                    confirmButtonText: 'Ok',
+                  });
             getOrders();
         } catch (error) {
             console.error("Error deleting order:", error);
@@ -63,8 +68,6 @@ export default function OrdersTable() {
             </section>
 
             <main className="main-container">
-                {/* Acá irían los modales de editar y eliminar, si los creás */}
-
                 <div className="table-container">
                     <table cellPadding="10" cellSpacing="0" className="table-products usrtbl">
                         <thead>

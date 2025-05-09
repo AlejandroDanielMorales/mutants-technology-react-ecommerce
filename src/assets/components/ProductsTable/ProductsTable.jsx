@@ -41,7 +41,13 @@ export default function ProductsTable() {
     const deleteProduct = async (id) => {
         try {
             await axios.delete(`${API_URL}/products/${id}`);
+            await Swal.fire({
+                    icon: 'success',
+                    text: 'Producto Eliminado',
+                    confirmButtonText: 'Ok',
+                  });
             getProducts();
+
         } catch (error) {
             console.error("Error deleting product:", error);
         }

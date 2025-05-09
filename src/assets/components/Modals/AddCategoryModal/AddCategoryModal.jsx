@@ -15,7 +15,7 @@ const onSubmit = async (data) => {
         const formData = new FormData();
         formData.append("name", data.name);
         formData.append("description", data.description);
-        formData.append("image", data.image[0]); // archivo seleccionado
+        formData.append("image", data.image[0]); 
 
         await axios.post(`${API_URL}/categories`, formData, {
         headers: {
@@ -27,9 +27,9 @@ await Swal.fire({
     text: 'Categoria Agregada',
     confirmButtonText: 'Ok',
   });
-      refreshCategories(); // Actualiza la lista luego de agregar
-      closeModal();        // Cierra el modal
-      reset();             // Limpia el formulario
+      refreshCategories();
+      closeModal();        
+      reset();            
     } catch (error) {
         console.error("Error al agregar categoría:", error);
     }

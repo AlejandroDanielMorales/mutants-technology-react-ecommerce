@@ -4,6 +4,7 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faChevronRight, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { useOrder } from "../../context/OrderContext";
+import Spinner from "../../components/Spinner/Spinner"
 import Swal from "sweetalert2";
 import "./Detail.css";
 const API_URL = import.meta.env.VITE_API_URL;
@@ -18,12 +19,10 @@ export default function Detail() {
         axios.get(`${API_URL}/products/${id}`)
             .then(response => {
                 setProduct(response.data);
-                
-                // Buscar el producto en el carrito
+
                 const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
                 const existingItem = cart.find(item => item._id === response.data._id);
-                
-                // Si el producto está en el carrito, cargar la cantidad guardada
+
                 if (existingItem) {
                     setQuantity(existingItem.quantity);
                 }
@@ -41,7 +40,6 @@ export default function Detail() {
 
     const handleAddToCart = () => {
         if (product) {
-            // Verificamos si la cantidad excede el límite
             if (quantity > 10) {
                 Swal.fire({
                     icon: 'warning',
@@ -49,7 +47,7 @@ export default function Detail() {
                     text: 'No puedes agregar más de 10 unidades de este producto.',
                     confirmButtonText: 'Aceptar'
                 });
-                return; // Si la cantidad excede 10, no hacemos nada más
+                return;
             }
 
             const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
@@ -59,7 +57,6 @@ export default function Detail() {
             if (existingItemIndex !== -1) {
                 newQuantity = cart[existingItemIndex].quantity + quantity;
     
-                // Verificamos si la cantidad combinada excede el límite
                 if (newQuantity > 10) {
                     Swal.fire({
                         icon: 'warning',
@@ -82,7 +79,6 @@ export default function Detail() {
     };
     
     const handleConfirmAdd = () => {
-        // Aseguramos que la cantidad y el producto sean los correctos al confirmar
         if (!verifyQuantity(quantity)) return;
 
         confirmAddToCart({ ...selectedProduct, quantity });
@@ -90,7 +86,6 @@ export default function Detail() {
         setQuantity(1);
     };
 
-    // Función para verificar la cantidad
     const verifyQuantity = (newQuantity) => {
         if (newQuantity > 10) {
             Swal.fire({
@@ -99,12 +94,12 @@ export default function Detail() {
                 text: 'No puedes agregar más de 10 unidades de este producto.',
                 confirmButtonText: 'Aceptar'
             });
-            return false; // No permite continuar si la cantidad excede 10
+            return false;
         }
-        return true; // La cantidad es válida
+        return true; 
     };
 
-    if (!product) return <p>Cargando...</p>;
+    if (!product) return <Spinner/>;
 
     return (
         <main className="container cards-container-2">
@@ -118,8 +113,6 @@ export default function Detail() {
                         <p className="card-p">{product.description}</p>
                         <h4><em>Precio</em></h4>
                         <p className="card-p">${product.price}</p>
-                        
-                        {/* Selector de cantidad */}
                         <div style={{ margin: "15px 0" }}>
                             <h4><em>Cantidad</em></h4>
                             <div style={{ display: "flex", alignItems: "center", gap: "10px", margin: "10px 0" }}>
@@ -165,7 +158,6 @@ export default function Detail() {
                 </article>
             </div>
 
-            {/* Modal de confirmación */}
             {isAddModalOpen && selectedProduct && (
                 <div className="modal-overlay">
                     <div className="modal-content">

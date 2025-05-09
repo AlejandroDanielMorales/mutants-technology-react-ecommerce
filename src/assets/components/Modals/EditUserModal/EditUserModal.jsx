@@ -4,7 +4,7 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle, faSave } from "@fortawesome/free-solid-svg-icons";
 import "../EditProductModal/EditProductModal.css"; 
-const API_URL = import.meta.env.VITE_API_URL; // Cambia esto a la URL de tu API
+const API_URL = import.meta.env.VITE_API_URL; 
 
 export default function EditUserModal({ closeModal, userId, refreshUsers }) {
     const { register, handleSubmit, setValue} = useForm();
@@ -26,6 +26,11 @@ export default function EditUserModal({ closeModal, userId, refreshUsers }) {
     const onSubmit = async (data) => {
         try {
             await axios.put(`${API_URL}/users/${userId}`, data);
+            await Swal.fire({
+                    icon: 'success',
+                    text: 'Usuario editado',
+                    confirmButtonText: 'Ok',
+                  });
             refreshUsers();
             closeModal();
         } catch (error) {

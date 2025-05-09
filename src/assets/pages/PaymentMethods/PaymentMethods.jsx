@@ -28,7 +28,6 @@ export default function PaymentMethods() {
     }
   };
 
-  // Mostramos un loader mientras `user` se está cargando
   if (user === undefined) return <Spinner />;
 
   return (
