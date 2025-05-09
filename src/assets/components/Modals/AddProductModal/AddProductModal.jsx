@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 import { useCategories } from "../../../context/CategoryProvider"; 
 import axios from "axios";
 import "../EditProductModal/EditProductModal.css"; 

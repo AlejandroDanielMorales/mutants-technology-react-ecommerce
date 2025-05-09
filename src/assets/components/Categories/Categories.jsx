@@ -9,9 +9,6 @@ const API_URL = import.meta.env.VITE_API_URL;
 export default function Categories() {
   const { categories , hasProductsInCategory } = useCategories();
 
-
- 
-  
   const filteredCategories = categories.filter(cat => hasProductsInCategory(cat.name));
 
   return (

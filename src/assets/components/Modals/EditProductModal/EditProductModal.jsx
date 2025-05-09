@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../EditProductModal/EditProductModal.css';
+import Swal from "sweetalert2";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle, faSave } from '@fortawesome/free-solid-svg-icons';
 import { useForm } from 'react-hook-form';
