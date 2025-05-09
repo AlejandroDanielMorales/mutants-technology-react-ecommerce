@@ -88,10 +88,10 @@ const login = async (email, password) => {
     setUserRole(user.rol);
     setUserProfilePicture(user.profilePicture);
     await Swal.fire({
-            icon: 'success',
-            text: ´Bienvenido ${user.name}´,
-            confirmButtonText: 'Ok',
-          });
+          icon: 'success',
+          text: `Bienvenido ${user.name}`,
+          confirmButtonText: 'Ok',
+        });
 
 
     return { success: true };
