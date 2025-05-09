@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { useUser } from "../../context/UserProvider";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCamera } from "@fortawesome/free-solid-svg-icons";
+
 import axios from "axios";
 import "./UserProfile.css";
 
@@ -28,7 +31,37 @@ export default function UserProfile() {
       console.error("Error fetching user orders:", err);
     }
   };
-
+    const handleProfilePicChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+  
+    const formData = new FormData();
+    formData.append("profilePicture", file);
+  
+    try {
+      const res = await axios.put(`${API_URL}/users/${user._id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+        await Swal.fire({
+                          icon: 'success',
+                          text: 'Foto Actualizada',
+                          confirmButtonText: 'Ok',
+                        });
+          
+      fetchOrders();
+    } catch (error) {
+      console.error("Error al actualizar foto:", error);
+    }
+  };
+  
+  const handleEditInfo = () => {
+    // Podés abrir un modal, redireccionar o mostrar campos editables
+    alert("Funcionalidad de edición de información pendiente");
+  };
+  
   const filteredOrders =
     filter === "all" ? orders : orders.filter((o) => o.status === filter);
 
@@ -39,22 +72,39 @@ export default function UserProfile() {
   return (
     <div className="profile-container">
       <div className="user-card">
-        <img
-          src={`${API_URL}/uploads/users/${user.profilePicture}`}
-          alt="Foto de perfil"
-          className="user-profile-pic"
-          onError={(e) => {
-            e.target.onerror = null;
-            e.target.src =
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
-          }}
-        />
-        <div className="user-info">
-          <h2>{user.name}</h2>
-          <p><strong>Email:</strong> {user.email}</p>
-          <p><strong>Rol:</strong> {user.rol}</p>
-        </div>
+  <div className="profile-pic-container">
+         <img
+           src={`${API_URL}/uploads/users/${user.profilePicture}`}
+           alt="Foto de perfil"
+           className="user-profile-pic"
+           onError={(e) => {
+             e.target.onerror = null;
+             e.target.src =
+               "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
+           }}
+         />
+      
+         <label htmlFor="profilePicInput" className="edit-photo-btn">
+           <FontAwesomeIcon icon={faCamera} />
+         </label>
+         <input
+           type="file"
+           id="profilePicInput"
+           style={{ display: "none" }}
+           onChange={handleProfilePicChange}
+         />
+       </div>
+      
+       <div className="user-info">
+         <h2>{user.name}</h2>
+         <p><strong>Email:</strong> {user.email}</p>
+         <p><strong>Rol:</strong> {user.rol}</p>
+         <button className="edit-info-btn" onClick={handleEditInfo}>
+           Editar información
+         </button>
+       </div>
       </div>
+
 
       <div className="orders-section">
         
