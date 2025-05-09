@@ -5,45 +5,48 @@ import Swal from "sweetalert2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import "../EditProductModal/EditProductModal.css";
-const API_URL = import.meta.env.VITE_API_URL
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function AddUserModal({ closeModal, refreshUsers }) {
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors },
+    } = useForm();
 
+    const onSubmit = async (data) => {
+        try {
+            const formData = new FormData();
+            formData.append("name", data.name);
+            formData.append("rol", data.rol); // Se toma del formulario
+            formData.append("email", data.email);
+            formData.append("password", data.password);
+            formData.append("country", data.country);
+            if (data.profilePicture && data.profilePicture[0]) {
+                formData.append("profilePicture", data.profilePicture[0]);
+            }
 
-const onSubmit = async () => {
-                if (!formData) return;
-                try {
-                        const dataToSend = new FormData();
-                        dataToSend.append("name", formData.name);
-                        dataToSend.append("rol", "user");
-                        dataToSend.append("email", formData.email);
-                        dataToSend.append("password", formData.password);
-                        dataToSend.append("country", formData.country);
-                        if (formData.profilePicture && formData.profilePicture[0]) {
-                        dataToSend.append("profilePicture", formData.profilePicture[0]);
-                        }
-                        const response = await axios.post(
-                                `${API_URL}/users`,
-                                dataToSend,  
-                                {
-                                        headers: {
-                                        "Content-Type": "multipart/form-data",
-                                        },
-                                }
-                        );
-                        await Swal.fire({
-                           icon: 'success',
-                           text: 'Registro exitoso',
-                           confirmButtonText: 'Ok',
-                         });
-                        refreshUsers();
-                        closeModal();
-                        reset();
-                } catch (error) {
-                        console.error("Error en el registro", error);
-                }
-                }; 
+            await axios.post(`${API_URL}/users`, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+
+            await Swal.fire({
+                icon: 'success',
+                text: 'Registro exitoso',
+                confirmButtonText: 'Ok',
+            });
+
+            refreshUsers();
+            closeModal();
+            reset();
+        } catch (error) {
+            console.error("Error en el registro", error);
+        }
+    };
 
     return (
         <div className="modal-overlay">
@@ -79,18 +82,16 @@ const onSubmit = async () => {
                     <div>
                         <label>Rol:</label>
                         <select {...register("rol", { required: "El rol es obligatorio" })}>
+                            <option value="">Seleccionar...</option>
                             <option value="admin">Admin</option>
                             <option value="usuario">Usuario</option>
                         </select>
                         {errors.rol && <p className="error-message">{errors.rol.message}</p>}
                     </div>
-                    <div className="input-group">
-                                                <input
-                                                        className="input-box"
-                                                        {...register("profilePicture")}
-                                                        type="file"
-                                                />
-                                        </div>
+                    <div>
+                        <label>Foto de perfil:</label>
+                        <input type="file" {...register("profilePicture")} />
+                    </div>
 
                     <div className="btn-container">
                         <button type="button" className="btn-cancel" onClick={closeModal}>
