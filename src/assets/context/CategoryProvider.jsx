@@ -26,7 +26,6 @@ export function CategoryProvider({ children }) {
     try {
       const { data } = await axios.get(`${API_URL}/categories`);
       setCategories(data);
-      console.log(data);
       localStorage.setItem("categories", JSON.stringify(data));
     } catch (error) {
       console.error("Error al cargar categorías:", error);
@@ -41,7 +40,6 @@ export function CategoryProvider({ children }) {
         product.category.toLowerCase() === category.name.toLowerCase()
       );
 
-      console.log(`¿Tiene productos la categoría "${category.name}"?`, result);
       return result;
     } catch (error) {
       console.error("Error al obtener la categoría:", error);
@@ -63,8 +61,7 @@ export function CategoryProvider({ children }) {
         return;
       }
 
-      const response = await axios.delete(`${API_URL}/categories/${categoryId}`);
-      console.log(response);
+      await axios.delete(`${API_URL}/categories/${categoryId}`);
 
       const updatedCategories = categories.filter(cat => cat._id !== categoryId);
       setCategories(updatedCategories);
@@ -86,7 +83,6 @@ export function CategoryProvider({ children }) {
     const result = products.some(product =>
       product.category.toLowerCase() === categoryName.toLowerCase()
     );
-    console.log(`¿Tiene productos la categoría "${categoryName}"?`, result);
     return result;
   };
 
