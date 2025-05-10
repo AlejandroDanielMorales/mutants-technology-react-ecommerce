@@ -187,6 +187,7 @@ const searchProducts = async (query) => {
         setCartItems,
         searchResults,
         searchProducts,
+        setSearchResults
       }}
     >
       {children}

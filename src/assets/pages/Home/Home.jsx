@@ -20,6 +20,7 @@ export default function Home() {
   useEffect(() => {
     fechCurrentUser();
     fetchCategories();
+
   }, []);
 
   const filterProductsByCategory = (categoryName) => {
