@@ -34,7 +34,7 @@ export default function UserSidebar({ onClose }) {
           )}
         </div>
         
-        <ul className="sidebar-menu">
+        <ul className="sidebar-menu"  onClick={onClose}>
           {isLoggedIn ? (
             <>
               <li className="sidebar-item">
@@ -43,11 +43,11 @@ export default function UserSidebar({ onClose }) {
                   className="sidebar-link" 
                   onClick={onClose}
                 >
-                  <FontAwesomeIcon icon={faUser} className="sidebar-icon" />
+                  <FontAwesomeIcon icon={faUser} className="sidebar-icon"   onClick={onClose}/>
                   Mi perfil
                 </NavLink>
               </li>
-              <li className="sidebar-item">
+              <li className="sidebar-item"  onClick={onClose}>
                 <button 
                   className="sidebar-link logout-btn" 
                   onClick={() => setShowLogoutModal(true)}

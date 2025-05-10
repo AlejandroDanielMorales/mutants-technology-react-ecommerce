@@ -10,7 +10,7 @@ import { useUser } from '../../context/UserProvider';
 import Spinner from '../../components/Spinner/Spinner';
 
 export default function Home() {
-  const { categories } = useCategories();
+  const { categories , fetchCategories } = useCategories();
   const { products } = useOrder();
   const { fechCurrentUser } = useUser();
 
@@ -18,6 +18,9 @@ export default function Home() {
 
   useEffect(() => {
     fechCurrentUser();
+    fetchCategories();
+    console.log("Categories:", categories);
+
   }, []);
 
   const filterProductsByCategory = (categoryName) => {
@@ -36,8 +39,9 @@ export default function Home() {
         categories.map((cat) => {
           const filteredProducts = filterProductsByCategory(cat.name);
           return filteredProducts.length > 0 ? (
-            <ProductsList
+            <ProductsList 
               key={cat._id}
+              refkey={cat._id}
               title={cat.description || cat.name}
               products={filteredProducts}
             />

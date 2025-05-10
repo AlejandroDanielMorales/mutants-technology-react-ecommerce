@@ -25,8 +25,6 @@ function OrderProvider({ children }) {
   useEffect(() => {
     const storedCart = localStorage.getItem("cartItems");
     if (storedCart) setCartItems(JSON.parse(storedCart));
-    console.log(storedCart);
-    console.log(cartItems);
     getProducts();
   }, []);
   
