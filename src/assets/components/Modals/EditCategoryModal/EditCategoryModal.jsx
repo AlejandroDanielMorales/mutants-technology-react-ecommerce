@@ -18,7 +18,7 @@ export default function EditCategoryModal({ closeModal, categoryId }) {
     handleSubmit,
     setValue,
     reset,
-    formState: { errors },
+    /*formState: { errors },*/
   } = useForm();
 
   useEffect(() => {

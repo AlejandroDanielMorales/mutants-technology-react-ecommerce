@@ -37,7 +37,7 @@ export default function UserProfile() {
   const file = e.target.files[0];
   if (!file) return;
 
-  const imagePreview = URL.createObjectURL(file); // crea URL temporal para mostrar la miniatura
+  const imagePreview = URL.createObjectURL(file); 
 
   const result = await Swal.fire({
     title: "¿Actualizar foto de perfil?",
@@ -59,7 +59,7 @@ export default function UserProfile() {
   formData.append("profilePicture", file);
 
   try {
-    const res = await axios.put(`${API_URL}/users/${user._id}`, formData, {
+      await axios.put(`${API_URL}/users/${user._id}`, formData, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "multipart/form-data",
@@ -72,7 +72,7 @@ export default function UserProfile() {
       confirmButtonText: "Ok",
     });
 
-    fechCurrentUser();
+    await fechCurrentUser();
     fetchOrders();
   } catch (error) {
     console.error("Error al actualizar foto:", error);

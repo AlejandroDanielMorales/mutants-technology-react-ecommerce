@@ -36,7 +36,7 @@ function UserProvider({ children }) {
     const storedToken = localStorage.getItem("token");
   
     if (storedToken) {
-      axios.get(`${API_URL}/users/me`, {
+      await axios.get(`${API_URL}/users/me`, {
         headers: {
           Authorization: `Bearer ${storedToken}`
         }

@@ -46,7 +46,7 @@ export default function EditProductModal({ closeModal, productId, refreshProduct
 
     const onSubmit = async (data) => {
         try {
-            let response;
+
 
             if (data.image && data.image.length > 0) {
                 const formData = new FormData();
@@ -57,7 +57,7 @@ export default function EditProductModal({ closeModal, productId, refreshProduct
                 formData.append("price", data.price);
                 formData.append("rating", data.rating);
 
-                response = await axios.put(`${API_URL}/products/${productId}`, formData, {
+                await axios.put(`${API_URL}/products/${productId}`, formData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }
@@ -72,7 +72,7 @@ export default function EditProductModal({ closeModal, productId, refreshProduct
                     rating: data.rating,
                 };
 
-                response = await axios.put(`${API_URL}/products/${productId}`, productData);
+                await axios.put(`${API_URL}/products/${productId}`, productData);
 
             }
             await Swal.fire({
@@ -85,6 +85,7 @@ export default function EditProductModal({ closeModal, productId, refreshProduct
             closeModal();
         } catch (error) {
             console.error("Error al guardar el producto:", error);
+            
         }
     };
 

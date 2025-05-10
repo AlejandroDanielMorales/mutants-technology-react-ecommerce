@@ -21,11 +21,16 @@ function OrderProvider({ children }) {
   const { user } = useUser();
   const navigate = useNavigate(); 
 
+
   useEffect(() => {
     const storedCart = localStorage.getItem("cartItems");
     if (storedCart) setCartItems(JSON.parse(storedCart));
+    console.log(storedCart);
+    console.log(cartItems);
     getProducts();
   }, []);
+  
+  
 
   useEffect(() => {
 
@@ -58,6 +63,12 @@ function OrderProvider({ children }) {
     });
   } 
   }, [cartItems, user, navigate]);
+
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
+  
+  
 
   const getProducts = async () => {
     try {
