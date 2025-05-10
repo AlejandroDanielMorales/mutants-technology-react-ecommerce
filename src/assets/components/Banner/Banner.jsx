@@ -1,8 +1,8 @@
 import React from 'react'
 import './Banner.css'
-import Banner1 from '../../assets/components/Banner/Banner-1.webp';
-import Banner2 from '../../assets/components/Banner/Banner-2.webp';
-import Banner3 from '../../assets/components/Banner/Banner-3.webp';
+import Banner1 from '../Banner/Banner-1.webp';
+import Banner2 from '../Banner/Banner-2.webp';
+import Banner3 from '../Banner/Banner-3.webp';
 
 export default function Banner() {
   return (
