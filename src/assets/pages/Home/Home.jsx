@@ -1,4 +1,6 @@
+// src/pages/Home/Home.js
 import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom'; 
 import Banner from '../../components/Banner/Banner';
 import Features from '../../components/Features/Features';
 import Categories from '../../components/Categories/Categories';
@@ -11,8 +13,9 @@ import Spinner from '../../components/Spinner/Spinner';
 import SearchResults from '../../components/SearchResult/SearchResult';
 
 export default function Home() {
+  const location = useLocation(); // 👈 nuevo
   const { categories, fetchCategories } = useCategories();
-  const { products, searchResults } = useOrder();
+  const { products, searchResults, setSearchResults } = useOrder(); // 👈 agregá setSearchResults
   const { fechCurrentUser } = useUser();
 
   const isLoading = !categories || !products || categories.length === 0 || products.length === 0;
@@ -20,8 +23,12 @@ export default function Home() {
   useEffect(() => {
     fechCurrentUser();
     fetchCategories();
-
   }, []);
+
+
+  useEffect(() => {
+    setSearchResults(null);
+  }, [location.pathname]);
 
   const filterProductsByCategory = (categoryName) => {
     return products.filter(product => product.category.toLowerCase() === categoryName.toLowerCase());

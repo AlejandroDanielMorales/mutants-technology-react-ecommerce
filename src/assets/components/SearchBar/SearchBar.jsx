@@ -21,12 +21,6 @@ export default function SearchBar() {
     if (e.key === 'Enter') handleSearch();
   };
 
-  useEffect(() => {
-    if (query.trim() === '') {
-      setSearchResults(null); 
-    }
-  }, [query, setSearchResults]);
-
   return (
     <div className="search-bar">
       <div className="search-container">
