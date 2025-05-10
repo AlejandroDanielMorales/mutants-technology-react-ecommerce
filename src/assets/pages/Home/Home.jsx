@@ -8,7 +8,7 @@ import { useCategories } from '../../context/CategoryProvider';
 import { useOrder } from '../../context/OrderContext';
 import { useUser } from '../../context/UserProvider';
 import Spinner from '../../components/Spinner/Spinner';
-import SearchResults from '../../components/SearchResults/SearchResults';
+import SearchResults from '../../components/SearchResult/SearchResult';
 
 export default function Home() {
   const { categories, fetchCategories } = useCategories();

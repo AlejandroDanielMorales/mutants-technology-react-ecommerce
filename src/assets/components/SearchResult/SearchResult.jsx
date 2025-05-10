@@ -1,7 +1,7 @@
 // src/components/SearchResults/SearchResults.js
 import React from "react";
 import ProductCard from "../ProductCard/ProductCard";
-import "./SearchResults.css";
+import "./SearchResult.css";
 
 export default function SearchResults({ results }) {
   if (!results.length) {
