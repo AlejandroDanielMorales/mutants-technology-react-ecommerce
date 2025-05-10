@@ -17,6 +17,7 @@ function OrderProvider({ children }) {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [products, setProducts] = useState([]);
   const [orderData, setOrderData] = useState(null);
+  const [searchResults, setSearchResults] = useState(null);
   const [totalPrice, setTotalPrice] = useState(0);
   const { user } = useUser();
   const navigate = useNavigate(); 
@@ -77,7 +78,18 @@ function OrderProvider({ children }) {
     }
   };
 
-  // El resto del código...
+  
+const searchProducts = async (query) => {
+  try {
+    const res = await axios.get(`${API_URL}/products/search`, {
+      params: { q: query },
+    });
+    setSearchResults(res.data);
+  } catch (error) {
+    console.error("Error al buscar productos:", error);
+    setSearchResults([]);
+  }
+};
 
   const onAddToCart = (product) => {
     setSelectedProduct(product);
@@ -173,6 +185,8 @@ function OrderProvider({ children }) {
         orderData,
         clearCart,
         setCartItems,
+        searchResults,
+        searchProducts,
       }}
     >
       {children}

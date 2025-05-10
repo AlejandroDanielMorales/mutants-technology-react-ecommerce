@@ -8,10 +8,11 @@ import { useCategories } from '../../context/CategoryProvider';
 import { useOrder } from '../../context/OrderContext';
 import { useUser } from '../../context/UserProvider';
 import Spinner from '../../components/Spinner/Spinner';
+import SearchResults from '../../components/SearchResults/SearchResults';
 
 export default function Home() {
-  const { categories , fetchCategories } = useCategories();
-  const { products } = useOrder();
+  const { categories, fetchCategories } = useCategories();
+  const { products, searchResults } = useOrder();
   const { fechCurrentUser } = useUser();
 
   const isLoading = !categories || !products || categories.length === 0 || products.length === 0;
@@ -19,8 +20,6 @@ export default function Home() {
   useEffect(() => {
     fechCurrentUser();
     fetchCategories();
-    console.log("Categories:", categories);
-
   }, []);
 
   const filterProductsByCategory = (categoryName) => {
@@ -31,22 +30,26 @@ export default function Home() {
     <>
       <Banner />
       <SearchBar />
-      <Categories />
 
-      {isLoading ? (
+      {searchResults ? (
+        <SearchResults results={searchResults} />
+      ) : isLoading ? (
         <Spinner />
       ) : (
-        categories.map((cat) => {
-          const filteredProducts = filterProductsByCategory(cat.name);
-          return filteredProducts.length > 0 ? (
-            <ProductsList 
-              key={cat._id}
-              refkey={cat._id}
-              title={cat.description || cat.name}
-              products={filteredProducts}
-            />
-          ) : null;
-        })
+        <>
+          <Categories />
+          {categories.map((cat) => {
+            const filteredProducts = filterProductsByCategory(cat.name);
+            return filteredProducts.length > 0 ? (
+              <ProductsList 
+                key={cat._id}
+                refkey={cat._id}
+                title={cat.description || cat.name}
+                products={filteredProducts}
+              />
+            ) : null;
+          })}
+        </>
       )}
 
       <Features />
