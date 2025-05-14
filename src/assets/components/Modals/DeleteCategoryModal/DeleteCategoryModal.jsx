@@ -9,7 +9,7 @@ export default function DeleteCategoryModal({ closeModal, categoryId }) {
     return (
         <div className="modal-overlay">
             <div className="modal-content">
-                <h2>Eliminar Categoria</h2>
+                <h3>Eliminar Categoria</h3>
                 <p>¿Estás seguro de que deseas eliminar esta categoria?</p>
                 <div className="btn-container">
                     <button type="button" className="btn-cancel" onClick={closeModal}>

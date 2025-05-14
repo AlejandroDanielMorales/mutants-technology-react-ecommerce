@@ -14,7 +14,7 @@ const AddToCartModal = () => {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <h2>Confirmar agregar al carrito</h2>
+        <h3>Confirmar agregar al carrito</h3>
         <p>¿Estás seguro de que deseas agregar {selectedProduct?.name} al carrito?</p>
         <div className="btn-container">
           <button className="btn-cancel" onClick={() => setIsAddModalOpen(false)}>

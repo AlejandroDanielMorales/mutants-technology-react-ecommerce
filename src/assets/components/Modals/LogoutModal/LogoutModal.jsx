@@ -7,7 +7,7 @@ export default function LogoutModal({ onClose, onConfirm }) {
   return (
     <div className="modal-overlay">
       <div className="modal-content logout-modal">
-        <h2>Cerrar sesión</h2>
+        <h3>Cerrar sesión</h3>
         <p>¿Estás seguro de que deseas cerrar sesión?</p>
         
         <div className="btn-container">

@@ -8,7 +8,7 @@ export default function DeleteUserModal({ closeModal, userId, deleteUser }) {
     return (
         <div className="modal-overlay">
             <div className="modal-content">
-                <h2>Eliminar Usuario</h2>
+                <h3>Eliminar Usuario</h3>
                 <p>¿Estás seguro de que deseas eliminar este usuario?</p>
                 <div className="btn-container">
                     <button type="button" className="btn-cancel" onClick={closeModal}>

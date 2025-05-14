@@ -33,7 +33,7 @@ export default function CategoryTableModal({ closeModal }) {
                     <FontAwesomeIcon icon={faClose} />
                 </button>
 
-                <h2>Categorías</h2>
+                <h3>Categorías</h3>
 
                 <table className="table-categories">
                     <thead>

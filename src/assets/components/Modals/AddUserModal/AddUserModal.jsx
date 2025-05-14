@@ -51,7 +51,7 @@ export default function AddUserModal({ closeModal, refreshUsers }) {
     return (
         <div className="modal-overlay">
             <div className="modal-content">
-                <h2>Agregar Nuevo Usuario</h2>
+                <h3>Agregar Nuevo Usuario</h3>
                 <form className="form-edit" onSubmit={handleSubmit(onSubmit)}>
                     <div>
                         <label>Nombre:</label>

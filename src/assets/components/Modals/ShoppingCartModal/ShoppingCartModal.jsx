@@ -37,10 +37,10 @@ export default function ShoppingCartModal() {
     <div className="cart-modal-overlay" onClick={closeModal}>
       <div className="cart-modal">
         <div className="cart-modal-header">
-          <h2 className="cart-title">
+          <h3 className="cart-title">
             <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
             Tu compra
-          </h2>
+          </h3>
           <button className="cart-close-btn" onClick={toggleCart}>
             &times;
           </button>

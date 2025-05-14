@@ -15,7 +15,7 @@ const DeleteToCartModal = () => {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <h2>Confirmar eliminación</h2>
+        <h3>Confirmar eliminación</h3>
         <p>¿Estás seguro de que deseas eliminar {selectedProduct?.name} del carrito?</p>
         <div className="btn-container">
           <button 
