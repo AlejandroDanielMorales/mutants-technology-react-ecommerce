@@ -92,7 +92,7 @@ export default function EditProductModal({ closeModal, productId, refreshProduct
     return (
         <div className="modal-overlay">
             <div className="modal-content">
-                <h3>Editar Producto</h3>
+                <h2>Editar Producto</h2>
                 <form className="form-edit" onSubmit={handleSubmit(onSubmit)}>
 
                     <div>

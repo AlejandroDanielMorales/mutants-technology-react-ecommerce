@@ -3,18 +3,21 @@
     flex-direction: column;
     gap: 15px;
     text-align: left;
+    h2{
+        font-size:2dvw;
+    }
 }
 .modal-overlay {
     position: fixed;
-    top: 0;
+    top: 10;
     left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+    width: 100dvw;
+    height: 80dvh;
+    background: rgba(0, 0, 0, 0.5); 
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000; /* Asegúrate de que sea alto */
+    z-index: 1000;
 }
 .modal-content {
     background: white;
