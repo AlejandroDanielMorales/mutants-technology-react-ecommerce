@@ -102,15 +102,7 @@ export default function EditProductModal({ closeModal, productId, refreshProduct
                         <input type="text" {...register("name", { required: "El nombre es obligatorio" })} />
                         {errors.name && <p className="error-message">{errors.name.message}</p>}
                     </div>
-
-                   <div>
-                       <label>Descripción:</label>
-                       <textarea rows="4" {...register("description", { required: "La descripción es obligatoria" })}></textarea>
-                       {errors.description && <p className="error-message">{errors.description.message}</p>}
-                   </div>
-
-
-                    
+ 
                     <div> 
                     <label>Categoría:</label>
                         <select {...register("category", { required: "La categoría es obligatoria" })}>
@@ -129,6 +121,13 @@ export default function EditProductModal({ closeModal, productId, refreshProduct
                         })} />
                         {errors.price && <p className="error-message">{errors.price.message}</p>}
                     </div>
+
+                    <div>
+                       <label>Descripción:</label>
+                       <textarea rows="4" {...register("description", { required: "La descripción es obligatoria" })}></textarea>
+                       {errors.description && <p className="error-message">{errors.description.message}</p>}
+                   </div>
+
 
                     <div>
                         <label>Puntaje:</label>

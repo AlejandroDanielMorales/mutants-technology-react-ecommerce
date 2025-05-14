@@ -56,15 +56,6 @@ export default function AddProductModal({ closeModal, refreshProducts }) {
                         {errors.name && <p className="error-message">{errors.name.message}</p>}
                     </div>
 
-                   
-                   <div>
-                       <label>Descripción:</label>
-                       <textarea  rows="4" {...register("description", { required: "La descripción es obligatoria" })}></textarea>
-                       {errors.description && <p className="error-message">{errors.description.message}</p>}
-                   </div>
-
-
-
                     <div>
                         <label>Precio:</label>
                         <input 
@@ -90,6 +81,13 @@ export default function AddProductModal({ closeModal, refreshProducts }) {
                         {errors.category && <p className="error-message">{errors.category.message}</p>}
                     </div>
                     <div>
+
+                   <div>
+                       <label>Descripción:</label>
+                       <textarea  rows="4" {...register("description", { required: "La descripción es obligatoria" })}></textarea>
+                       {errors.description && <p className="error-message">{errors.description.message}</p>}
+                   </div>
+
                     <label >Puntaje</label>
                         <input 
                             type="range"
