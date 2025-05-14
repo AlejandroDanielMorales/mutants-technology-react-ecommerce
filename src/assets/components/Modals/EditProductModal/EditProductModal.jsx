@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../EditProductModal/EditProductModal.css';
 import Swal from "sweetalert2";
+import { useCategories } from "../../../context/CategoryProvider"; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle, faSave } from '@fortawesome/free-solid-svg-icons';
 import { useForm } from 'react-hook-form';
@@ -12,6 +13,7 @@ export default function EditProductModal({ closeModal, productId, refreshProduct
 
     const { register, handleSubmit, setValue, reset, watch, formState: { errors } } = useForm();
     const [existingImage, setExistingImage] = useState(null);
+    const {categories} = useCategories(); 
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -107,12 +109,17 @@ export default function EditProductModal({ closeModal, productId, refreshProduct
                         {errors.description && <p className="error-message">{errors.description.message}</p>}
                     </div>
 
-                    <div>
-                        <label>Categoría:</label>
-                        <input type="text" {...register("category", { required: "La categoría es obligatoria" })} />
-                        {errors.category && <p className="error-message">{errors.category.message}</p>}
+                    
+                    <div> 
+                    <label>Categoría:</label>
+                        <select {...register("category", { required: "La categoría es obligatoria" })}>
+                        {categories.map((cat) => (
+                            <option key={cat._id} value={cat.name}>
+                                {cat.name}
+                            </option>
+                        ))}
+                    </select>
                     </div>
-
                     <div>
                         <label>Precio:</label>
                         <input type="number" {...register("price", {
