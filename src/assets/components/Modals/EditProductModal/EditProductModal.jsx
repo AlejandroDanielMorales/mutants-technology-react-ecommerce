@@ -92,7 +92,7 @@ export default function EditProductModal({ closeModal, productId, refreshProduct
     return (
         <div className="modal-overlay">
             <div className="modal-content">
-                <h2>Editar Producto</h2>
+                <h3>Editar Producto</h3>
                 <form className="form-edit" onSubmit={handleSubmit(onSubmit)}>
 
                     <div>
@@ -134,14 +134,16 @@ export default function EditProductModal({ closeModal, productId, refreshProduct
                         <p>Puntaje actual: {watch("rating")}</p>
                     </div>
 
-                    <div>
+                    <div clasName="img-inputs-container">
+                         <div>
                         <label>Imagen actual:</label>
                         {existingImage && (
                             <div style={{ marginBottom: "10px" }}>
                                 <img src={`${API_URL}/uploads/products/${existingImage}`} alt="Imagen actual" style={{ width: "100px" }} />
                             </div>
                         )}
-
+                        </div>
+                         <div>
                         <label>Subir nueva imagen:</label>
                         <input
                             type="file"
@@ -149,6 +151,7 @@ export default function EditProductModal({ closeModal, productId, refreshProduct
                             {...register("image")}
                         />
                         <small>(Este campo es opcional)</small>
+                        </div>
                     </div>
 
                     <div className="btn-container">

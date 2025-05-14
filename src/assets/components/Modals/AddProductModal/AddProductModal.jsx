@@ -48,7 +48,7 @@ export default function AddProductModal({ closeModal, refreshProducts }) {
     return (
         <div className="modal-overlay">
             <div className="modal-content">
-                <h2>Agregar Nuevo Producto</h2>
+                <h3>Agregar Nuevo Producto</h3>
                 <form className="form-edit" onSubmit={handleSubmit(onSubmit)}>
                     <div>
                         <label>Nombre:</label>

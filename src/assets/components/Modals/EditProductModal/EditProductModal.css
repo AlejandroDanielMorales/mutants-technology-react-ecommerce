@@ -3,16 +3,16 @@
     flex-direction: column;
     gap: 15px;
     text-align: left;
-    h2{
+    h3{
         font-size:2dvw;
     }
 }
 .modal-overlay {
     position: fixed;
-    top: 10;
+    top: 00;
     left: 0;
     width: 100dvw;
-    height: 80dvh;
+    height: 100dvh;
     background: rgba(0, 0, 0, 0.5); 
     display: flex;
     align-items: center;
@@ -31,6 +31,10 @@
     text-align: center;
     transform: scale(0.9);
     animation: scaleIn 0.2s ease-in-out forwards;
+}
+.img-inputs-container{
+    display:flex;
+    flex-direction: row;
 }
 
 label {
