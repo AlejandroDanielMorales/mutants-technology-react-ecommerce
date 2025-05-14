@@ -103,11 +103,12 @@ export default function EditProductModal({ closeModal, productId, refreshProduct
                         {errors.name && <p className="error-message">{errors.name.message}</p>}
                     </div>
 
-                    <div>
-                        <label>Descripción:</label>
-                        <input type="text" {...register("description", { required: "La descripción es obligatoria" })} />
-                        {errors.description && <p className="error-message">{errors.description.message}</p>}
-                    </div>
+                   <div>
+                       <label>Descripción:</label>
+                       <textarea {...register("description", { required: "La descripción es obligatoria" })}></textarea>
+                       {errors.description && <p className="error-message">{errors.description.message}</p>}
+                   </div>
+
 
                     
                     <div> 
