@@ -27,7 +27,7 @@ export default function CategoryTableModal({ closeModal }) {
     };
 
     return (
-        <div className="modal-overlay">
+        <div className="modal-overlay-2">
             <div className="modal-content categories-modal">
                 <button className="modal-close" onClick={closeModal}>
                     <FontAwesomeIcon icon={faClose} />
