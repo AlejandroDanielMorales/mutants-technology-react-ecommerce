@@ -138,7 +138,7 @@ export default function EditProductModal({ closeModal, productId, refreshProduct
                         <label>Imagen actual:</label>
                         {existingImage && (
                             <div style={{ marginBottom: "10px" }}>
-                                <img src={existingImage} alt="Imagen actual" style={{ width: "100px" }} />
+                                <img src={`${API_URL}/uploads/products/${existingImage}`} alt="Imagen actual" style={{ width: "100px" }} />
                             </div>
                         )}
 

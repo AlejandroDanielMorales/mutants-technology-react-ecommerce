@@ -98,7 +98,7 @@ export default function AddProductModal({ closeModal, refreshProducts }) {
                         />
                     </div>  
                     <div>
-                        <label>Imagen (URL):</label>
+                        <label>Imagen</label>
                         <input 
                             type="file" 
                             accept="image/*"
