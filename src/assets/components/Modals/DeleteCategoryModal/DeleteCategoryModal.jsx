@@ -7,7 +7,7 @@ import "../EditProductModal/EditProductModal.css";
 export default function DeleteCategoryModal({ closeModal, categoryId }) {
     const { deleteCategory } = useCategories();
     return (
-        <div className="modal-overlay">
+        <div className="modal-overlay-2">
             <div className="modal-content">
                 <h3>Eliminar Categoria</h3>
                 <p>¿Estás seguro de que deseas eliminar esta categoria?</p>
